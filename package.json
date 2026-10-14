@@ -61,12 +61,5 @@
   "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
-  },
-  "devEngines": {
-    "packageManager": {
-      "name": "npm",
-      "version": "11.12.1",
-      "onFail": "download"
-    }
   }
 }
