@@ -11,13 +11,15 @@ test('calls onClick when pressed', async () => {
   expect(onClick).toHaveBeenCalledOnce();
 });
 
-test('does not accept className', () => {
-  const element = (
+test('does not accept className', async () => {
+  const screen = await render(
     // @ts-expect-error className is blocked; use DANGEROUS_className
-    <Button className="mt-4">Save</Button>
+    <Button className="mt-4">Save</Button>,
   );
 
-  expect(element).toBeTruthy();
+  await expect
+    .element(screen.getByRole('button', { name: 'Save' }))
+    .not.toHaveClass('mt-4');
 });
 
 test('applies DANGEROUS_className as className', async () => {
