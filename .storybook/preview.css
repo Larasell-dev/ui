@@ -1,0 +1,9 @@
+/*
+ * Match the website document: resources/views/app.blade.php sets
+ * `font-sans antialiased` on body. Tailwind preflight already uses
+ * --font-sans; antialiasing is the other half of that class.
+ */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

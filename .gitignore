@@ -1,0 +1,13 @@
+node_modules
+dist
+storybook-static
+*.log
+.DS_Store
+
+# dotenv environment variable files
+.env
+.env.*
+!.env.example
+
+*storybook.log
+storybook-static
