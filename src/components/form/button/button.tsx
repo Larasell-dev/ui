@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import type { ComponentProps, CSSProperties } from 'react';
 import { cn } from 'cn';
 
-export const buttonVariants = cva(
+const buttonVariants = cva(
   [
     'inline-flex w-fit cursor-pointer items-center justify-center gap-2 px-5 py-2.5 text-sm font-medium whitespace-nowrap no-underline select-none',
     'focus-visible:focus-ring',
