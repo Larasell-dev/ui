@@ -26,7 +26,8 @@
     "best-before": "sh scripts/best-before",
     "prepublishOnly": "vp run build",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "commitlint": "commitlint --from=HEAD~1 --to=HEAD"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
@@ -34,6 +35,8 @@
     "cn": "^0.4.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^21.2.3",
+    "@commitlint/config-conventional": "^21.2.3",
     "@storybook/addon-docs": "^10.6.2",
     "@storybook/react-vite": "^10.6.2",
     "@tailwindcss/typography": "^0.5.20",
