@@ -1,6 +1,6 @@
 import { Button as BaseButton } from '@base-ui/react/button';
 import { cva, type VariantProps } from 'class-variance-authority';
-import type { ComponentProps } from 'react';
+import type { ComponentProps, CSSProperties } from 'react';
 import { cn } from 'cn';
 
 export const buttonVariants = cva(
@@ -32,20 +32,26 @@ export const buttonVariants = cva(
   },
 );
 
-type ButtonProps = Omit<ComponentProps<typeof BaseButton>, 'className'> &
+type ButtonProps = Omit<
+  ComponentProps<typeof BaseButton>,
+  'className' | 'style'
+> &
   VariantProps<typeof buttonVariants> & {
     DANGEROUS_className?: string;
+    DANGEROUS_style?: CSSProperties;
   };
 
 export function Button({
   variant,
   DANGEROUS_className,
+  DANGEROUS_style,
   ...props
 }: ButtonProps) {
   return (
     <BaseButton
       {...props}
       className={cn(buttonVariants({ variant }), DANGEROUS_className)}
+      style={DANGEROUS_style}
     />
   );
 }
