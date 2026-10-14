@@ -28,3 +28,24 @@ test('applies DANGEROUS_className as className', async () => {
   await expect.element(button).toHaveClass('mt-4');
   await expect.element(button).toHaveClass('bg-mauve-950');
 });
+
+test('does not accept style', async () => {
+  const screen = await render(
+    // @ts-expect-error style is blocked; use DANGEROUS_style
+    <Button style={{ marginTop: 16 }}>Save</Button>,
+  );
+
+  await expect
+    .element(screen.getByRole('button', { name: 'Save' }))
+    .not.toHaveStyle({ marginTop: '16px' });
+});
+
+test('applies DANGEROUS_style as style', async () => {
+  const screen = await render(
+    <Button DANGEROUS_style={{ marginTop: '16px' }}>Save</Button>,
+  );
+
+  const button = screen.getByRole('button', { name: 'Save' });
+
+  await expect.element(button).toHaveStyle({ marginTop: '16px' });
+});
