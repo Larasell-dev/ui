@@ -1,3 +1,4 @@
+import { fn } from 'storybook/test';
 import preview from '../../../../.storybook/preview.tsx';
 import { Button } from './button.tsx';
 
@@ -6,6 +7,11 @@ const meta = preview.meta({
   component: Button,
   args: {
     children: 'Save',
+    onClick: fn(),
+    onFocus: fn(),
+    onBlur: fn(),
+    onKeyDown: fn(),
+    onPointerDown: fn(),
   },
   parameters: {
     layout: 'centered',
