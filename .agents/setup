@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# Prepares a fresh or snapshot-restored Amp orb: npm dependencies and the
+# Playwright Chromium browser that `vp test` runs in. Safe to run repeatedly.
+set -euo pipefail
+
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
+
+step() {
+  local label="$1"
+  shift
+  local start=$SECONDS
+  echo "==> $label"
+  "$@"
+  echo "<== $label ($((SECONDS - start))s)"
+}
+
+check_node() {
+  local major
+  major="$(node -p 'process.versions.node.split(".")[0]')"
+  if ((major < 22)); then
+    echo "Node 22 or newer is required, found $(node -v)" >&2
+    exit 1
+  fi
+  echo "node $(node -v), npm $(npm -v)"
+}
+
+install_dependencies() {
+  # npm install would rewrite package-lock.json; npm ci reinstalls from the
+  # warm npm cache in a few seconds.
+  npm ci --no-audit --no-fund --prefer-offline
+}
+
+install_browser() {
+  # Skips the download when this Playwright version's Chromium is cached.
+  npx --no-install playwright install chromium
+
+  # Install Chromium's system libraries only when some are missing, so warm
+  # runs do not call apt-get.
+  local shell
+  shell="$(find "$HOME/.cache/ms-playwright" -path '*chromium_headless_shell-*' -type f -name chrome-headless-shell | head -n 1)"
+  if [[ -n "$shell" ]] && ! ldd "$shell" | grep -q 'not found'; then
+    echo "Chromium system libraries present"
+    return
+  fi
+  sudo -E env "PATH=$PATH" npx --no-install playwright install-deps chromium
+}
+
+step "Check Node" check_node
+step "Install npm dependencies" install_dependencies
+step "Install Playwright Chromium" install_browser
