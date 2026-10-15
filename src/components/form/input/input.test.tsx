@@ -1,0 +1,55 @@
+import { expect, test } from 'vite-plus/test';
+import { render } from 'vitest-browser-react';
+import { Input } from './input.tsx';
+
+test('accepts typed text', async () => {
+  const screen = await render(<Input aria-label="Email" />);
+
+  const input = screen.getByRole('textbox', { name: 'Email' });
+  await input.fill('ada@example.com');
+
+  await expect.element(input).toHaveValue('ada@example.com');
+});
+
+test('does not accept className', async () => {
+  const screen = await render(
+    // @ts-expect-error className is blocked; use DANGEROUS_className
+    <Input aria-label="Email" className="mt-4" />,
+  );
+
+  await expect
+    .element(screen.getByRole('textbox', { name: 'Email' }))
+    .not.toHaveClass('mt-4');
+});
+
+test('applies DANGEROUS_className as className', async () => {
+  const screen = await render(
+    <Input aria-label="Email" DANGEROUS_className="mt-4" />,
+  );
+
+  const input = screen.getByRole('textbox', { name: 'Email' });
+
+  await expect.element(input).toHaveClass('mt-4');
+  await expect.element(input).toHaveClass('border-mauve-200');
+});
+
+test('does not accept style', async () => {
+  const screen = await render(
+    // @ts-expect-error style is blocked; use DANGEROUS_style
+    <Input aria-label="Email" style={{ marginTop: 16 }} />,
+  );
+
+  await expect
+    .element(screen.getByRole('textbox', { name: 'Email' }))
+    .not.toHaveStyle({ marginTop: '16px' });
+});
+
+test('applies DANGEROUS_style as style', async () => {
+  const screen = await render(
+    <Input aria-label="Email" DANGEROUS_style={{ marginTop: '16px' }} />,
+  );
+
+  const input = screen.getByRole('textbox', { name: 'Email' });
+
+  await expect.element(input).toHaveStyle({ marginTop: '16px' });
+});
