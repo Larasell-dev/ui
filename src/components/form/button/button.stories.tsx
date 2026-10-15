@@ -3,7 +3,7 @@ import preview from '../../../../.storybook/preview.tsx';
 import { Button } from './button.tsx';
 
 const meta = preview.meta({
-  title: 'Button',
+  title: 'Atoms/Button',
   component: Button,
   args: {
     children: 'Save',
