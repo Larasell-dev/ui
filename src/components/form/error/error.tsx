@@ -19,7 +19,7 @@ export function Error({
     <Field.Error
       {...props}
       className={cn(
-        'text-sm text-red-600 dark:text-red-400',
+        'type-caption-lg text-red-600 dark:text-red-400',
         'data-disabled:opacity-50',
         DANGEROUS_className,
       )}
