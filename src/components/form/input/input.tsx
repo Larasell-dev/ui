@@ -19,7 +19,7 @@ export function Input({
     <BaseInput
       {...props}
       className={cn(
-        'w-full border border-mauve-200 bg-white px-3.5 py-2.5 text-sm text-mauve-950',
+        'type-input-md w-full border border-mauve-200 bg-white px-3.5 py-2.5 text-mauve-950',
         'placeholder:text-mauve-400 placeholder:select-none',
         'focus:focus-ring',
         'data-invalid:border-red-500 data-invalid:[--focus-ring-color:var(--color-red-500)]',

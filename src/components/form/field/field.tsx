@@ -57,7 +57,7 @@ export function Field({
         />
       )}
       {description && (
-        <BaseField.Description className="text-sm text-mauve-600 dark:text-mauve-400">
+        <BaseField.Description className="type-caption-lg text-mauve-600 dark:text-mauve-400">
           {description}
         </BaseField.Description>
       )}
