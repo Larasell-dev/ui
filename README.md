@@ -10,7 +10,7 @@ This package is one piece of a larger project and does **not** build its own CSS
 
 ## What's included
 
-- `dist/index.mjs`, the compiled components (`Button`, `Error`, `Field`, `Input`, `Label`)
+- `dist/index.mjs`, the compiled components (`Button`, `Error`, `Field`, `Inline`, `Input`, `Label`, `Spacer`, `Stack`)
 - `src/styles.css`, the stylesheet consumers import; it pulls in the token file and points Tailwind's scanner at `dist`
 - `src/theme.css`, the design tokens: the `dark` variant, the website theme (fonts, primary palette), and the `focus-ring` utility
 
