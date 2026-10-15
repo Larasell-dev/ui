@@ -1,5 +1,9 @@
 export { Button } from './components/form/button/button.tsx';
 export { Error } from './components/form/error/error.tsx';
 export { Field } from './components/form/field/field.tsx';
+export { Inline } from './components/layout/inline/inline.tsx';
 export { Input } from './components/form/input/input.tsx';
 export { Label, type Required } from './components/form/label/label.tsx';
+export { Spacer } from './components/layout/spacer/spacer.tsx';
+export type { Spacing } from './components/layout/spacing.ts';
+export { Stack } from './components/layout/stack/stack.tsx';
