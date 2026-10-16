@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.3](https://github.com/Larasell-dev/ui/compare/v0.1.2...v0.1.3) (2026-10-16)
+
+
+### Features
+
+* **button:** add loading prop ([#25](https://github.com/Larasell-dev/ui/issues/25)) ([fecb7f0](https://github.com/Larasell-dev/ui/commit/fecb7f067f20286b1ba5d3ea998caff8c5f6d8c6))
+
+
+### Bug Fixes
+
+* **button:** keep background on hover when disabled or loading ([#26](https://github.com/Larasell-dev/ui/issues/26)) ([d4e3178](https://github.com/Larasell-dev/ui/commit/d4e3178a2392d536e2cb91619a8ebf0b240512b3))
+
 ## [0.1.2](https://github.com/Larasell-dev/ui/compare/v0.1.1...v0.1.2) (2026-10-16)
 
 
