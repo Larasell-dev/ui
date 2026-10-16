@@ -1,37 +1,8 @@
-@import 'tailwindcss';
-@plugin '@tailwindcss/typography';
+@import './theme.css';
 
-@custom-variant dark (&:where(.dark, .dark *));
-
-@source '.';
-
-@theme {
-  --font-sans:
-    'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-
-  --font-heading:
-    'Geist', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-
-  --font-mono:
-    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    'Liberation Mono', 'Courier New', monospace;
-
-  --color-primary-50: oklch(0.95 0.021 8);
-  --color-primary-100: oklch(0.882 0.052 8);
-  --color-primary-200: oklch(0.814 0.087 8);
-  --color-primary-300: oklch(0.746 0.127 8);
-  --color-primary-400: oklch(0.678 0.172 8);
-  --color-primary-500: oklch(0.61 0.169 8);
-  --color-primary-600: oklch(0.542 0.15 8);
-  --color-primary-700: oklch(0.474 0.131 8);
-  --color-primary-800: oklch(0.406 0.113 8);
-  --color-primary-900: oklch(0.338 0.094 8);
-  --color-primary-950: oklch(0.27 0.075 8);
-}
-
-@utility focus-ring {
-  outline: 2px solid var(--focus-ring-color, var(--color-primary-500));
-  outline-offset: 2px;
-}
+/*
+ * Tailwind's automatic detection skips node_modules, so point it at this
+ * package's compiled components. Resolved relative to this file, wherever
+ * the package is installed.
+ */
+@source '../dist';
