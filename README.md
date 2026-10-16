@@ -10,7 +10,7 @@ This package is one piece of a larger project and does **not** build its own CSS
 
 ## What's included
 
-- `dist/index.mjs`, the compiled components (`Button`, `Error`, `Field`, `Inline`, `Input`, `Label`, `Spacer`, `Stack`)
+- `dist/index.mjs`, the compiled components (`Button`, `Error`, `Field`, `Icon`, `Inline`, `Input`, `Label`, `Spacer`, `Stack`)
 - `src/styles.css`, the stylesheet consumers import; it pulls in the token file and points Tailwind's scanner at `dist`
 - `src/theme.css`, the design tokens: the `dark` variant, the website theme (fonts, primary palette), and the `focus-ring` utility
 
@@ -32,6 +32,21 @@ import { Button } from '@larasell-dev/ui';
 ```
 
 No CSS import, no Tailwind setup — the classes they end up with are compiled by whichever admin panel runs them. An extension that ships its own Tailwind classes follows the same pattern as this package: a small stylesheet with an `@source` pointing at its compiled output, which the admin panel imports alongside this one.
+
+### Icons
+
+`Icon` renders a [Remix Icon](https://remixicon.com). Import the icons from `@larasell-dev/ui/icons`; the app needs no extra packages or build setup:
+
+```tsx
+import { Icon } from '@larasell-dev/ui';
+import { ErrorWarningLine } from '@larasell-dev/ui/icons';
+
+<Icon icon={ErrorWarningLine} label="Error" />;
+```
+
+Every Remix icon is available under its PascalCase name: `error-warning-line` becomes `ErrorWarningLine`. Names can't start with a digit, so `24-hours-fill` and `4k-line` become `TwentyFourHoursFill` and `FourKLine`. Each icon is a separate export, so the app's bundler keeps only the icons it imports.
+
+The icons are generated from the pinned `@iconify-icons/ri` package into `src/icons.ts`, so each release of the design system pins the icon set. After bumping `@iconify-icons/ri`, run `npm run generate-icons`.
 
 ## Scripts
 
