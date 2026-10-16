@@ -13,16 +13,16 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary: [
-          'bg-mauve-950 text-mauve-50 hover:bg-mauve-800 active:bg-mauve-900',
-          'dark:bg-mauve-100 dark:text-mauve-950 dark:hover:bg-white',
+          'bg-mauve-950 text-mauve-50 not-data-disabled:hover:bg-mauve-800 not-data-disabled:active:bg-mauve-900',
+          'dark:bg-mauve-100 dark:text-mauve-950 dark:not-data-disabled:hover:bg-white',
         ],
         secondary: [
-          'border border-mauve-200 bg-white text-mauve-950 hover:bg-mauve-100',
-          'dark:border-mauve-700 dark:bg-mauve-900 dark:text-mauve-100 dark:hover:bg-mauve-800',
+          'border border-mauve-200 bg-white text-mauve-950 not-data-disabled:hover:bg-mauve-100',
+          'dark:border-mauve-700 dark:bg-mauve-900 dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800',
         ],
         tertiary: [
-          'border border-transparent bg-transparent px-5 py-2.5 text-mauve-950 no-underline hover:bg-mauve-100 hover:no-underline focus-visible:no-underline',
-          'dark:text-mauve-100 dark:hover:bg-mauve-800',
+          'border border-transparent bg-transparent px-5 py-2.5 text-mauve-950 no-underline not-data-disabled:hover:bg-mauve-100 not-data-disabled:hover:no-underline focus-visible:no-underline',
+          'dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800',
         ],
       },
     },
