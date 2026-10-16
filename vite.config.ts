@@ -17,6 +17,7 @@ export default defineConfig({
     },
   },
   fmt: {
+    ignorePatterns: ['CHANGELOG.md'],
     printWidth: 80,
     tabWidth: 2,
     singleQuote: true,
