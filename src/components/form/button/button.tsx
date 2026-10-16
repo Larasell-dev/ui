@@ -82,10 +82,10 @@ export function Button({
     >
       {match(content, {
         idle: () => children,
-        // Hidden visually but kept in the accessibility tree and the layout,
-        // so the button keeps its name and size.
         overlay: () => (
           <>
+            {/* Hidden visually but kept in the accessibility tree and the layout,
+                so the button keeps its name and size. */}
             <span className="opacity-0">{children}</span>
             <span className="absolute inset-0 flex items-center justify-center">
               <Spinner aria-hidden />
