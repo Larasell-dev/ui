@@ -35,31 +35,15 @@ No CSS import, no Tailwind setup — the classes they end up with are compiled b
 
 ### Icons
 
-The design system uses the [Remix Icon](https://remixicon.com) set but ships no icons. `Icon` takes an icon component, which the consuming app imports through [`unplugin-icons`](https://github.com/unplugin/unplugin-icons). Any Remix icon works, and only the icons an app imports end up in its bundle.
-
-```bash
-npm install -D unplugin-icons @iconify-json/ri @svgr/core @svgr/plugin-jsx
-```
-
-```ts
-// vite.config.ts
-import icons from 'unplugin-icons/vite';
-
-export default defineConfig({
-  plugins: [icons({ compiler: 'jsx', jsx: 'react' })],
-});
-```
-
-Add `"unplugin-icons/types/react"` to `compilerOptions.types` in `tsconfig.json` so `~icons/*` imports are typed. Then:
+`Icon` renders a [Remix Icon](https://remixicon.com) by name. The app needs no extra packages or build setup:
 
 ```tsx
 import { Icon } from '@larasell-dev/ui';
-import RiErrorWarningLine from '~icons/ri/error-warning-line';
 
-<Icon icon={RiErrorWarningLine} label="Error" />;
+<Icon name="error-warning-line" label="Error" />;
 ```
 
-Browse names at [remixicon.com](https://remixicon.com); `error-warning-line` becomes `~icons/ri/error-warning-line`.
+The design system decides which icons are available. `name` only accepts the icons listed in `src/components/icon/icons.ts`, and the icon data is copied into `dist` when the package is built, so each release pins its icons. To expose another icon, import it from `@iconify-icons/ri` in that file and add it to the list; Storybook's Icon → All Icons story shows the current set.
 
 ## Scripts
 

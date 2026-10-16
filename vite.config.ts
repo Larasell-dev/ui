@@ -1,10 +1,9 @@
 import { playwright } from '@vitest/browser-playwright';
 import react from '@vitejs/plugin-react';
-import icons from 'unplugin-icons/vite';
 import { defineConfig } from 'vite-plus';
 
 export default defineConfig({
-  plugins: [react(), icons({ compiler: 'jsx', jsx: 'react' })],
+  plugins: [react()],
   pack: {
     entry: ['src/index.ts'],
     dts: true,

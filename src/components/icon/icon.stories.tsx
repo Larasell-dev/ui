@@ -1,20 +1,6 @@
-import RiErrorWarningLine from '~icons/ri/error-warning-line';
-import RiHomeLine from '~icons/ri/home-line';
-import RiMailLine from '~icons/ri/mail-line';
 import preview from '../../../.storybook/preview.tsx';
-import { Icon } from './icon.tsx';
-
-const iconOptions = {
-  RiHomeLine,
-  RiErrorWarningLine,
-  RiMailLine,
-};
-
-// Args hold an option key so the select control shows it; `mapping` turns
-// the key into the component before rendering.
-function option(key: keyof typeof iconOptions) {
-  return key as unknown as (typeof iconOptions)[typeof key];
-}
+import { Icon, type IconName } from './icon.tsx';
+import { icons } from './icons.ts';
 
 const meta = preview.meta({
   title: 'Atoms/Icon',
@@ -22,16 +8,15 @@ const meta = preview.meta({
   // The Docs page is where Storybook shows the prop descriptions below.
   tags: ['autodocs'],
   args: {
-    icon: option('RiHomeLine'),
+    name: 'home-line' as const,
   },
   argTypes: {
-    icon: {
+    name: {
       control: 'select',
-      options: Object.keys(iconOptions),
-      mapping: iconOptions,
+      options: Object.keys(icons),
       description:
-        "Icon component compiled by `unplugin-icons` from the [Remix Icon](https://remixicon.com) set, e.g. `import RiHomeLine from '~icons/ri/home-line'`.",
-      table: { type: { summary: 'ComponentType<SVGProps<SVGSVGElement>>' } },
+        'Name of a [Remix Icon](https://remixicon.com) the design system exposes. Add more in `src/components/icon/icons.ts`.',
+      table: { type: { summary: 'IconName' } },
     },
     label: {
       control: 'text',
@@ -53,19 +38,36 @@ export const Default = meta.story({});
 
 export const Labelled = meta.story({
   args: {
-    icon: option('RiErrorWarningLine'),
+    name: 'error-warning-line',
     label: 'Error',
   },
 });
 
 export const InheritsTextStyle = meta.story({
   args: {
-    icon: option('RiMailLine'),
+    name: 'mail-line',
   },
   render: (args) => (
     <p className="type-label-md flex items-center gap-2 text-red-600 dark:text-red-400">
       <Icon {...args} />
       Couldn't send the email
     </p>
+  ),
+});
+
+export const AllIcons = meta.story({
+  render: () => (
+    <ul className="grid grid-cols-4 gap-6 text-mauve-950 dark:text-mauve-100">
+      {(Object.keys(icons) as IconName[]).map((name) => (
+        <li key={name} className="flex flex-col items-center gap-2">
+          <span className="text-2xl">
+            <Icon name={name} />
+          </span>
+          <span className="type-caption-lg text-mauve-500 dark:text-mauve-400">
+            {name}
+          </span>
+        </li>
+      ))}
+    </ul>
   ),
 });

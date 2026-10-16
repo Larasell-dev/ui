@@ -1,11 +1,10 @@
-import type { ComponentType, SVGProps } from 'react';
+import { icons, type IconName } from './icons.ts';
+
+export type { IconName };
 
 type IconProps = {
-  /**
-   * Icon component compiled by `unplugin-icons`, e.g.
-   * `import RiHomeLine from '~icons/ri/home-line'`.
-   */
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  /** Name of an exposed [Remix Icon](https://remixicon.com), e.g. `home-line`. */
+  name: IconName;
   /**
    * Accessible name for the icon. Set this only when the icon is meaningful
    * on its own, such as a standalone status glyph with no adjacent text
@@ -23,13 +22,18 @@ type IconProps = {
   label?: string;
 };
 
-export function Icon({ icon: Svg, label }: IconProps) {
+export function Icon({ name, label }: IconProps) {
   return (
-    <Svg
-      role="img"
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      // Every Remix icon is drawn on a 24×24 grid.
+      viewBox="0 0 24 24"
       width="1em"
       height="1em"
+      role="img"
       {...(label ? { 'aria-label': label } : { 'aria-hidden': true })}
+      // Trusted SVG markup from the pinned @iconify-icons/ri package.
+      dangerouslySetInnerHTML={{ __html: icons[name].body }}
     />
   );
 }
