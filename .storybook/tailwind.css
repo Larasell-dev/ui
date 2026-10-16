@@ -1,0 +1,10 @@
+/*
+ * Full Tailwind entry for Storybook only. Storybook renders the components
+ * standalone, so it plays the role the admin panel plays in production:
+ * it imports the design tokens and scans this package's source for classes.
+ */
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+@import '../src/theme.css';
+
+@source '../src';
