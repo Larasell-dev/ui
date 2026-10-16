@@ -55,3 +55,14 @@ export const Loading = meta.story({
     children: 'Saving…',
   },
 });
+
+export const LoadingFullWidth = meta.story({
+  args: {
+    loading: true,
+    fullWidth: true,
+    children: 'Saving…',
+  },
+  parameters: {
+    layout: 'padded',
+  },
+});
