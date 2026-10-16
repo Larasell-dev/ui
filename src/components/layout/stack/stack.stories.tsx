@@ -17,6 +17,7 @@ const meta = preview.meta({
   },
   argTypes: {
     spacing: { control: 'select', options: spacingScale },
+    children: { control: false },
   },
   parameters: {
     layout: 'centered',
