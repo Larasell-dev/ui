@@ -8,7 +8,7 @@ This package is a scaffold. Changes should stay small until something actually d
 vp install
 ```
 
-Node 22 or newer. The package manager is npm (`package-lock.json`).
+Node 24 or newer. The package manager is npm (`package-lock.json`).
 
 ## Checks
 
