@@ -40,6 +40,15 @@ export const Disabled = meta.story({
   },
 });
 
+export const FullWidth = meta.story({
+  args: {
+    fullWidth: true,
+  },
+  parameters: {
+    layout: 'padded',
+  },
+});
+
 export const Loading = meta.story({
   args: {
     loading: true,

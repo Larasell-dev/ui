@@ -5,7 +5,7 @@ import { cn } from 'cn';
 
 const buttonVariants = cva(
   [
-    'type-label-md inline-flex w-fit cursor-pointer items-center justify-center gap-2 px-5 py-2.5 whitespace-nowrap no-underline select-none',
+    'type-label-md inline-flex cursor-pointer items-center justify-center gap-2 px-5 py-2.5 whitespace-nowrap no-underline select-none',
     'focus-visible:focus-ring',
     'data-disabled:cursor-not-allowed data-disabled:opacity-50',
   ],
@@ -25,9 +25,14 @@ const buttonVariants = cva(
           'dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800',
         ],
       },
+      fullWidth: {
+        true: 'w-full',
+        false: 'w-fit',
+      },
     },
     defaultVariants: {
       variant: 'primary',
+      fullWidth: false,
     },
   },
 );
@@ -48,6 +53,7 @@ type ButtonProps = Omit<
 
 export function Button({
   variant,
+  fullWidth,
   loading,
   disabled,
   DANGEROUS_className,
@@ -60,7 +66,10 @@ export function Button({
       disabled={loading || disabled}
       focusableWhenDisabled={loading}
       aria-busy={loading || undefined}
-      className={cn(buttonVariants({ variant }), DANGEROUS_className)}
+      className={cn(
+        buttonVariants({ variant, fullWidth }),
+        DANGEROUS_className,
+      )}
       style={DANGEROUS_style}
     />
   );
