@@ -1,6 +1,7 @@
 import { fn } from 'storybook/test';
 import preview from '../../../../.storybook/preview.tsx';
 import { Input } from './input.tsx';
+import { Button } from '../button/button.tsx';
 
 const meta = preview.meta({
   title: 'Atoms/Input',
@@ -24,4 +25,13 @@ export const Disabled = meta.story({
   args: {
     disabled: true,
   },
+});
+
+export const WithButton = meta.story({
+  render: (args) => (
+    <div className="flex items-end gap-2">
+      <Input {...args} />
+      <Button>Subscribe</Button>
+    </div>
+  ),
 });

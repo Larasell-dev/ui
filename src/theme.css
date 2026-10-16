@@ -109,12 +109,15 @@
   --type-mono-sm-size: var(--text-xs);
   --type-mono-sm-line-height: var(--text-xs--line-height);
 
-  /* Never below 16px in the mobile mode: iOS Safari zooms into smaller inputs on focus. */
+  /* Never below 16px in the mobile mode: iOS Safari zooms into smaller inputs on focus.
+     The line height stays at the text-sm one so inputs match the height of buttons. */
   --type-input-font: var(--font-sans);
   --type-input-weight-base: var(--font-weight-normal);
   --type-input-tracking: var(--tracking-normal);
   --type-input-md-size: var(--text-base);
-  --type-input-md-line-height: var(--text-base--line-height);
+  --type-input-md-line-height: calc(
+    var(--text-sm) * var(--text-sm--line-height)
+  );
 }
 
 @utility focus-ring {
