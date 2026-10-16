@@ -43,7 +43,7 @@ import { Icon } from '@larasell-dev/ui';
 <Icon name="error-warning-line" label="Error" />;
 ```
 
-The design system decides which icons are available. `name` only accepts the icons listed in `src/components/icon/icons.ts`, and the icon data is copied into `dist` when the package is built, so each release pins its icons. To expose another icon, import it from `@iconify-icons/ri` in that file and add it to the list; Storybook's Icon → All Icons story shows the current set.
+The design system decides which icons are available. `name` only accepts the icons listed in `src/components/icon/icons.ts`, and the icon data is copied into `dist` when the package is built, so each release pins its icons. To expose another icon, import it from `@iconify-icons/ri` in that file and add it to the list.
 
 ## Scripts
 

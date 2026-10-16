@@ -1,5 +1,5 @@
 import preview from '../../../.storybook/preview.tsx';
-import { Icon, type IconName } from './icon.tsx';
+import { Icon } from './icon.tsx';
 import { icons } from './icons.ts';
 
 const meta = preview.meta({
@@ -52,22 +52,5 @@ export const InheritsTextStyle = meta.story({
       <Icon {...args} />
       Couldn't send the email
     </p>
-  ),
-});
-
-export const AllIcons = meta.story({
-  render: () => (
-    <ul className="grid grid-cols-4 gap-6 text-mauve-950 dark:text-mauve-100">
-      {(Object.keys(icons) as IconName[]).map((name) => (
-        <li key={name} className="flex flex-col items-center gap-2">
-          <span className="text-2xl">
-            <Icon name={name} />
-          </span>
-          <span className="type-caption-lg text-mauve-500 dark:text-mauve-400">
-            {name}
-          </span>
-        </li>
-      ))}
-    </ul>
   ),
 });
