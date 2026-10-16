@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/Larasell-dev/ui/compare/v0.1.1...v0.1.2) (2026-10-16)
+
+
+### Features
+
+* add Container layout component ([#23](https://github.com/Larasell-dev/ui/issues/23)) ([8dad508](https://github.com/Larasell-dev/ui/commit/8dad508e7e9d116b9b692288f375113ba706dbe7))
+
 ## [0.1.1](https://github.com/Larasell-dev/ui/compare/ui-v0.1.0...ui-v0.1.1) (2026-10-16)
 
 
