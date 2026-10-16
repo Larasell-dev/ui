@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.5](https://github.com/Larasell-dev/ui/compare/v0.1.4...v0.1.5) (2026-10-16)
+
+
+### Features
+
+* **button:** add fullWidth prop ([6266f4d](https://github.com/Larasell-dev/ui/commit/6266f4db983a20132ead23be1224714ffc60f775))
+* **button:** show a spinner while loading ([f8d8932](https://github.com/Larasell-dev/ui/commit/f8d8932671c4a881acbfd47e00f2df9a13b49b66))
+* **spinner:** add Spinner component ([31f951a](https://github.com/Larasell-dev/ui/commit/31f951a6f3a2f48a0a274e0880ce75a5013a618b))
+* **utils:** add exhaustive match lookup helper ([#38](https://github.com/Larasell-dev/ui/issues/38)) ([dc1bec2](https://github.com/Larasell-dev/ui/commit/dc1bec2fcb805018c2ba9e4a24ce307937daf243))
+
 ## [0.1.4](https://github.com/Larasell-dev/ui/compare/v0.1.3...v0.1.4) (2026-10-16)
 
 
