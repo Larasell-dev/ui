@@ -32,6 +32,10 @@
   --color-primary-800: oklch(0.406 0.113 8);
   --color-primary-900: oklch(0.338 0.094 8);
   --color-primary-950: oklch(0.27 0.075 8);
+
+  /* Page-level loading indicators, such as a navigation progress bar. */
+  --color-progress: var(--color-primary-500);
+
   --type-display-font: var(--font-heading);
   --type-display-weight-base: var(--font-weight-semibold);
   --type-display-tracking: var(--tracking-tight);
