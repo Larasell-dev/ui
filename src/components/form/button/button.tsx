@@ -2,10 +2,11 @@ import { Button as BaseButton } from '@base-ui/react/button';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { ComponentProps, CSSProperties } from 'react';
 import { cn } from 'cn';
+import { Spinner } from '../../spinner/spinner.tsx';
 
 const buttonVariants = cva(
   [
-    'type-label-md inline-flex cursor-pointer items-center justify-center gap-2 px-5 py-2.5 whitespace-nowrap no-underline select-none',
+    'type-label-md relative inline-flex cursor-pointer items-center justify-center gap-2 px-5 py-2.5 whitespace-nowrap no-underline select-none',
     'focus-visible:focus-ring',
     'data-disabled:cursor-not-allowed data-disabled:opacity-50',
   ],
@@ -58,6 +59,7 @@ export function Button({
   disabled,
   DANGEROUS_className,
   DANGEROUS_style,
+  children,
   ...props
 }: ButtonProps) {
   return (
@@ -71,6 +73,26 @@ export function Button({
         DANGEROUS_className,
       )}
       style={DANGEROUS_style}
-    />
+    >
+      {loading && !fullWidth ? (
+        <>
+          {/* Hidden visually but kept in the accessibility tree and the layout,
+              so the button keeps its name and size. */}
+          <span className="opacity-0">{children}</span>
+          <span className="absolute inset-0 flex items-center justify-center">
+            <Spinner aria-hidden />
+          </span>
+        </>
+      ) : loading ? (
+        <span className="relative">
+          <span className="absolute top-1/2 right-full mr-2 flex -translate-y-1/2">
+            <Spinner aria-hidden />
+          </span>
+          {children}
+        </span>
+      ) : (
+        children
+      )}
+    </BaseButton>
   );
 }
