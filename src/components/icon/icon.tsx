@@ -1,13 +1,11 @@
-import icons from '@iconify-json/ri/icons.json' with { type: 'json' };
-import { addCollection, Icon as IconifyIcon } from '@iconify/react/offline';
-
-addCollection(icons);
-
-export type IconName = keyof (typeof icons)['icons'];
+import type { ComponentType, SVGProps } from 'react';
 
 type IconProps = {
-  /** Name of a [Remix Icon](https://remixicon.com), e.g. `home-line`. */
-  name: IconName;
+  /**
+   * Icon component compiled by `unplugin-icons`, e.g.
+   * `import RiHomeLine from '~icons/ri/home-line'`.
+   */
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
   /**
    * Accessible name for the icon. Set this only when the icon is meaningful
    * on its own, such as a standalone status glyph with no adjacent text
@@ -25,11 +23,13 @@ type IconProps = {
   label?: string;
 };
 
-export function Icon({ name, label }: IconProps) {
+export function Icon({ icon: Svg, label }: IconProps) {
   return (
-    <IconifyIcon
-      icon={`ri:${name}`}
-      {...(label ? { 'aria-label': label, 'aria-hidden': false } : {})}
+    <Svg
+      role="img"
+      width="1em"
+      height="1em"
+      {...(label ? { 'aria-label': label } : { 'aria-hidden': true })}
     />
   );
 }

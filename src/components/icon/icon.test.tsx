@@ -1,9 +1,11 @@
+import RiErrorWarningLine from '~icons/ri/error-warning-line';
+import RiHomeLine from '~icons/ri/home-line';
 import { expect, test } from 'vite-plus/test';
 import { render } from 'vitest-browser-react';
 import { Icon } from './icon.tsx';
 
 test('is hidden from assistive tech without a label', async () => {
-  const screen = await render(<Icon name="home-line" />);
+  const screen = await render(<Icon icon={RiHomeLine} />);
 
   await expect
     .element(screen.getByRole('img', { includeHidden: true }))
@@ -12,7 +14,7 @@ test('is hidden from assistive tech without a label', async () => {
 });
 
 test('treats an empty label as decorative', async () => {
-  const screen = await render(<Icon name="home-line" label="" />);
+  const screen = await render(<Icon icon={RiHomeLine} label="" />);
 
   await expect
     .element(screen.getByRole('img', { includeHidden: true }))
@@ -21,7 +23,7 @@ test('treats an empty label as decorative', async () => {
 });
 
 test('exposes a labelled icon as an image with that name', async () => {
-  const screen = await render(<Icon name="error-warning-line" label="Error" />);
+  const screen = await render(<Icon icon={RiErrorWarningLine} label="Error" />);
 
   const image = screen.getByRole('img', { name: 'Error' });
 
@@ -29,10 +31,10 @@ test('exposes a labelled icon as an image with that name', async () => {
   await expect.element(image).not.toHaveAttribute('aria-hidden');
 });
 
-test('scales with the surrounding font size', async () => {
+test('is 1em square, so it scales with the surrounding font size', async () => {
   const screen = await render(
     <span style={{ fontSize: '32px' }}>
-      <Icon name="home-line" />
+      <Icon icon={RiHomeLine} />
     </span>,
   );
 
@@ -45,19 +47,10 @@ test('scales with the surrounding font size', async () => {
   expect(box.height).toBe(32);
 });
 
-test('rejects names outside the Remix icon set', async () => {
-  // @ts-expect-error only Remix icon names are accepted
-  const screen = await render(<Icon name="not-a-remix-icon" />);
-
-  await expect
-    .element(screen.getByRole('img', { includeHidden: true }))
-    .not.toBeInTheDocument();
-});
-
 test('does not accept className or style', async () => {
   const screen = await render(
     <Icon
-      name="home-line"
+      icon={RiHomeLine}
       // @ts-expect-error className is blocked
       className="mt-4"
       style={{ marginTop: 16 }}
@@ -73,7 +66,7 @@ test('does not accept className or style', async () => {
 test('does not accept DANGEROUS_className or DANGEROUS_style', async () => {
   const screen = await render(
     <Icon
-      name="home-line"
+      icon={RiHomeLine}
       // @ts-expect-error Icon has no DANGEROUS_ escape hatch
       DANGEROUS_className="mt-4"
       DANGEROUS_style={{ marginTop: 16 }}

@@ -10,7 +10,7 @@ This package is one piece of a larger project and does **not** build its own CSS
 
 ## What's included
 
-- `dist/index.mjs`, the compiled components (`Button`, `Error`, `Field`, `Inline`, `Input`, `Label`, `Spacer`, `Stack`)
+- `dist/index.mjs`, the compiled components (`Button`, `Error`, `Field`, `Icon`, `Inline`, `Input`, `Label`, `Spacer`, `Stack`)
 - `src/styles.css`, the stylesheet consumers import; it pulls in the token file and points Tailwind's scanner at `dist`
 - `src/theme.css`, the design tokens: the `dark` variant, the website theme (fonts, primary palette), and the `focus-ring` utility
 
@@ -32,6 +32,34 @@ import { Button } from '@larasell-dev/ui';
 ```
 
 No CSS import, no Tailwind setup — the classes they end up with are compiled by whichever admin panel runs them. An extension that ships its own Tailwind classes follows the same pattern as this package: a small stylesheet with an `@source` pointing at its compiled output, which the admin panel imports alongside this one.
+
+### Icons
+
+The design system uses the [Remix Icon](https://remixicon.com) set but ships no icons. `Icon` takes an icon component, which the consuming app imports through [`unplugin-icons`](https://github.com/unplugin/unplugin-icons). Any Remix icon works, and only the icons an app imports end up in its bundle.
+
+```bash
+npm install -D unplugin-icons @iconify-json/ri @svgr/core @svgr/plugin-jsx
+```
+
+```ts
+// vite.config.ts
+import icons from 'unplugin-icons/vite';
+
+export default defineConfig({
+  plugins: [icons({ compiler: 'jsx', jsx: 'react' })],
+});
+```
+
+Add `"unplugin-icons/types/react"` to `compilerOptions.types` in `tsconfig.json` so `~icons/*` imports are typed. Then:
+
+```tsx
+import { Icon } from '@larasell-dev/ui';
+import RiErrorWarningLine from '~icons/ri/error-warning-line';
+
+<Icon icon={RiErrorWarningLine} label="Error" />;
+```
+
+Browse names at [remixicon.com](https://remixicon.com); `error-warning-line` becomes `~icons/ri/error-warning-line`.
 
 ## Scripts
 

@@ -1,6 +1,20 @@
-import icons from '@iconify-json/ri/icons.json' with { type: 'json' };
+import RiErrorWarningLine from '~icons/ri/error-warning-line';
+import RiHomeLine from '~icons/ri/home-line';
+import RiMailLine from '~icons/ri/mail-line';
 import preview from '../../../.storybook/preview.tsx';
 import { Icon } from './icon.tsx';
+
+const iconOptions = {
+  RiHomeLine,
+  RiErrorWarningLine,
+  RiMailLine,
+};
+
+// Args hold an option key so the select control shows it; `mapping` turns
+// the key into the component before rendering.
+function option(key: keyof typeof iconOptions) {
+  return key as unknown as (typeof iconOptions)[typeof key];
+}
 
 const meta = preview.meta({
   title: 'Atoms/Icon',
@@ -8,14 +22,16 @@ const meta = preview.meta({
   // The Docs page is where Storybook shows the prop descriptions below.
   tags: ['autodocs'],
   args: {
-    name: 'home-line' as const,
+    icon: option('RiHomeLine'),
   },
   argTypes: {
-    name: {
+    icon: {
       control: 'select',
-      options: Object.keys(icons.icons),
-      description: 'Name of a [Remix Icon](https://remixicon.com).',
-      table: { type: { summary: 'IconName' } },
+      options: Object.keys(iconOptions),
+      mapping: iconOptions,
+      description:
+        "Icon component compiled by `unplugin-icons` from the [Remix Icon](https://remixicon.com) set, e.g. `import RiHomeLine from '~icons/ri/home-line'`.",
+      table: { type: { summary: 'ComponentType<SVGProps<SVGSVGElement>>' } },
     },
     label: {
       control: 'text',
@@ -37,14 +53,14 @@ export const Default = meta.story({});
 
 export const Labelled = meta.story({
   args: {
-    name: 'error-warning-line',
+    icon: option('RiErrorWarningLine'),
     label: 'Error',
   },
 });
 
 export const InheritsTextStyle = meta.story({
   args: {
-    name: 'mail-line',
+    icon: option('RiMailLine'),
   },
   render: (args) => (
     <p className="type-label-md flex items-center gap-2 text-red-600 dark:text-red-400">
