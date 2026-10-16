@@ -33,3 +33,16 @@ export const Tertiary = meta.story({
     children: 'Skip',
   },
 });
+
+export const Disabled = meta.story({
+  args: {
+    disabled: true,
+  },
+});
+
+export const Loading = meta.story({
+  args: {
+    loading: true,
+    children: 'Saving…',
+  },
+});

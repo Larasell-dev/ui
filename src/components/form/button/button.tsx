@@ -32,17 +32,24 @@ const buttonVariants = cva(
   },
 );
 
+type LoadingProps =
+  | { loading?: false; disabled?: boolean }
+  | { loading: true; disabled?: never };
+
 type ButtonProps = Omit<
   ComponentProps<typeof BaseButton>,
-  'className' | 'style'
+  'className' | 'style' | 'disabled' | 'focusableWhenDisabled'
 > &
-  VariantProps<typeof buttonVariants> & {
+  VariantProps<typeof buttonVariants> &
+  LoadingProps & {
     DANGEROUS_className?: string;
     DANGEROUS_style?: CSSProperties;
   };
 
 export function Button({
   variant,
+  loading,
+  disabled,
   DANGEROUS_className,
   DANGEROUS_style,
   ...props
@@ -50,6 +57,9 @@ export function Button({
   return (
     <BaseButton
       {...props}
+      disabled={loading || disabled}
+      focusableWhenDisabled={loading}
+      aria-busy={loading || undefined}
       className={cn(buttonVariants({ variant }), DANGEROUS_className)}
       style={DANGEROUS_style}
     />
