@@ -7,9 +7,6 @@
     "type": "git",
     "url": "git+https://github.com/Larasell-dev/ui.git"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "files": [
     "dist",
     "src/*.css"
@@ -19,6 +16,9 @@
     ".": "./dist/index.mjs",
     "./styles.css": "./src/styles.css",
     "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "vp pack",
