@@ -3,7 +3,7 @@ import type { IconifyIcon } from '@iconify/types';
 type IconProps = {
   /**
    * Remix icon to render, imported from `@larasell-dev/ui/icons`, e.g.
-   * `import { RiHomeLine } from '@larasell-dev/ui/icons'`.
+   * `import { HomeLine } from '@larasell-dev/ui/icons'`.
    */
   icon: IconifyIcon;
   /**

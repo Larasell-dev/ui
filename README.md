@@ -39,12 +39,12 @@ No CSS import, no Tailwind setup — the classes they end up with are compiled b
 
 ```tsx
 import { Icon } from '@larasell-dev/ui';
-import { RiErrorWarningLine } from '@larasell-dev/ui/icons';
+import { ErrorWarningLine } from '@larasell-dev/ui/icons';
 
-<Icon icon={RiErrorWarningLine} label="Error" />;
+<Icon icon={ErrorWarningLine} label="Error" />;
 ```
 
-Every Remix icon is available, named `Ri` plus the PascalCase icon name: `error-warning-line` becomes `RiErrorWarningLine`. Each icon is a separate export, so the app's bundler keeps only the icons it imports.
+Every Remix icon is available under its PascalCase name: `error-warning-line` becomes `ErrorWarningLine`. Names can't start with a digit, so `24-hours-fill` and `4k-line` become `TwentyFourHoursFill` and `FourKLine`. Each icon is a separate export, so the app's bundler keeps only the icons it imports.
 
 The icons are generated from the pinned `@iconify-icons/ri` package into `src/icons.ts`, so each release of the design system pins the icon set. After bumping `@iconify-icons/ri`, run `npm run generate-icons`.
 

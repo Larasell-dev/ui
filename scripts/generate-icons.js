@@ -1,5 +1,5 @@
-// Writes src/icons.ts, which re-exports every icon in @iconify-icons/ri as
-// `Ri<PascalCaseName>`. Run `npm run generate-icons` after bumping
+// Writes src/icons.ts, which re-exports every icon in @iconify-icons/ri under
+// its PascalCase name. Run `npm run generate-icons` after bumping
 // @iconify-icons/ri.
 import { readFileSync, writeFileSync } from 'node:fs';
 
@@ -14,12 +14,14 @@ const lines = Object.keys(pkg.exports)
   .filter((key) => key !== '.' && key !== './package.json')
   .map((key) => {
     const name = key.slice(2);
-    const exportName =
-      'Ri' +
-      name
-        .split('-')
-        .map((part) => part[0].toUpperCase() + part.slice(1))
-        .join('');
+    // JavaScript names can't start with a digit, so spell out the leading
+    // numbers in `24-hours-*` and `4k-*`.
+    const exportName = name
+      .replace(/^24-/, 'twenty-four-')
+      .replace(/^4k-/, 'four-k-')
+      .split('-')
+      .map((part) => part[0].toUpperCase() + part.slice(1))
+      .join('');
     return `export { default as ${exportName} } from '@iconify-icons/ri/${name}';`;
   });
 

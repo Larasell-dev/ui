@@ -14,7 +14,7 @@ const meta = preview.meta({
   // The Docs page is where Storybook shows the prop descriptions below.
   tags: ['autodocs'],
   args: {
-    icon: option('RiHomeLine'),
+    icon: option('HomeLine'),
   },
   argTypes: {
     icon: {
@@ -22,7 +22,7 @@ const meta = preview.meta({
       options: Object.keys(icons),
       mapping: icons,
       description:
-        "A [Remix Icon](https://remixicon.com) imported from `@larasell-dev/ui/icons`, e.g. `import { RiHomeLine } from '@larasell-dev/ui/icons'`. Only the icons an app imports end up in its bundle.",
+        "A [Remix Icon](https://remixicon.com) imported from `@larasell-dev/ui/icons`, e.g. `import { HomeLine } from '@larasell-dev/ui/icons'`. Only the icons an app imports end up in its bundle.",
       table: { type: { summary: 'IconifyIcon' } },
     },
     label: {
@@ -45,14 +45,14 @@ export const Default = meta.story({});
 
 export const Labelled = meta.story({
   args: {
-    icon: option('RiErrorWarningLine'),
+    icon: option('ErrorWarningLine'),
     label: 'Error',
   },
 });
 
 export const InheritsTextStyle = meta.story({
   args: {
-    icon: option('RiMailLine'),
+    icon: option('MailLine'),
   },
   render: (args) => (
     <p className="type-label-md flex items-center gap-2 text-red-600 dark:text-red-400">
