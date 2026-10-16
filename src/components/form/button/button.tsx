@@ -1,8 +1,9 @@
 import { Button as BaseButton } from '@base-ui/react/button';
 import { cva, type VariantProps } from 'class-variance-authority';
-import type { ComponentProps, CSSProperties } from 'react';
+import { useMemo, type ComponentProps, type CSSProperties } from 'react';
 import { cn } from 'cn';
 import { Spinner } from '../../spinner/spinner.tsx';
+import { match } from '../../../utils/match.ts';
 
 const buttonVariants = cva(
   [
@@ -62,6 +63,11 @@ export function Button({
   children,
   ...props
 }: ButtonProps) {
+  const content = useMemo(() => {
+    if (!loading) return 'idle';
+    return fullWidth ? 'inline' : 'overlay';
+  }, [loading, fullWidth]);
+
   return (
     <BaseButton
       {...props}
@@ -74,25 +80,27 @@ export function Button({
       )}
       style={DANGEROUS_style}
     >
-      {loading && !fullWidth ? (
-        <>
-          {/* Hidden visually but kept in the accessibility tree and the layout,
-              so the button keeps its name and size. */}
-          <span className="opacity-0">{children}</span>
-          <span className="absolute inset-0 flex items-center justify-center">
-            <Spinner aria-hidden />
+      {match(content, {
+        idle: () => children,
+        overlay: () => (
+          <>
+            {/* Hidden visually but kept in the accessibility tree and the layout,
+                so the button keeps its name and size. */}
+            <span className="opacity-0">{children}</span>
+            <span className="absolute inset-0 flex items-center justify-center">
+              <Spinner aria-hidden />
+            </span>
+          </>
+        ),
+        inline: () => (
+          <span className="relative">
+            <span className="absolute top-1/2 right-full mr-2 flex -translate-y-1/2">
+              <Spinner aria-hidden />
+            </span>
+            {children}
           </span>
-        </>
-      ) : loading ? (
-        <span className="relative">
-          <span className="absolute top-1/2 right-full mr-2 flex -translate-y-1/2">
-            <Spinner aria-hidden />
-          </span>
-          {children}
-        </span>
-      ) : (
-        children
-      )}
+        ),
+      })}
     </BaseButton>
   );
 }
