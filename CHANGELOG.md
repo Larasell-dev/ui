@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.4](https://github.com/Larasell-dev/ui/compare/v0.1.3...v0.1.4) (2026-10-16)
+
+
+### Features
+
+* disable user selection globally and add selection color token ([#30](https://github.com/Larasell-dev/ui/issues/30)) ([6bc4e72](https://github.com/Larasell-dev/ui/commit/6bc4e72df2615ef9a3f26bdc2eeaa53594f33afd))
+* **theme:** add progress color token ([#29](https://github.com/Larasell-dev/ui/issues/29)) ([ab035fb](https://github.com/Larasell-dev/ui/commit/ab035fb8db5a4e28eef0a20eff7c88670f828fae))
+
 ## [0.1.3](https://github.com/Larasell-dev/ui/compare/v0.1.2...v0.1.3) (2026-10-16)
 
 
