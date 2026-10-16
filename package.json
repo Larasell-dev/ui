@@ -14,6 +14,7 @@
   "type": "module",
   "exports": {
     ".": "./dist/index.mjs",
+    "./icons": "./dist/icons.mjs",
     "./styles.css": "./src/styles.css",
     "./package.json": "./package.json"
   },
@@ -30,7 +31,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "commitlint": "commitlint --from=HEAD~1 --to=HEAD",
-    "knip": "knip"
+    "knip": "knip",
+    "generate-icons": "node scripts/generate-icons.js"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
@@ -41,6 +43,7 @@
     "@commitlint/cli": "^21.2.3",
     "@commitlint/config-conventional": "^21.2.3",
     "@iconify-icons/ri": "2.0.0",
+    "@iconify/types": "2.0.0",
     "@storybook/addon-docs": "^10.6.2",
     "@storybook/react-vite": "^10.6.2",
     "@tailwindcss/typography": "^0.5.20",

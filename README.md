@@ -35,15 +35,18 @@ No CSS import, no Tailwind setup — the classes they end up with are compiled b
 
 ### Icons
 
-`Icon` renders a [Remix Icon](https://remixicon.com) by name. The app needs no extra packages or build setup:
+`Icon` renders a [Remix Icon](https://remixicon.com). Import the icons from `@larasell-dev/ui/icons`; the app needs no extra packages or build setup:
 
 ```tsx
 import { Icon } from '@larasell-dev/ui';
+import { RiErrorWarningLine } from '@larasell-dev/ui/icons';
 
-<Icon name="error-warning-line" label="Error" />;
+<Icon icon={RiErrorWarningLine} label="Error" />;
 ```
 
-The design system decides which icons are available. `name` only accepts the icons listed in `src/components/icon/icons.ts`, and the icon data is copied into `dist` when the package is built, so each release pins its icons. To expose another icon, import it from `@iconify-icons/ri` in that file and add it to the list.
+Every Remix icon is available, named `Ri` plus the PascalCase icon name: `error-warning-line` becomes `RiErrorWarningLine`. Each icon is a separate export, so the app's bundler keeps only the icons it imports.
+
+The icons are generated from the pinned `@iconify-icons/ri` package into `src/icons.ts`, so each release of the design system pins the icon set. After bumping `@iconify-icons/ri`, run `npm run generate-icons`.
 
 ## Scripts
 

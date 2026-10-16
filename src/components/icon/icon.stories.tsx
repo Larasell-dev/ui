@@ -1,6 +1,12 @@
 import preview from '../../../.storybook/preview.tsx';
+import * as icons from '../../icons.ts';
 import { Icon } from './icon.tsx';
-import { icons } from './icons.ts';
+
+// Args hold an export name so the select control shows it; `mapping` turns
+// the name into the icon before rendering.
+function option(name: keyof typeof icons) {
+  return name as unknown as (typeof icons)[typeof name];
+}
 
 const meta = preview.meta({
   title: 'Atoms/Icon',
@@ -8,15 +14,16 @@ const meta = preview.meta({
   // The Docs page is where Storybook shows the prop descriptions below.
   tags: ['autodocs'],
   args: {
-    name: 'home-line' as const,
+    icon: option('RiHomeLine'),
   },
   argTypes: {
-    name: {
+    icon: {
       control: 'select',
       options: Object.keys(icons),
+      mapping: icons,
       description:
-        'Name of a [Remix Icon](https://remixicon.com) the design system exposes. Add more in `src/components/icon/icons.ts`.',
-      table: { type: { summary: 'IconName' } },
+        "A [Remix Icon](https://remixicon.com) imported from `@larasell-dev/ui/icons`, e.g. `import { RiHomeLine } from '@larasell-dev/ui/icons'`. Only the icons an app imports end up in its bundle.",
+      table: { type: { summary: 'IconifyIcon' } },
     },
     label: {
       control: 'text',
@@ -38,14 +45,14 @@ export const Default = meta.story({});
 
 export const Labelled = meta.story({
   args: {
-    name: 'error-warning-line',
+    icon: option('RiErrorWarningLine'),
     label: 'Error',
   },
 });
 
 export const InheritsTextStyle = meta.story({
   args: {
-    name: 'mail-line',
+    icon: option('RiMailLine'),
   },
   render: (args) => (
     <p className="type-label-md flex items-center gap-2 text-red-600 dark:text-red-400">

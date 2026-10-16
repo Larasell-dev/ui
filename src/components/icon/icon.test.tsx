@@ -1,9 +1,10 @@
-import { expect, expectTypeOf, test } from 'vite-plus/test';
+import { expect, test } from 'vite-plus/test';
 import { render } from 'vitest-browser-react';
-import { Icon, type IconName } from './icon.tsx';
+import { RiErrorWarningLine, RiHomeLine } from '../../icons.ts';
+import { Icon } from './icon.tsx';
 
 test('is hidden from assistive tech without a label', async () => {
-  const screen = await render(<Icon name="home-line" />);
+  const screen = await render(<Icon icon={RiHomeLine} />);
 
   await expect
     .element(screen.getByRole('img', { includeHidden: true }))
@@ -12,7 +13,7 @@ test('is hidden from assistive tech without a label', async () => {
 });
 
 test('treats an empty label as decorative', async () => {
-  const screen = await render(<Icon name="home-line" label="" />);
+  const screen = await render(<Icon icon={RiHomeLine} label="" />);
 
   await expect
     .element(screen.getByRole('img', { includeHidden: true }))
@@ -21,7 +22,7 @@ test('treats an empty label as decorative', async () => {
 });
 
 test('exposes a labelled icon as an image with that name', async () => {
-  const screen = await render(<Icon name="error-warning-line" label="Error" />);
+  const screen = await render(<Icon icon={RiErrorWarningLine} label="Error" />);
 
   const image = screen.getByRole('img', { name: 'Error' });
 
@@ -32,7 +33,7 @@ test('exposes a labelled icon as an image with that name', async () => {
 test('is 1em square, so it scales with the surrounding font size', async () => {
   const screen = await render(
     <span style={{ fontSize: '32px' }}>
-      <Icon name="home-line" />
+      <Icon icon={RiHomeLine} />
     </span>,
   );
 
@@ -45,16 +46,10 @@ test('is 1em square, so it scales with the surrounding font size', async () => {
   expect(box.height).toBe(32);
 });
 
-test('only accepts icons the design system exposes', () => {
-  expectTypeOf<'home-line'>().toExtend<IconName>();
-  // rocket-line is a Remix icon, but not one the design system exposes.
-  expectTypeOf<'rocket-line'>().not.toExtend<IconName>();
-});
-
 test('does not accept className or style', async () => {
   const screen = await render(
     <Icon
-      name="home-line"
+      icon={RiHomeLine}
       // @ts-expect-error className is blocked
       className="mt-4"
       style={{ marginTop: 16 }}
@@ -70,7 +65,7 @@ test('does not accept className or style', async () => {
 test('does not accept DANGEROUS_className or DANGEROUS_style', async () => {
   const screen = await render(
     <Icon
-      name="home-line"
+      icon={RiHomeLine}
       // @ts-expect-error Icon has no DANGEROUS_ escape hatch
       DANGEROUS_className="mt-4"
       DANGEROUS_style={{ marginTop: 16 }}

@@ -1,10 +1,11 @@
-import { icons, type IconName } from './icons.ts';
-
-export type { IconName };
+import type { IconifyIcon } from '@iconify/types';
 
 type IconProps = {
-  /** Name of an exposed [Remix Icon](https://remixicon.com), e.g. `home-line`. */
-  name: IconName;
+  /**
+   * Remix icon to render, imported from `@larasell-dev/ui/icons`, e.g.
+   * `import { RiHomeLine } from '@larasell-dev/ui/icons'`.
+   */
+  icon: IconifyIcon;
   /**
    * Accessible name for the icon. Set this only when the icon is meaningful
    * on its own, such as a standalone status glyph with no adjacent text
@@ -22,18 +23,17 @@ type IconProps = {
   label?: string;
 };
 
-export function Icon({ name, label }: IconProps) {
+export function Icon({ icon, label }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      // Every Remix icon is drawn on a 24×24 grid.
-      viewBox="0 0 24 24"
+      viewBox={`0 0 ${icon.width ?? 16} ${icon.height ?? 16}`}
       width="1em"
       height="1em"
       role="img"
       {...(label ? { 'aria-label': label } : { 'aria-hidden': true })}
       // Trusted SVG markup from the pinned @iconify-icons/ri package.
-      dangerouslySetInnerHTML={{ __html: icons[name].body }}
+      dangerouslySetInnerHTML={{ __html: icon.body }}
     />
   );
 }
