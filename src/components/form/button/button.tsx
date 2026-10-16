@@ -15,8 +15,8 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary: [
-          'bg-mauve-950 text-mauve-50 not-data-disabled:hover:bg-mauve-800 not-data-disabled:active:bg-mauve-900',
-          'dark:bg-mauve-100 dark:text-mauve-950 dark:not-data-disabled:hover:bg-white',
+          'border border-mauve-950 bg-mauve-950 text-mauve-50 not-data-disabled:hover:border-mauve-800 not-data-disabled:hover:bg-mauve-800 not-data-disabled:active:border-mauve-900 not-data-disabled:active:bg-mauve-900',
+          'dark:border-mauve-100 dark:bg-mauve-100 dark:text-mauve-950 dark:not-data-disabled:hover:border-white dark:not-data-disabled:hover:bg-white',
         ],
         secondary: [
           'border border-mauve-200 bg-white text-mauve-950 not-data-disabled:hover:bg-mauve-100',
