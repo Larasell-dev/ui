@@ -1,0 +1,420 @@
+import { Meta, Unstyled } from '@storybook/addon-docs/blocks';
+import { Do, DoNot } from './guidelines.tsx';
+
+<Meta title="Foundations/Typography" />
+
+export const roles = [
+  {
+    name: 'Display',
+    purpose:
+      'Maximum emphasis for the single most important number or message on a screen.',
+    useFor: [
+      'Dashboard KPI values',
+      'Empty states',
+      'Login and onboarding screens',
+    ],
+    notFor: [
+      'Page titles. Use headline.',
+      'More than one display row per screen',
+    ],
+    font: 'Geist',
+    weights: 'semibold',
+    sample: '€12,430.50',
+    styles: [
+      {
+        token: 'display.lg',
+        base: 'type-display-lg',
+        mobile: '30 / 36',
+        desktop: '36 / 40',
+      },
+      {
+        token: 'display.md',
+        base: 'type-display-md',
+        mobile: '24 / 32',
+        desktop: '30 / 36',
+      },
+      {
+        token: 'display.sm',
+        base: 'type-display-sm',
+        mobile: '20 / 28',
+        desktop: '24 / 32',
+      },
+    ],
+  },
+  {
+    name: 'Headline',
+    purpose: 'Defines the main hierarchy of a page.',
+    useFor: ['Page titles (lg)', 'Sections inside a page (md)'],
+    notFor: ['Card and dialog titles. Use title.'],
+    font: 'Geist',
+    weights: 'semibold',
+    sample: 'Orders',
+    styles: [
+      {
+        token: 'headline.lg',
+        base: 'type-headline-lg',
+        mobile: '20 / 28',
+        desktop: '24 / 32',
+      },
+      {
+        token: 'headline.md',
+        base: 'type-headline-md',
+        mobile: '18 / 28',
+        desktop: '20 / 28',
+      },
+    ],
+  },
+  {
+    name: 'Title',
+    purpose: 'Secondary hierarchy that names a block of related content.',
+    useFor: [
+      'Dialog and drawer titles (lg)',
+      'Card titles (md)',
+      'Subsections, accordions and table groups (sm)',
+    ],
+    notFor: ['Page titles. Use headline.'],
+    font: 'Geist',
+    weights: 'medium',
+    sample: 'Shipping address',
+    styles: [
+      {
+        token: 'title.lg',
+        base: 'type-title-lg',
+        mobile: '18 / 28',
+        desktop: '18 / 28',
+      },
+      {
+        token: 'title.md',
+        base: 'type-title-md',
+        mobile: '16 / 24',
+        desktop: '16 / 24',
+      },
+      {
+        token: 'title.sm',
+        base: 'type-title-sm',
+        mobile: '14 / 20',
+        desktop: '14 / 20',
+      },
+    ],
+  },
+  {
+    name: 'Body',
+    purpose:
+      'Readable content. md is the default text size of the admin panel.',
+    useFor: [
+      'Descriptions, table cells, list items and dropdown options (md)',
+      'Longer text such as order notes (lg)',
+      'Compact tables (sm)',
+    ],
+    notFor: ['Text inside form controls. Use input.'],
+    font: 'Inter',
+    weights: 'normal (base) / medium (strong)',
+    sample: 'Jane Cooper placed an order for 3 items.',
+    styles: [
+      {
+        token: 'body.lg',
+        base: 'type-body-lg',
+        strong: 'type-body-lg-strong',
+        mobile: '16 / 24',
+        desktop: '16 / 24',
+      },
+      {
+        token: 'body.md',
+        base: 'type-body-md',
+        strong: 'type-body-md-strong',
+        mobile: '14 / 20',
+        desktop: '14 / 20',
+      },
+      {
+        token: 'body.sm',
+        base: 'type-body-sm',
+        strong: 'type-body-sm-strong',
+        mobile: '12 / 16',
+        desktop: '12 / 16',
+      },
+    ],
+  },
+  {
+    name: 'Label',
+    purpose: 'Names an interactive element or a piece of UI.',
+    useFor: [
+      'Buttons, form labels, tabs and navigation (md)',
+      'Badges, chips and table column headers (sm)',
+      'Large buttons (lg)',
+    ],
+    notFor: ['Sentences. Text that wraps onto multiple lines is body.'],
+    font: 'Inter',
+    weights: 'medium',
+    sample: 'Save changes',
+    styles: [
+      {
+        token: 'label.lg',
+        base: 'type-label-lg',
+        mobile: '16 / 24',
+        desktop: '16 / 24',
+      },
+      {
+        token: 'label.md',
+        base: 'type-label-md',
+        mobile: '14 / 20',
+        desktop: '14 / 20',
+      },
+      {
+        token: 'label.sm',
+        base: 'type-label-sm',
+        mobile: '12 / 16',
+        desktop: '12 / 16',
+      },
+    ],
+  },
+  {
+    name: 'Caption',
+    purpose:
+      'Supporting information that never competes with the primary content.',
+    useFor: [
+      'Help and error text under fields, page descriptions (lg)',
+      'Timestamps and secondary lines in table cells (md)',
+    ],
+    notFor: ['Anything the user must read to complete a task'],
+    font: 'Inter',
+    weights: 'normal (base) / medium (strong)',
+    sample: '3 items · Paid · 2 hours ago',
+    styles: [
+      {
+        token: 'caption.lg',
+        base: 'type-caption-lg',
+        strong: 'type-caption-lg-strong',
+        mobile: '14 / 20',
+        desktop: '14 / 20',
+      },
+      {
+        token: 'caption.md',
+        base: 'type-caption-md',
+        strong: 'type-caption-md-strong',
+        mobile: '12 / 16',
+        desktop: '12 / 16',
+      },
+    ],
+  },
+  {
+    name: 'Mono',
+    purpose:
+      'Technical values that need fixed character width. Uses tabular figures.',
+    useFor: [
+      'Order numbers, SKUs, API keys, tracking numbers and webhook payloads',
+      'Inside body text (md), in tables and badges (sm)',
+    ],
+    notFor: ['Prices and quantities. Use body with tabular-nums.'],
+    font: 'JetBrains Mono',
+    weights: 'normal',
+    sample: 'ORD-1042 · SKU-88231',
+    styles: [
+      {
+        token: 'mono.md',
+        base: 'type-mono-md',
+        mobile: '14 / 20',
+        desktop: '14 / 20',
+      },
+      {
+        token: 'mono.sm',
+        base: 'type-mono-sm',
+        mobile: '12 / 16',
+        desktop: '12 / 16',
+      },
+    ],
+  },
+  {
+    name: 'Input',
+    purpose: 'Text the user types or edits inside a form control.',
+    useFor: [
+      'Input and textarea values and placeholders',
+      'Select and combobox values',
+      'Search fields and inline-editable cells',
+    ],
+    notFor: [
+      'Field labels. Use label.md.',
+      'Help text. Use caption.lg.',
+      'Options in an open dropdown. Use body.md.',
+    ],
+    font: 'Inter',
+    weights: 'normal',
+    sample: 'jane@example.com',
+    styles: [
+      {
+        token: 'input.md',
+        base: 'type-input-md',
+        mobile: '16 / 24',
+        desktop: '14 / 20',
+      },
+    ],
+  },
+];
+
+export const Cell = ({ children, className = '' }) => (
+  <td className={`border-t border-mauve-200 py-3 pr-6 align-top ${className}`}>
+    {children}
+  </td>
+);
+
+export const HeaderCell = ({ children }) => (
+  <th className="pr-6 pb-2 text-left text-mauve-600 type-label-sm">
+    {children}
+  </th>
+);
+
+export const Items = ({ items }) => (
+  <ul className="list-disc space-y-1 pl-5">
+    {items.map((item) => (
+      <li key={item}>{item}</li>
+    ))}
+  </ul>
+);
+
+export const Detail = ({ term, children }) => (
+  <div className="flex items-baseline gap-2">
+    <dt className="text-mauve-600">{term}</dt>
+    <span
+      aria-hidden
+      className="flex-1 border-b border-dotted border-mauve-200"
+    />
+    <dd>{children}</dd>
+  </div>
+);
+
+export const Role = ({ role }) => (
+  <Unstyled>
+    <section className="my-10 font-sans text-mauve-950">
+      <h3 className="type-title-lg">{role.name}</h3>
+      <p className="mt-1 type-body-md">{role.purpose}</p>
+      <div className="mt-4 grid grid-cols-2 gap-6 border-b border-dashed border-mauve-200 pb-6">
+        <Do>
+          <Items items={role.useFor} />
+        </Do>
+        <DoNot>
+          <Items items={role.notFor} />
+        </DoNot>
+      </div>
+      <dl className="mt-6 flex max-w-sm flex-col gap-1 type-body-md">
+        <Detail term="Font">{role.font}</Detail>
+        <Detail term="Weight">{role.weights}</Detail>
+      </dl>
+      <table className="mt-6 w-full border-collapse">
+        <thead>
+          <tr>
+            <HeaderCell>Style</HeaderCell>
+            <HeaderCell>Class</HeaderCell>
+            <HeaderCell>Mobile (px)</HeaderCell>
+            <HeaderCell>Desktop (px)</HeaderCell>
+            <HeaderCell>Preview</HeaderCell>
+          </tr>
+        </thead>
+        <tbody>
+          {role.styles.map((style) => (
+            <tr key={style.token}>
+              <Cell className="type-mono-sm">{style.token}</Cell>
+              <Cell className="type-mono-sm">
+                <div>{style.base}</div>
+                {style.strong && (
+                  <div className="text-mauve-600">{style.strong}</div>
+                )}
+              </Cell>
+              <Cell className="whitespace-nowrap tabular-nums type-body-md">
+                {style.mobile}
+              </Cell>
+              <Cell className="whitespace-nowrap tabular-nums type-body-md">
+                {style.desktop}
+              </Cell>
+              <Cell className="w-1/2">
+                <div className={style.base}>{role.sample}</div>
+                {style.strong && (
+                  <div className={style.strong}>{role.sample}</div>
+                )}
+              </Cell>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+  </Unstyled>
+);
+
+# Typography
+
+Typography in this design system is a set of **semantic roles**, not a collection of font sizes. Each role describes the purpose of a piece of text. The size, weight, font and line height follow from that role.
+
+The system is built for a dense admin panel: the default text size is 14px (`body.md`), and only a few styles change between mobile and desktop.
+
+## How to pick a style
+
+- First, ask what the text is for: a page title, a card title, a button, help text, a typed value?
+- Then pick the role that matches that purpose.
+- Pick the size (`lg`, `md` or `sm`) that fits its place in the hierarchy.
+- Apply the style as-is, without overriding size or weight.
+
+If a role feels too big or too small somewhere, reconsider the purpose of the text instead of overriding the style.
+
+## Naming
+
+A text style is named `{role}.{size}.{emphasis}`. In code, the dots become dashes, the class is prefixed with `type-`, and the `base` emphasis is left out:
+
+- `body.md.base` is `type-body-md`
+- `body.md.strong` is `type-body-md-strong`
+
+Only body and caption have a `strong` emphasis, because strong is only for running text. See [Strong is only for running text](#strong-is-only-for-running-text) for when to use it.
+
+Names describe the purpose and never the visual value. `body.md` stays `body.md` even if it changes from 14px to 13px.
+
+The `type-` prefix avoids a clash with Tailwind's `text-*` classes, which are already used for both size and color.
+
+## Roles
+
+Previews render at the current width of the Storybook canvas. Display, headline and input switch to their desktop size from the `lg` breakpoint (1024px).
+
+{roles.map((role) => <Role key={role.name} role={role} />)}
+
+## Responsive modes
+
+The system has two modes: **mobile**, the default, and **desktop**, from the `lg` breakpoint (1024px). Tablets use the desktop mode because admins use desktop layouts on tablets.
+
+Only three roles change between modes:
+
+- **Display** and **headline** step one Tailwind size smaller on mobile.
+- **Input** is 16px on mobile and 14px on desktop. iOS Safari zooms into inputs with text smaller than 16px when they get focus.
+
+All other roles keep the same size everywhere, so components behave the same on every screen. Text styles contain no responsive logic themselves. The modes switch the underlying tokens, and every style follows automatically.
+
+An iPad in landscape is wider than 1024px, so it gets the desktop mode and 14px inputs.
+
+## Tokens
+
+The text styles are built from three layers, all defined in `src/theme.css`:
+
+- **Primitives** are Tailwind's default scale: `--text-sm`, `--font-weight-medium`, `--tracking-tight` and so on. They are never changed.
+- **Semantic tokens** point at primitives, per role and per size:
+  - `--type-body-font`, `--type-body-weight-base`, `--type-body-weight-strong`, `--type-body-tracking`
+  - `--type-body-md-size`, `--type-body-md-line-height`
+- **Text styles** are the `type-*` utilities. They only reference semantic tokens.
+
+To change the typography of the whole admin panel, change a semantic token. For example, pointing `--type-body-md-size` at a different primitive changes every component that uses `body.md`. Never change the primitives, and never add sizes outside Tailwind's default scale.
+
+## Rules
+
+- **Typography and color are separate.** A `type-*` class sets typography only. Color comes from its own class, such as `text-mauve-600`. There are no styles like `caption-muted` or `label-danger`.
+- **Components own their typography.** `Button`, `Label`, `Input`, `Field` and `Error` already apply the right style. Write a `type-*` class directly only for free-form content inside a page.
+- **No raw font classes.** Components never use `text-sm`, `font-medium` or `font-heading` directly.
+- **No overrides.** Don't use `DANGEROUS_className` to change the size or weight of a component's text. Pick a different role or size instead.
+- **Strong is only for running text.**<span id="strong-is-only-for-running-text" /> Use `strong` to emphasize part of a sentence, such as the customer name in a
+  table row ("**Jane Cooper** placed an order") or a key fact in a caption
+  ("Ships **tomorrow**"). That's why only body and caption have it. Display,
+  headline, title and label are single names where the whole text is one unit:
+  to make one stand out more, use a different role or size. Mono values are read
+  character by character, so emphasis doesn't help there either.
+- **Selected states aren't strong.** Don't make an active tab or nav item bold: bolder text is wider and shifts the layout. Use color or an indicator in the component instead.
+- **Use only the sizes that exist.** Some roles deliberately have no `sm` or `lg`. Don't borrow a size from another role to fill the gap.
+
+## Components
+
+- `Button` uses `label.md`.
+- `Label` uses `label.md`, and its "(Optional)" marker uses `caption.lg`.
+- `Input` uses `input.md`.
+- `Field` descriptions and `Error` use `caption.lg`.

@@ -1,7 +1,7 @@
 import { defineMain } from '@storybook/react-vite/node';
 
 export default defineMain({
-  stories: ['../src/**/*.stories.@(ts|tsx)'],
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(ts|tsx)'],
   addons: ['@storybook/addon-docs'],
   core: {
     // Amp orb portals proxy Storybook through *.onamp.dev.
