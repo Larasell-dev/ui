@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   pack: {
     entry: ['src/index.ts', 'src/icons.ts'],
-    dts: true,
+    dts: { tsconfig: 'tsconfig.build.json' },
     ignore: ['**/*.stories.tsx', '**/*.test.tsx', '.storybook/**'],
   },
   lint: {
