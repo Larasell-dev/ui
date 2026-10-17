@@ -33,14 +33,16 @@ export function TableRoot({
   DANGEROUS_style,
 }: TableRootProps) {
   const [columnCount, setColumnCount] = useState(0);
+  const [actionsCount, setActionsCount] = useState(0);
   const frameRef = useRef<HTMLDivElement>(null);
   // Unique per table so the body's focus ring anchors to its own body.
   const bodyAnchor = `--table-body-${useId().replace(/[^\w-]/g, '')}`;
   const context = useMemo(
     () => ({
-      registerColumn: () => {
-        setColumnCount((count) => count + 1);
-        return () => setColumnCount((count) => count - 1);
+      registerColumn: (type: 'data' | 'action') => {
+        const setCount = type === 'action' ? setActionsCount : setColumnCount;
+        setCount((count) => count + 1);
+        return () => setCount((count) => count - 1);
       },
       scrollBodyToTop: () => {
         frameRef.current?.querySelector('tbody')?.scrollTo({ top: 0 });
@@ -61,6 +63,8 @@ export function TableRoot({
         )}
         style={{
           '--table-columns': Math.max(columnCount, 1),
+          // Fits the actions trigger and the cell's padding.
+          '--table-actions': actionsCount > 0 ? '4.25rem' : undefined,
           '--table-body-anchor': bodyAnchor,
           ...DANGEROUS_style,
         }}

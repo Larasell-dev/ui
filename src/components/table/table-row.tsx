@@ -4,7 +4,7 @@ import type { MouseEventHandler, ReactNode } from 'react';
 import { cn } from 'cn';
 
 export const rowGrid =
-  'grid grid-cols-[repeat(var(--table-columns),minmax(0,1fr))]';
+  'grid grid-cols-[repeat(var(--table-columns),minmax(0,1fr))_var(--table-actions,)]';
 
 type TableRowProps = {
   children?: ReactNode;
