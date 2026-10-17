@@ -1,5 +1,6 @@
-import type { ReactNode } from 'react';
+import { useRef, type ReactNode } from 'react';
 import preview from '../../.storybook/preview.tsx';
+import { useScrollMaskScrollbar } from '../utils/use-scroll-mask-scrollbar.ts';
 
 const meta = preview.meta({
   title: 'Foundations/Scroll mask',
@@ -174,22 +175,37 @@ export const NoOverflow = meta.story({
   ),
 });
 
+/** A vertical scroll-mask box whose scrollbar is kept out of the fade. */
+function MaskedList({ className }: { className: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  useScrollMaskScrollbar(ref);
+  return (
+    <div ref={ref} className={className}>
+      <List />
+    </div>
+  );
+}
+
 /**
- * The fade only covers the content. The scrollbar case is only visible with
- * classic scrollbars (Windows, Linux, or macOS with "Show scroll bars:
- * Always"); overlay scrollbars sit on top of the content.
+ * The fade only covers the content. Browsers treat the scrollbar as content
+ * for masks, so `useScrollMaskScrollbar` measures it. The scrollbar cases only
+ * differ with classic scrollbars (Windows, Linux, or macOS with "Show scroll
+ * bars: Always").
  */
 export const BorderAndScrollbar = meta.story({
   render: () => (
     <div className="flex flex-wrap gap-8">
       <Case title="Thick border: only the content fades">
-        <div
+        <MaskedList
           className={`scroll-mask-y h-64 w-72 overflow-y-auto ${box} border-primary-500 border-4`}
-        >
-          <List />
-        </div>
+        />
       </Case>
-      <Case title="Always-visible scrollbar stays unfaded">
+      <Case title="With useScrollMaskScrollbar: the scrollbar stays">
+        <MaskedList
+          className={`scroll-mask-y h-64 w-72 overflow-y-scroll ${box}`}
+        />
+      </Case>
+      <Case title="Without it: the scrollbar fades">
         <div className={`scroll-mask-y h-64 w-72 overflow-y-scroll ${box}`}>
           <List />
         </div>
