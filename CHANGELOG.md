@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.8](https://github.com/Larasell-dev/ui/compare/v0.1.7...v0.1.8) (2026-10-17)
+
+
+### Features
+
+* add DataList for showing table data on mobile ([#51](https://github.com/Larasell-dev/ui/issues/51)) ([437ec2d](https://github.com/Larasell-dev/ui/commit/437ec2d99de2b8480305737454142fa182b33395))
+* add table row actions menu ([#53](https://github.com/Larasell-dev/ui/issues/53)) ([96a3be9](https://github.com/Larasell-dev/ui/commit/96a3be9eb9c085e2a809dc6a6530985d28aa0256))
+
 ## [0.1.7](https://github.com/Larasell-dev/ui/compare/v0.1.6...v0.1.7) (2026-10-17)
 
 
