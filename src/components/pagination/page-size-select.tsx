@@ -1,9 +1,11 @@
 import { Select } from '@base-ui/react/select';
 import ArrowDownSLine from '@iconify-icons/ri/arrow-down-s-line';
 import CheckLine from '@iconify-icons/ri/check-line';
+import { AnimatePresence } from 'motion/react';
 import { useState } from 'react';
 import { cn } from 'cn';
 import { Icon } from '../icon/icon.tsx';
+import { PopupMotion } from '../../utils/popup-motion.tsx';
 
 type PageSizeSelectProps = {
   value: number;
@@ -54,33 +56,44 @@ export function PageSizeSelect({
         </Select.Icon>
       </Select.Trigger>
       <Select.Portal>
-        <Select.Positioner sideOffset={4} className="z-50 outline-none">
-          <Select.Popup
-            className={cn(
-              'min-w-(--anchor-width) border border-mauve-200 bg-white shadow-md',
-              'dark:border-mauve-700 dark:bg-mauve-900',
-            )}
-          >
-            {options.map((option) => (
-              <Select.Item
-                key={option}
-                value={option}
+        <AnimatePresence>
+          {open && !disabled && (
+            <Select.Positioner
+              alignItemWithTrigger={false}
+              sideOffset={4}
+              className="z-50 outline-none"
+            >
+              <Select.Popup
+                render={(props, state) => (
+                  <PopupMotion {...props} side={state.side} />
+                )}
                 className={cn(
-                  'type-label-md grid cursor-pointer grid-cols-[1rem_1fr] items-center gap-2 py-1.5 pr-4 pl-2 text-mauve-950 tabular-nums outline-none select-none',
-                  'data-highlighted:bg-mauve-100',
-                  'dark:text-mauve-100 dark:data-highlighted:bg-mauve-800',
+                  'min-w-(--anchor-width) border border-mauve-200 bg-white shadow-md',
+                  'dark:border-mauve-700 dark:bg-mauve-900',
                 )}
               >
-                <Select.ItemIndicator className="col-start-1 flex">
-                  <Icon icon={CheckLine} />
-                </Select.ItemIndicator>
-                <Select.ItemText className="col-start-2">
-                  {option}
-                </Select.ItemText>
-              </Select.Item>
-            ))}
-          </Select.Popup>
-        </Select.Positioner>
+                {options.map((option) => (
+                  <Select.Item
+                    key={option}
+                    value={option}
+                    className={cn(
+                      'type-label-md grid cursor-pointer grid-cols-[1rem_1fr] items-center gap-2 py-1.5 pr-4 pl-2 text-mauve-950 tabular-nums outline-none select-none',
+                      'data-highlighted:bg-mauve-100',
+                      'dark:text-mauve-100 dark:data-highlighted:bg-mauve-800',
+                    )}
+                  >
+                    <Select.ItemIndicator className="col-start-1 flex">
+                      <Icon icon={CheckLine} />
+                    </Select.ItemIndicator>
+                    <Select.ItemText className="col-start-2">
+                      {option}
+                    </Select.ItemText>
+                  </Select.Item>
+                ))}
+              </Select.Popup>
+            </Select.Positioner>
+          )}
+        </AnimatePresence>
       </Select.Portal>
     </Select.Root>
   );

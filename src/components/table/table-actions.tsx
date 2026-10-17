@@ -1,6 +1,8 @@
 import { Menu } from '@base-ui/react/menu';
 import type { useRender } from '@base-ui/react/use-render';
 import More2Fill from '@iconify-icons/ri/more-2-fill';
+import { AnimatePresence } from 'motion/react';
+import { createContext, useContext, useState } from 'react';
 import type {
   CSSProperties,
   MouseEvent,
@@ -12,6 +14,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from 'cn';
 import { Icon } from '../icon/icon.tsx';
 import { withoutStyling } from '../../utils/without-styling.ts';
+import { PopupMotion } from '../../utils/popup-motion.tsx';
 
 // Menus open from inside rows, and React bubbles events through portals, so
 // clicks in the menu would otherwise reach a clickable row.
@@ -23,9 +26,31 @@ type TableActionsProps = Pick<
 >;
 
 /** A row's menu of actions. Put it in its own cell, usually the last. */
-export function TableActions(props: TableActionsProps) {
-  return <Menu.Root {...props} />;
+export function TableActions({
+  open: openProp,
+  defaultOpen = false,
+  onOpenChange,
+  ...props
+}: TableActionsProps) {
+  // The popup needs to know whether the menu is open to animate its exit.
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
+  const open = openProp ?? uncontrolledOpen;
+
+  return (
+    <OpenContext value={open}>
+      <Menu.Root
+        {...props}
+        open={open}
+        onOpenChange={(next, details) => {
+          setUncontrolledOpen(next);
+          onOpenChange?.(next, details);
+        }}
+      />
+    </OpenContext>
+  );
 }
+
+const OpenContext = createContext(false);
 
 type TableActionsTriggerProps = {
   /** Name the row, e.g. "Actions for #1001"; the button has only an icon. */
@@ -65,24 +90,33 @@ type TableActionsPopupProps = {
 };
 
 export function TableActionsPopup({ children }: TableActionsPopupProps) {
+  const open = useContext(OpenContext);
+
   return (
-    <Menu.Portal>
-      <Menu.Positioner
-        sideOffset={4}
-        align="end"
-        className="z-50 outline-none"
-        onClick={stopPropagation}
-      >
-        <Menu.Popup
-          className={cn(
-            'min-w-40 border border-mauve-200 bg-white shadow-md outline-none',
-            'dark:border-mauve-700 dark:bg-mauve-900',
-          )}
-        >
-          {children}
-        </Menu.Popup>
-      </Menu.Positioner>
-    </Menu.Portal>
+    <AnimatePresence>
+      {open && (
+        <Menu.Portal keepMounted>
+          <Menu.Positioner
+            sideOffset={4}
+            align="end"
+            className="z-50 outline-none"
+            onClick={stopPropagation}
+          >
+            <Menu.Popup
+              render={(props, state) => (
+                <PopupMotion {...props} side={state.side} />
+              )}
+              className={cn(
+                'min-w-40 border border-mauve-200 bg-white shadow-md outline-none',
+                'dark:border-mauve-700 dark:bg-mauve-900',
+              )}
+            >
+              {children}
+            </Menu.Popup>
+          </Menu.Positioner>
+        </Menu.Portal>
+      )}
+    </AnimatePresence>
   );
 }
 
