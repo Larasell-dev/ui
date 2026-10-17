@@ -21,7 +21,9 @@ type TableRootProps = {
 
 /**
  * The table's frame. Fills the height of its parent: give the parent a height
- * (or a max height) to make the body scroll under a sticky header.
+ * (or a max height) to make the body scroll under a sticky header. It has no
+ * outer border: it is meant for full-width layouts, where the surrounding page
+ * draws the edges.
  */
 export function TableRoot({
   children,
@@ -54,7 +56,7 @@ export function TableRoot({
       <div
         ref={frameRef}
         className={cn(
-          'flex h-full max-h-full min-h-0 w-full flex-col border border-mauve-200 bg-white dark:border-mauve-700 dark:bg-mauve-900',
+          'flex h-full max-h-full min-h-0 w-full flex-col bg-white dark:bg-mauve-900',
           DANGEROUS_className,
         )}
         style={{
