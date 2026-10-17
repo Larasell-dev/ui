@@ -1,4 +1,4 @@
-import { Children, useLayoutEffect, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useTableContext } from './table-context.ts';
 import { rowGrid } from './table-row.tsx';
 
@@ -8,12 +8,7 @@ type TableHeaderProps = {
 };
 
 export function TableHeader({ children }: TableHeaderProps) {
-  const { setColumnCount } = useTableContext('Header');
-  const count = Children.toArray(children).length;
-
-  useLayoutEffect(() => {
-    setColumnCount(Math.max(count, 1));
-  }, [count, setColumnCount]);
+  useTableContext('Header');
 
   return (
     // The hidden overflow reserves the same scrollbar gutter as the body, so

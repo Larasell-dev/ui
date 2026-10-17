@@ -47,3 +47,39 @@ test('a part outside Table.Root throws', async () => {
     '<Table.Body> must be inside <Table.Root>.',
   );
 });
+
+test('counts columns rendered inside fragments and components', async () => {
+  function ExtraColumns() {
+    return (
+      <>
+        <Table.Column>Status</Table.Column>
+        <Table.Column>Total</Table.Column>
+      </>
+    );
+  }
+  function Orders({ showTotal }: { showTotal: boolean }) {
+    return (
+      <Table.Root aria-label="Orders">
+        <Table.Header>
+          <>
+            <Table.Column>Order</Table.Column>
+            <Table.Column>Customer</Table.Column>
+          </>
+          {showTotal && <ExtraColumns />}
+        </Table.Header>
+        <Table.Body />
+      </Table.Root>
+    );
+  }
+
+  const screen = await render(<Orders showTotal />);
+  const table = screen.getByRole('table', { name: 'Orders' });
+  await expect
+    .element(table)
+    .toHaveAttribute('style', expect.stringContaining('--table-columns: 4;'));
+
+  await screen.rerender(<Orders showTotal={false} />);
+  await expect
+    .element(table)
+    .toHaveAttribute('style', expect.stringContaining('--table-columns: 2;'));
+});

@@ -29,13 +29,16 @@ export function TableRoot({
   DANGEROUS_className,
   ...props
 }: TableRootProps) {
-  const [columnCount, setColumnCount] = useState(1);
+  const [columnCount, setColumnCount] = useState(0);
   const tableRef = useRef<HTMLTableElement>(null);
   // Unique per table so the body's focus ring anchors to its own body.
   const bodyAnchor = `--table-body-${useId().replace(/[^\w-]/g, '')}`;
   const context = useMemo(
     () => ({
-      setColumnCount,
+      registerColumn: () => {
+        setColumnCount((count) => count + 1);
+        return () => setColumnCount((count) => count - 1);
+      },
       scrollBodyToTop: () => {
         tableRef.current?.querySelector('tbody')?.scrollTo({ top: 0 });
       },
@@ -69,7 +72,7 @@ export function TableRoot({
           role="table"
           style={
             {
-              '--table-columns': columnCount,
+              '--table-columns': Math.max(columnCount, 1),
               '--table-body-anchor': bodyAnchor,
             } as CSSProperties
           }

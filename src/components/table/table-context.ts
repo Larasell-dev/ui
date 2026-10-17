@@ -1,7 +1,8 @@
 import { createContext, useContext } from 'react';
 
 export type TableContextValue = {
-  setColumnCount: (count: number) => void;
+  /** Counts a column; returns the cleanup that uncounts it. */
+  registerColumn: () => () => void;
   scrollBodyToTop: () => void;
 };
 
