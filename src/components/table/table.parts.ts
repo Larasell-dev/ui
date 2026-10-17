@@ -7,3 +7,7 @@ export { TableRow as Row } from './table-row.tsx';
 export { TableCell as Cell } from './table-cell.tsx';
 export { TableLink as Link } from './table-link.tsx';
 export { TablePagination as Pagination } from './table-pagination.tsx';
+export { TableActions as Actions } from './table-actions.tsx';
+export { TableActionsTrigger as ActionsTrigger } from './table-actions.tsx';
+export { TableActionsPopup as ActionsPopup } from './table-actions.tsx';
+export { TableActionsItem as ActionsItem } from './table-actions.tsx';

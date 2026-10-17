@@ -1,8 +1,11 @@
 import { createContext, useContext } from 'react';
 
 export type TableContextValue = {
-  /** Counts a column; returns the cleanup that uncounts it. */
-  registerColumn: () => () => void;
+  /**
+   * Counts a column; returns the cleanup that uncounts it. The actions column
+   * is counted apart, as it gets a fixed-width track at the end.
+   */
+  registerColumn: (type: 'data' | 'action') => () => void;
   scrollBodyToTop: () => void;
   /** The table's accessible name, set on `<Table.Root>`. */
   'aria-label'?: string;
