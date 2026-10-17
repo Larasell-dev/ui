@@ -4,4 +4,5 @@ export { TableColumn as Column } from './table-column.tsx';
 export { TableBody as Body } from './table-body.tsx';
 export { TableRow as Row } from './table-row.tsx';
 export { TableCell as Cell } from './table-cell.tsx';
+export { TableLink as Link } from './table-link.tsx';
 export { TablePagination as Pagination } from './table-pagination.tsx';

@@ -1,4 +1,5 @@
 import { expect, test, vi } from 'vite-plus/test';
+import { userEvent } from 'vite-plus/test/browser';
 import { render } from 'vitest-browser-react';
 import { Table } from './table.ts';
 
@@ -84,37 +85,54 @@ test('counts columns rendered inside fragments and components', async () => {
     .toHaveAttribute('style', expect.stringContaining('--table-columns: 2;'));
 });
 
-test('a row renders as the element passed to render', async () => {
+test('link rows keep table semantics and take one tab stop each', async () => {
   const screen = await render(
-    <Table.Root aria-label="Orders">
-      <Table.Header>
-        <Table.Column>Order</Table.Column>
-      </Table.Header>
-      <Table.Body>
-        <Table.Row render={<a href="#order-1001" />}>
-          <Table.Cell>#1001</Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell>#1002</Table.Cell>
-        </Table.Row>
-      </Table.Body>
-    </Table.Root>,
+    <>
+      <Table.Root aria-label="Orders">
+        <Table.Header>
+          <Table.Column>Order</Table.Column>
+          <Table.Column>Customer</Table.Column>
+        </Table.Header>
+        <Table.Body>
+          {['1001', '1002'].map((id) => (
+            <Table.Row key={id}>
+              <Table.Cell>
+                <Table.Link render={<a href={`#order-${id}`} />}>
+                  #{id}
+                </Table.Link>
+              </Table.Cell>
+              <Table.Cell>Ada Lovelace</Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table.Root>
+      <button>After</button>
+    </>,
   );
 
   const rows = screen.getByRole('row');
-  const link = rows.nth(1).element();
-  expect(link.tagName).toBe('A');
-  expect(link.getAttribute('href')).toBe('#order-1001');
-  expect(link.textContent).toBe('#1001');
-  expect(rows.nth(2).element().tagName).toBe('TR');
+  expect(rows.nth(1).element().tagName).toBe('TR');
+  const first = rows.nth(1).getByRole('link', { name: '#1001' });
+  const second = rows.nth(2).getByRole('link', { name: '#1002' });
+  await expect.element(first).toHaveAttribute('href', '#order-1001');
 
-  await rows.nth(1).click();
-  expect(window.location.hash).toBe('#order-1001');
+  await userEvent.tab();
+  await expect.element(first).toHaveFocus();
+  await userEvent.tab();
+  await expect.element(second).toHaveFocus();
+  await userEvent.tab();
+  await expect
+    .element(screen.getByRole('button', { name: 'After' }))
+    .toHaveFocus();
+
+  await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+  await userEvent.keyboard('{Enter}');
+  expect(window.location.hash).toBe('#order-1002');
 });
 
-test('a rendered row merges its props with the row props', async () => {
+test('a row renders as the element passed to render, merging props', async () => {
   const onRowClick = vi.fn();
-  const onLinkClick = vi.fn();
+  const onElementClick = vi.fn();
   const screen = await render(
     <Table.Root aria-label="Orders">
       <Table.Header>
@@ -123,7 +141,9 @@ test('a rendered row merges its props with the row props', async () => {
       <Table.Body>
         <Table.Row
           onClick={onRowClick}
-          render={<a href="#order" className="custom" onClick={onLinkClick} />}
+          render={
+            <tr data-order="1001" className="custom" onClick={onElementClick} />
+          }
         >
           <Table.Cell>#1001</Table.Cell>
         </Table.Row>
@@ -132,10 +152,11 @@ test('a rendered row merges its props with the row props', async () => {
   );
 
   const row = screen.getByRole('row').nth(1);
+  await expect.element(row).toHaveAttribute('data-order', '1001');
   await expect.element(row).toHaveClass('custom');
   await expect.element(row).toHaveClass('grid');
 
   await row.click();
   expect(onRowClick).toHaveBeenCalledOnce();
-  expect(onLinkClick).toHaveBeenCalledOnce();
+  expect(onElementClick).toHaveBeenCalledOnce();
 });

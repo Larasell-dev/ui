@@ -122,11 +122,12 @@ export const LinkRows = meta.story({
       <OrderHeader />
       <Table.Body>
         {allOrders.slice(0, 20).map((order) => (
-          <Table.Row
-            key={order.id}
-            render={<a href={`#order-${order.id.slice(1)}`} />}
-          >
-            <Table.Cell>{order.id}</Table.Cell>
+          <Table.Row key={order.id}>
+            <Table.Cell>
+              <Table.Link render={<a href={`#order-${order.id.slice(1)}`} />}>
+                {order.id}
+              </Table.Link>
+            </Table.Cell>
             <Table.Cell>{order.customer}</Table.Cell>
             <Table.Cell>{order.status}</Table.Cell>
             <Table.Cell>{order.total}</Table.Cell>
