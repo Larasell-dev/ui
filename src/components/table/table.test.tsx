@@ -7,18 +7,20 @@ function Orders({ rows }: { rows: number }) {
   return (
     <div style={{ height: 300 }}>
       <Table.Root aria-label="Orders">
-        <Table.Header>
-          <Table.Column>Order</Table.Column>
-          <Table.Column>Customer</Table.Column>
-        </Table.Header>
-        <Table.Body>
-          {Array.from({ length: rows }, (_, index) => (
-            <Table.Row key={index}>
-              <Table.Cell>#{index + 1}</Table.Cell>
-              <Table.Cell>Customer {index + 1}</Table.Cell>
-            </Table.Row>
-          ))}
-        </Table.Body>
+        <Table.Content>
+          <Table.Header>
+            <Table.Column>Order</Table.Column>
+            <Table.Column>Customer</Table.Column>
+          </Table.Header>
+          <Table.Body>
+            {Array.from({ length: rows }, (_, index) => (
+              <Table.Row key={index}>
+                <Table.Cell>#{index + 1}</Table.Cell>
+                <Table.Cell>Customer {index + 1}</Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table.Content>
         <Table.Pagination
           page={1}
           pageSize={25}
@@ -61,50 +63,56 @@ test('counts columns rendered inside fragments and components', async () => {
   function Orders({ showTotal }: { showTotal: boolean }) {
     return (
       <Table.Root aria-label="Orders">
-        <Table.Header>
-          <>
-            <Table.Column>Order</Table.Column>
-            <Table.Column>Customer</Table.Column>
-          </>
-          {showTotal && <ExtraColumns />}
-        </Table.Header>
-        <Table.Body />
+        <Table.Content>
+          <Table.Header>
+            <>
+              <Table.Column>Order</Table.Column>
+              <Table.Column>Customer</Table.Column>
+            </>
+            {showTotal && <ExtraColumns />}
+          </Table.Header>
+          <Table.Body />
+        </Table.Content>
       </Table.Root>
     );
   }
 
   const screen = await render(<Orders showTotal />);
+  // The column count is set on the frame, which wraps the table.
   const table = screen.getByRole('table', { name: 'Orders' });
+  const frame = table.element().parentElement!;
   await expect
-    .element(table)
-    .toHaveAttribute('style', expect.stringContaining('--table-columns: 4;'));
+    .poll(() => frame.style.getPropertyValue('--table-columns'))
+    .toBe('4');
 
   await screen.rerender(<Orders showTotal={false} />);
   await expect
-    .element(table)
-    .toHaveAttribute('style', expect.stringContaining('--table-columns: 2;'));
+    .poll(() => frame.style.getPropertyValue('--table-columns'))
+    .toBe('2');
 });
 
 test('link rows keep table semantics and take one tab stop each', async () => {
   const screen = await render(
     <>
       <Table.Root aria-label="Orders">
-        <Table.Header>
-          <Table.Column>Order</Table.Column>
-          <Table.Column>Customer</Table.Column>
-        </Table.Header>
-        <Table.Body>
-          {['1001', '1002'].map((id) => (
-            <Table.Row key={id}>
-              <Table.Cell>
-                <Table.Link render={<a href={`#order-${id}`} />}>
-                  #{id}
-                </Table.Link>
-              </Table.Cell>
-              <Table.Cell>Ada Lovelace</Table.Cell>
-            </Table.Row>
-          ))}
-        </Table.Body>
+        <Table.Content>
+          <Table.Header>
+            <Table.Column>Order</Table.Column>
+            <Table.Column>Customer</Table.Column>
+          </Table.Header>
+          <Table.Body>
+            {['1001', '1002'].map((id) => (
+              <Table.Row key={id}>
+                <Table.Cell>
+                  <Table.Link render={<a href={`#order-${id}`} />}>
+                    #{id}
+                  </Table.Link>
+                </Table.Cell>
+                <Table.Cell>Ada Lovelace</Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table.Content>
       </Table.Root>
       <button>After</button>
     </>,
@@ -135,17 +143,19 @@ test('a row renders as the element passed to render, merging props', async () =>
   const onElementClick = vi.fn();
   const screen = await render(
     <Table.Root aria-label="Orders">
-      <Table.Header>
-        <Table.Column>Order</Table.Column>
-      </Table.Header>
-      <Table.Body>
-        <Table.Row
-          onClick={onRowClick}
-          render={<tr data-order="1001" onClick={onElementClick} />}
-        >
-          <Table.Cell>#1001</Table.Cell>
-        </Table.Row>
-      </Table.Body>
+      <Table.Content>
+        <Table.Header>
+          <Table.Column>Order</Table.Column>
+        </Table.Header>
+        <Table.Body>
+          <Table.Row
+            onClick={onRowClick}
+            render={<tr data-order="1001" onClick={onElementClick} />}
+          >
+            <Table.Cell>#1001</Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table.Content>
     </Table.Root>,
   );
 
@@ -161,31 +171,33 @@ test('a row renders as the element passed to render, merging props', async () =>
 test('render cannot restyle a row or a link', async () => {
   const screen = await render(
     <Table.Root aria-label="Orders">
-      <Table.Header>
-        <Table.Column>Order</Table.Column>
-      </Table.Header>
-      <Table.Body>
-        <Table.Row
-          render={<tr className="mt-4" style={{ marginTop: '16px' }} />}
-        >
-          <Table.Cell>
-            <Table.Link
-              render={
-                <a
-                  href="#order"
-                  className="text-red-500"
-                  style={{ color: 'rgb(255, 0, 0)' }}
-                />
-              }
-            >
-              #1001
-            </Table.Link>
-          </Table.Cell>
-        </Table.Row>
-        <Table.Row render={(props) => <tr {...props} className="mt-4" />}>
-          <Table.Cell>#1002</Table.Cell>
-        </Table.Row>
-      </Table.Body>
+      <Table.Content>
+        <Table.Header>
+          <Table.Column>Order</Table.Column>
+        </Table.Header>
+        <Table.Body>
+          <Table.Row
+            render={<tr className="mt-4" style={{ marginTop: '16px' }} />}
+          >
+            <Table.Cell>
+              <Table.Link
+                render={
+                  <a
+                    href="#order"
+                    className="text-red-500"
+                    style={{ color: 'rgb(255, 0, 0)' }}
+                  />
+                }
+              >
+                #1001
+              </Table.Link>
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row render={(props) => <tr {...props} className="mt-4" />}>
+            <Table.Cell>#1002</Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table.Content>
     </Table.Root>,
   );
 
@@ -211,14 +223,55 @@ test('Table.Root applies DANGEROUS_className and DANGEROUS_style', async () => {
       DANGEROUS_className="mt-4"
       DANGEROUS_style={{ marginTop: '16px' }}
     >
-      <Table.Header>
-        <Table.Column>Order</Table.Column>
-      </Table.Header>
-      <Table.Body />
+      <Table.Content>
+        <Table.Header>
+          <Table.Column>Order</Table.Column>
+        </Table.Header>
+        <Table.Body />
+      </Table.Content>
     </Table.Root>,
   );
 
   const frame = screen.getByRole('table').element().parentElement!;
   expect(frame.classList.contains('mt-4')).toBe(true);
   expect(frame.style.marginTop).toBe('16px');
+});
+
+test('the pagination renders outside the table, wherever it is nested', async () => {
+  function Footer() {
+    return (
+      <>
+        <Table.Pagination
+          page={1}
+          pageSize={25}
+          total={240}
+          onPaginationChange={vi.fn()}
+        />
+      </>
+    );
+  }
+
+  const screen = await render(
+    <Table.Root aria-label="Orders">
+      <Table.Content>
+        <Table.Header>
+          <Table.Column>Order</Table.Column>
+        </Table.Header>
+        <Table.Body>
+          <Table.Row>
+            <Table.Cell>#1001</Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table.Content>
+      <Footer />
+    </Table.Root>,
+  );
+
+  const table = screen.getByRole('table', { name: 'Orders' }).element();
+  expect(table.tagName).toBe('TABLE');
+  expect(table.querySelector('thead')).not.toBeNull();
+  expect(table.querySelector('tbody')).not.toBeNull();
+
+  const nav = screen.getByRole('navigation', { name: 'Pagination' }).element();
+  expect(table.contains(nav)).toBe(false);
 });

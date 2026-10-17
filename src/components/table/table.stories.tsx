@@ -79,10 +79,12 @@ const meta = preview.meta({
 export const Default = meta.story({
   render: () => (
     <Table.Root aria-label="Orders">
-      <OrderHeader />
-      <Table.Body>
-        <OrderRows orders={allOrders.slice(0, 5)} />
-      </Table.Body>
+      <Table.Content>
+        <OrderHeader />
+        <Table.Body>
+          <OrderRows orders={allOrders.slice(0, 5)} />
+        </Table.Body>
+      </Table.Content>
     </Table.Root>
   ),
 });
@@ -90,10 +92,12 @@ export const Default = meta.story({
 export const ScrollingBody = meta.story({
   render: () => (
     <Table.Root aria-label="Orders">
-      <OrderHeader />
-      <Table.Body>
-        <OrderRows orders={allOrders.slice(0, 40)} />
-      </Table.Body>
+      <Table.Content>
+        <OrderHeader />
+        <Table.Body>
+          <OrderRows orders={allOrders.slice(0, 40)} />
+        </Table.Body>
+      </Table.Content>
     </Table.Root>
   ),
 });
@@ -101,17 +105,19 @@ export const ScrollingBody = meta.story({
 export const ClickableRows = meta.story({
   render: () => (
     <Table.Root aria-label="Orders">
-      <OrderHeader />
-      <Table.Body>
-        {allOrders.slice(0, 20).map((order) => (
-          <Table.Row key={order.id} onClick={() => onRowClick(order.id)}>
-            <Table.Cell>{order.id}</Table.Cell>
-            <Table.Cell>{order.customer}</Table.Cell>
-            <Table.Cell>{order.status}</Table.Cell>
-            <Table.Cell>{order.total}</Table.Cell>
-          </Table.Row>
-        ))}
-      </Table.Body>
+      <Table.Content>
+        <OrderHeader />
+        <Table.Body>
+          {allOrders.slice(0, 20).map((order) => (
+            <Table.Row key={order.id} onClick={() => onRowClick(order.id)}>
+              <Table.Cell>{order.id}</Table.Cell>
+              <Table.Cell>{order.customer}</Table.Cell>
+              <Table.Cell>{order.status}</Table.Cell>
+              <Table.Cell>{order.total}</Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table.Content>
     </Table.Root>
   ),
 });
@@ -119,21 +125,23 @@ export const ClickableRows = meta.story({
 export const LinkRows = meta.story({
   render: () => (
     <Table.Root aria-label="Orders">
-      <OrderHeader />
-      <Table.Body>
-        {allOrders.slice(0, 20).map((order) => (
-          <Table.Row key={order.id}>
-            <Table.Cell>
-              <Table.Link render={<a href={`#order-${order.id.slice(1)}`} />}>
-                {order.id}
-              </Table.Link>
-            </Table.Cell>
-            <Table.Cell>{order.customer}</Table.Cell>
-            <Table.Cell>{order.status}</Table.Cell>
-            <Table.Cell>{order.total}</Table.Cell>
-          </Table.Row>
-        ))}
-      </Table.Body>
+      <Table.Content>
+        <OrderHeader />
+        <Table.Body>
+          {allOrders.slice(0, 20).map((order) => (
+            <Table.Row key={order.id}>
+              <Table.Cell>
+                <Table.Link render={<a href={`#order-${order.id.slice(1)}`} />}>
+                  {order.id}
+                </Table.Link>
+              </Table.Cell>
+              <Table.Cell>{order.customer}</Table.Cell>
+              <Table.Cell>{order.status}</Table.Cell>
+              <Table.Cell>{order.total}</Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table.Content>
     </Table.Root>
   ),
 });
@@ -161,10 +169,12 @@ function ServerPaginatedOrders() {
 
   return (
     <Table.Root aria-label="Orders">
-      <OrderHeader />
-      <Table.Body>
-        <OrderRows orders={orders} />
-      </Table.Body>
+      <Table.Content>
+        <OrderHeader />
+        <Table.Body>
+          <OrderRows orders={orders} />
+        </Table.Body>
+      </Table.Content>
       <Table.Pagination
         {...pagination}
         total={allOrders.length}

@@ -6,7 +6,7 @@ type TablePaginationProps = Omit<
   'DANGEROUS_className' | 'DANGEROUS_style'
 >;
 
-/** Must be a direct child of `<Table.Root>`; it renders below the table. */
+/** Goes inside `<Table.Root>`, after `<Table.Content>`. */
 export function TablePagination({
   onPaginationChange,
   ...props

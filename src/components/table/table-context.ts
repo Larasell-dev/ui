@@ -4,6 +4,9 @@ export type TableContextValue = {
   /** Counts a column; returns the cleanup that uncounts it. */
   registerColumn: () => () => void;
   scrollBodyToTop: () => void;
+  /** The table's accessible name, set on `<Table.Root>`. */
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
 };
 
 export const TableContext = createContext<TableContextValue | null>(null);
