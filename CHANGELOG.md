@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.6](https://github.com/Larasell-dev/ui/compare/v0.1.5...v0.1.6) (2026-10-17)
+
+
+### Features
+
+* add compound Table and server-side Pagination ([#46](https://github.com/Larasell-dev/ui/issues/46)) ([9ead8f7](https://github.com/Larasell-dev/ui/commit/9ead8f7ca723739b4a4c2228a7f5b5107f63e373))
+* add scroll-mask utilities that leave the scrollbar unmasked ([#47](https://github.com/Larasell-dev/ui/issues/47)) ([4adca00](https://github.com/Larasell-dev/ui/commit/4adca00251f94c6d0788907360a83da5d2f15dc3))
+
+
+### Bug Fixes
+
+* align input height with button on mobile ([#42](https://github.com/Larasell-dev/ui/issues/42)) ([f8abeec](https://github.com/Larasell-dev/ui/commit/f8abeec736e886bf4a8876f361b11be8f43053b6))
+* give primary button a border matching its background ([#43](https://github.com/Larasell-dev/ui/issues/43)) ([031586a](https://github.com/Larasell-dev/ui/commit/031586ab6c13e69088c4b0c5bb52839fba06a69d))
+
 ## [0.1.5](https://github.com/Larasell-dev/ui/compare/v0.1.4...v0.1.5) (2026-10-16)
 
 
