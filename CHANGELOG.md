@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.9](https://github.com/Larasell-dev/ui/compare/v0.1.8...v0.1.9) (2026-10-17)
+
+
+### Features
+
+* animate pagination size select and table actions menu ([#54](https://github.com/Larasell-dev/ui/issues/54)) ([f061e9d](https://github.com/Larasell-dev/ui/commit/f061e9d761c0c556ab517c95800db475d744f544))
+
+
+### Bug Fixes
+
+* exclude stories from the declaration build ([#56](https://github.com/Larasell-dev/ui/issues/56)) ([f00e6c2](https://github.com/Larasell-dev/ui/commit/f00e6c202270fb79cc180049243208b43c8a2ea4))
+
 ## [0.1.8](https://github.com/Larasell-dev/ui/compare/v0.1.7...v0.1.8) (2026-10-17)
 
 
