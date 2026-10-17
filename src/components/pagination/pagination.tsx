@@ -153,8 +153,6 @@ function PageButton({
   onClick: () => void;
 }) {
   return (
-    // Stays focusable while disabled, so focus isn't lost when a click
-    // reaches the first or last page or the next page starts loading.
     <Button
       aria-label={label}
       disabled={disabled}
@@ -163,7 +161,6 @@ function PageButton({
       className={cn(
         'inline-flex cursor-pointer items-center justify-center border border-mauve-200 bg-white p-2 text-mauve-950 select-none',
         'focus-visible:focus-ring not-data-disabled:hover:bg-mauve-100',
-        // Same look as a disabled secondary <Button> from this package.
         'data-disabled:opacity-50',
         loading
           ? 'data-disabled:cursor-wait'
