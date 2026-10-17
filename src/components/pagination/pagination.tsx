@@ -11,6 +11,7 @@ import ArrowRightSLine from '@iconify-icons/ri/arrow-right-s-line';
 import SkipLeftLine from '@iconify-icons/ri/skip-left-line';
 import SkipRightLine from '@iconify-icons/ri/skip-right-line';
 import type { IconifyIcon } from '@iconify/types';
+import type { CSSProperties } from 'react';
 import { cn } from 'cn';
 import { Icon } from '../icon/icon.tsx';
 import { PageSizeSelect } from './page-size-select.tsx';
@@ -34,6 +35,7 @@ export type PaginationProps = PaginationChange & {
   /** Disables every control, for example while the next page loads. */
   disabled?: boolean;
   DANGEROUS_className?: string;
+  DANGEROUS_style?: CSSProperties;
 };
 
 // Stable inputs: TanStack only tracks pagination state here, it never sees rows.
@@ -51,6 +53,7 @@ export function Pagination({
   pageSizeOptions = defaultPageSizeOptions,
   disabled = false,
   DANGEROUS_className,
+  DANGEROUS_style,
 }: PaginationProps) {
   const pagination: PaginationState = { pageIndex: page - 1, pageSize };
 
@@ -80,6 +83,7 @@ export function Pagination({
         'flex w-full flex-wrap items-center justify-between gap-x-6 gap-y-3',
         DANGEROUS_className,
       )}
+      style={DANGEROUS_style}
     >
       <div className="flex items-center gap-3">
         <span

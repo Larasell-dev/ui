@@ -5,6 +5,7 @@ import {
   useMemo,
   useRef,
   useState,
+  type CSSProperties,
   type ReactNode,
 } from 'react';
 import { cn } from 'cn';
@@ -17,6 +18,7 @@ type TableRootProps = {
   'aria-labelledby'?: string;
   children?: ReactNode;
   DANGEROUS_className?: string;
+  DANGEROUS_style?: CSSProperties;
 };
 
 /**
@@ -26,6 +28,7 @@ type TableRootProps = {
 export function TableRoot({
   children,
   DANGEROUS_className,
+  DANGEROUS_style,
   ...props
 }: TableRootProps) {
   const [columnCount, setColumnCount] = useState(0);
@@ -64,6 +67,7 @@ export function TableRoot({
           'flex h-full max-h-full min-h-0 w-full flex-col border border-mauve-200 bg-white dark:border-mauve-700 dark:bg-mauve-900',
           DANGEROUS_className,
         )}
+        style={DANGEROUS_style}
       >
         <table
           {...props}

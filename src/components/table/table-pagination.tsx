@@ -1,7 +1,10 @@
 import { Pagination, type PaginationProps } from '../pagination/pagination.tsx';
 import { useTableContext } from './table-context.ts';
 
-type TablePaginationProps = Omit<PaginationProps, 'DANGEROUS_className'>;
+type TablePaginationProps = Omit<
+  PaginationProps,
+  'DANGEROUS_className' | 'DANGEROUS_style'
+>;
 
 /** Must be a direct child of `<Table.Root>`; it renders below the table. */
 export function TablePagination({

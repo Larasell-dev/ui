@@ -141,9 +141,7 @@ test('a row renders as the element passed to render, merging props', async () =>
       <Table.Body>
         <Table.Row
           onClick={onRowClick}
-          render={
-            <tr data-order="1001" className="custom" onClick={onElementClick} />
-          }
+          render={<tr data-order="1001" onClick={onElementClick} />}
         >
           <Table.Cell>#1001</Table.Cell>
         </Table.Row>
@@ -153,10 +151,74 @@ test('a row renders as the element passed to render, merging props', async () =>
 
   const row = screen.getByRole('row').nth(1);
   await expect.element(row).toHaveAttribute('data-order', '1001');
-  await expect.element(row).toHaveClass('custom');
   await expect.element(row).toHaveClass('grid');
 
   await row.click();
   expect(onRowClick).toHaveBeenCalledOnce();
   expect(onElementClick).toHaveBeenCalledOnce();
+});
+
+test('render cannot restyle a row or a link', async () => {
+  const screen = await render(
+    <Table.Root aria-label="Orders">
+      <Table.Header>
+        <Table.Column>Order</Table.Column>
+      </Table.Header>
+      <Table.Body>
+        <Table.Row
+          render={<tr className="mt-4" style={{ marginTop: '16px' }} />}
+        >
+          <Table.Cell>
+            <Table.Link
+              render={
+                <a
+                  href="#order"
+                  className="text-red-500"
+                  style={{ color: 'rgb(255, 0, 0)' }}
+                />
+              }
+            >
+              #1001
+            </Table.Link>
+          </Table.Cell>
+        </Table.Row>
+        <Table.Row render={(props) => <tr {...props} className="mt-4" />}>
+          <Table.Cell>#1002</Table.Cell>
+        </Table.Row>
+      </Table.Body>
+    </Table.Root>,
+  );
+
+  const row = screen.getByRole('row').nth(1);
+  await expect.element(row).toHaveClass('grid');
+  await expect.element(row).not.toHaveClass('mt-4');
+  await expect.element(row).not.toHaveStyle({ marginTop: '16px' });
+
+  const link = screen.getByRole('link', { name: '#1001' });
+  await expect.element(link).toHaveAttribute('href', '#order');
+  await expect.element(link).not.toHaveClass('text-red-500');
+  await expect.element(link).not.toHaveStyle({ color: 'rgb(255, 0, 0)' });
+
+  const renderedRow = screen.getByRole('row').nth(2);
+  await expect.element(renderedRow).toHaveClass('grid');
+  await expect.element(renderedRow).not.toHaveClass('mt-4');
+});
+
+test('Table.Root applies DANGEROUS_className and DANGEROUS_style', async () => {
+  const screen = await render(
+    <Table.Root
+      aria-label="Orders"
+      DANGEROUS_className="mt-4"
+      DANGEROUS_style={{ marginTop: '16px' }}
+    >
+      <Table.Header>
+        <Table.Column>Order</Table.Column>
+      </Table.Header>
+      <Table.Body />
+    </Table.Root>,
+  );
+
+  const frame = screen.getByRole('table').element().parentElement!;
+  expect(frame.classList.contains('mt-4')).toBe(true);
+  expect(frame.style.marginTop).toBe('16px');
 });

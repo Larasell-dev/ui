@@ -1,4 +1,5 @@
 import { useRender } from '@base-ui/react/use-render';
+import { withoutStyling } from '../../utils/without-styling.ts';
 import type { MouseEventHandler, ReactNode } from 'react';
 import { cn } from 'cn';
 
@@ -11,7 +12,7 @@ type TableRowProps = {
   /**
    * Renders the row as another element, e.g. a router's row component. Its
    * props are merged with the row's: event handlers both run and class names
-   * are joined. For a row that links somewhere, use `<Table.Link>` in a cell
+   * are joined; its `className` and `style` are ignored. For a row that links somewhere, use `<Table.Link>` in a cell
    * instead, so the row keeps its table semantics.
    */
   render?: useRender.RenderProp;
@@ -19,7 +20,7 @@ type TableRowProps = {
 
 export function TableRow({ children, onClick, render }: TableRowProps) {
   return useRender({
-    render,
+    render: withoutStyling(render),
     defaultTagName: 'tr',
     props: {
       role: 'row',

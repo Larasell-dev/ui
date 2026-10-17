@@ -1,4 +1,5 @@
 import { useRender } from '@base-ui/react/use-render';
+import { withoutStyling } from '../../utils/without-styling.ts';
 import type { ReactNode } from 'react';
 
 type TableLinkProps = {
@@ -17,7 +18,7 @@ type TableLinkProps = {
  */
 export function TableLink({ children, render }: TableLinkProps) {
   return useRender({
-    render,
+    render: withoutStyling(render),
     defaultTagName: 'a',
     props: {
       children,

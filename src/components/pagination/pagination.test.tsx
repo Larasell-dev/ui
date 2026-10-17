@@ -159,3 +159,20 @@ test('the page size select keeps focus while disabled but cannot change', async 
   await select.click();
   await expect.element(screen.getByRole('listbox')).toBeVisible();
 });
+
+test('applies DANGEROUS_className and DANGEROUS_style', async () => {
+  const screen = await render(
+    <Pagination
+      page={1}
+      pageSize={25}
+      total={240}
+      onPaginationChange={vi.fn()}
+      DANGEROUS_className="mt-4"
+      DANGEROUS_style={{ marginTop: '16px' }}
+    />,
+  );
+
+  const nav = screen.getByRole('navigation', { name: 'Pagination' });
+  await expect.element(nav).toHaveClass('mt-4');
+  await expect.element(nav).toHaveStyle({ marginTop: '16px' });
+});
