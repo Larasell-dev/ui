@@ -10,3 +10,4 @@ export { Spacer } from './components/layout/spacer/spacer.tsx';
 export type { Spacing } from './components/layout/spacing.ts';
 export { Spinner } from './components/spinner/spinner.tsx';
 export { Stack } from './components/layout/stack/stack.tsx';
+export { useScrollMaskScrollbar } from './utils/use-scroll-mask-scrollbar.ts';
