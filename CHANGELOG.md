@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.7](https://github.com/Larasell-dev/ui/compare/v0.1.6...v0.1.7) (2026-10-17)
+
+
+### Bug Fixes
+
+* remove the outer border from Table.Root ([#49](https://github.com/Larasell-dev/ui/issues/49)) ([302e669](https://github.com/Larasell-dev/ui/commit/302e66902c4d6a3af509ad182dff3f8ba3d3068d))
+
 ## [0.1.6](https://github.com/Larasell-dev/ui/compare/v0.1.5...v0.1.6) (2026-10-17)
 
 
