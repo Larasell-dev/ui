@@ -83,3 +83,59 @@ test('counts columns rendered inside fragments and components', async () => {
     .element(table)
     .toHaveAttribute('style', expect.stringContaining('--table-columns: 2;'));
 });
+
+test('a row renders as the element passed to render', async () => {
+  const screen = await render(
+    <Table.Root aria-label="Orders">
+      <Table.Header>
+        <Table.Column>Order</Table.Column>
+      </Table.Header>
+      <Table.Body>
+        <Table.Row render={<a href="#order-1001" />}>
+          <Table.Cell>#1001</Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell>#1002</Table.Cell>
+        </Table.Row>
+      </Table.Body>
+    </Table.Root>,
+  );
+
+  const rows = screen.getByRole('row');
+  const link = rows.nth(1).element();
+  expect(link.tagName).toBe('A');
+  expect(link.getAttribute('href')).toBe('#order-1001');
+  expect(link.textContent).toBe('#1001');
+  expect(rows.nth(2).element().tagName).toBe('TR');
+
+  await rows.nth(1).click();
+  expect(window.location.hash).toBe('#order-1001');
+});
+
+test('a rendered row merges its props with the row props', async () => {
+  const onRowClick = vi.fn();
+  const onLinkClick = vi.fn();
+  const screen = await render(
+    <Table.Root aria-label="Orders">
+      <Table.Header>
+        <Table.Column>Order</Table.Column>
+      </Table.Header>
+      <Table.Body>
+        <Table.Row
+          onClick={onRowClick}
+          render={<a href="#order" className="custom" onClick={onLinkClick} />}
+        >
+          <Table.Cell>#1001</Table.Cell>
+        </Table.Row>
+      </Table.Body>
+    </Table.Root>,
+  );
+
+  const row = screen.getByRole('row').nth(1);
+  await expect.element(row).toHaveClass('custom');
+  await expect.element(row).toHaveClass('grid');
+
+  await row.click();
+  expect(onRowClick).toHaveBeenCalledOnce();
+  expect(onLinkClick).toHaveBeenCalledOnce();
+});

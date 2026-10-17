@@ -116,6 +116,27 @@ export const ClickableRows = meta.story({
   ),
 });
 
+export const LinkRows = meta.story({
+  render: () => (
+    <Table.Root aria-label="Orders">
+      <OrderHeader />
+      <Table.Body>
+        {allOrders.slice(0, 20).map((order) => (
+          <Table.Row
+            key={order.id}
+            render={<a href={`#order-${order.id.slice(1)}`} />}
+          >
+            <Table.Cell>{order.id}</Table.Cell>
+            <Table.Cell>{order.customer}</Table.Cell>
+            <Table.Cell>{order.status}</Table.Cell>
+            <Table.Cell>{order.total}</Table.Cell>
+          </Table.Row>
+        ))}
+      </Table.Body>
+    </Table.Root>
+  ),
+});
+
 function ServerPaginatedOrders() {
   const [pagination, setPagination] = useState<PaginationChange>({
     page: 1,
