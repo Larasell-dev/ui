@@ -175,13 +175,21 @@ export const NoOverflow = meta.story({
   ),
 });
 
-/** A vertical scroll-mask box whose scrollbar is kept out of the fade. */
-function MaskedList({ className }: { className: string }) {
+/** A scroll-mask box whose scrollbars are kept out of the fade. */
+function Masked({
+  className,
+  dir,
+  children,
+}: {
+  className: string;
+  dir?: 'rtl';
+  children: ReactNode;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   useScrollMaskScrollbar(ref);
   return (
-    <div ref={ref} className={className}>
-      <List />
+    <div ref={ref} dir={dir} className={className}>
+      {children}
     </div>
   );
 }
@@ -196,19 +204,43 @@ export const BorderAndScrollbar = meta.story({
   render: () => (
     <div className="flex flex-wrap gap-8">
       <Case title="Thick border: only the content fades">
-        <MaskedList
+        <Masked
           className={`scroll-mask-y h-64 w-72 overflow-y-auto ${box} border-primary-500 border-4`}
-        />
+        >
+          <List />
+        </Masked>
       </Case>
       <Case title="With useScrollMaskScrollbar: the scrollbar stays">
-        <MaskedList
-          className={`scroll-mask-y h-64 w-72 overflow-y-scroll ${box}`}
-        />
+        <Masked className={`scroll-mask-y h-64 w-72 overflow-y-scroll ${box}`}>
+          <List />
+        </Masked>
       </Case>
       <Case title="Without it: the scrollbar fades">
         <div className={`scroll-mask-y h-64 w-72 overflow-y-scroll ${box}`}>
           <List />
         </div>
+      </Case>
+      <Case title="Right-to-left: the scrollbar on the left stays">
+        <Masked
+          dir="rtl"
+          className={`scroll-mask-y h-64 w-72 overflow-y-scroll ${box}`}
+        >
+          <List />
+        </Masked>
+      </Case>
+      <Case title="Horizontal: the bottom scrollbar stays">
+        <Masked className={`scroll-mask-x w-72 overflow-x-scroll ${box}`}>
+          <Row />
+        </Masked>
+      </Case>
+      <Case title="Both axes: both scrollbars stay">
+        <Masked
+          className={`scroll-mask-y scroll-mask-x h-64 w-72 overflow-scroll ${box}`}
+        >
+          {moons.slice(0, 10).map((moon) => (
+            <Row key={moon} />
+          ))}
+        </Masked>
       </Case>
     </div>
   ),

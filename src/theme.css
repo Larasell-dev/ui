@@ -423,40 +423,53 @@
       transparent
     );
     /*
-     * Local change: only the content fades. The border and the scrollbar stay
-     * fully visible.
+     * Local change: only the content fades. The border and the scrollbars
+     * stay fully visible.
      *
      * Layers, bottom to top (mask-composite combines each layer with the
      * result of the layers below it):
-     *   r, l, b, t       fades, intersected, in the padding box (F)
-     *   full box         subtract  ->  1 - F
-     *   padding box      exclude   ->  F inside the padding box, 1 outside
-     *   scrollbar strip  add       ->  the scrollbar is never faded
+     *   r, l, b, t        fades, intersected, in the padding box (F)
+     *   full box          subtract  ->  1 - F
+     *   padding box       exclude   ->  F inside the padding box, 1 outside
+     *   scrollbar strips  add       ->  scrollbars are never faded
      *
-     * Browsers count the scrollbar as part of the padding box here, so the
-     * last layer needs its width: set --scroll-mask-scrollbar-width (see
-     * useScrollMaskScrollbar). It defaults to 0.
+     * Browsers count scrollbars as part of the padding box here, so the strips
+     * need their sizes: --scroll-mask-scrollbar-left (a vertical scrollbar in
+     * right-to-left), -right and -bottom (see useScrollMaskScrollbar). They
+     * default to 0.
      */
     mask-image:
+      linear-gradient(black, black), linear-gradient(black, black),
       linear-gradient(black, black), linear-gradient(black, black),
       linear-gradient(black, black), var(--scroll-mask-t), var(--scroll-mask-b),
       var(--scroll-mask-l), var(--scroll-mask-r);
     mask-origin:
-      padding-box, padding-box, border-box, padding-box, padding-box,
-      padding-box, padding-box;
+      padding-box, padding-box, padding-box, padding-box, border-box,
+      padding-box, padding-box, padding-box, padding-box;
     mask-size:
-      var(--scroll-mask-scrollbar-width, 0px) 100%,
+      var(--scroll-mask-scrollbar-left, 0px) 100%,
+      var(--scroll-mask-scrollbar-right, 0px) 100%,
+      100% var(--scroll-mask-scrollbar-bottom, 0px),
       100% 100%,
       100% 100%,
       100% 100%,
       100% 100%,
       100% 100%,
       100% 100%;
-    /* Only the scrollbar strip needs a position: the right edge. */
-    mask-position: 100% 0;
+    mask-position:
+      0 0,
+      100% 0,
+      0 100%,
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0,
+      0 0;
     mask-repeat: no-repeat;
     mask-composite:
-      add, exclude, subtract, intersect, intersect, intersect, intersect;
+      add, add, add, exclude, subtract, intersect, intersect, intersect,
+      intersect;
     animation:
       scroll-mask-y-scroll linear,
       scroll-mask-x-scroll linear;
