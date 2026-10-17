@@ -5,7 +5,6 @@ import {
   useMemo,
   useRef,
   useState,
-  type CSSProperties,
   type ReactNode,
 } from 'react';
 import { cn } from 'cn';
@@ -70,12 +69,10 @@ export function TableRoot({
           {...props}
           ref={tableRef}
           role="table"
-          style={
-            {
-              '--table-columns': Math.max(columnCount, 1),
-              '--table-body-anchor': bodyAnchor,
-            } as CSSProperties
-          }
+          style={{
+            '--table-columns': Math.max(columnCount, 1),
+            '--table-body-anchor': bodyAnchor,
+          }}
           className={cn(
             'relative flex min-h-0 flex-1 flex-col',
             // The body's scroll mask would clip an outline drawn on the body
