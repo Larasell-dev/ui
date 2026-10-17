@@ -423,29 +423,27 @@
       transparent
     );
     /*
-     * Local addition: the first layer keeps the scrollbar out of the fade,
-     * since the scrollbar is part of the masked box. Set
-     * --scroll-mask-scrollbar-width to the scrollbar's width; it defaults to
-     * 0, which leaves the original behaviour.
+     * Local change: only the padding box (the visible content) fades. The
+     * border and the scrollbar sit outside it and stay fully visible.
+     *
+     * Layers, bottom to top (mask-composite combines each layer with the
+     * result of the layers below it):
+     *   r, l, b, t  fades, intersected, positioned in the padding box (F)
+     *   full box    subtract  ->  1 - F
+     *   padding box exclude   ->  F inside the padding box, 1 outside it
      */
     mask-image:
-      linear-gradient(black, black), var(--scroll-mask-t), var(--scroll-mask-b),
-      var(--scroll-mask-l), var(--scroll-mask-r);
-    mask-size:
-      var(--scroll-mask-scrollbar-width, 0px) 100%,
-      100% 100%,
-      100% 100%,
-      100% 100%,
-      100% 100%;
-    mask-position:
-      right top,
-      0 0,
-      0 0,
-      0 0,
-      0 0;
+      linear-gradient(black, black), linear-gradient(black, black),
+      var(--scroll-mask-t), var(--scroll-mask-b), var(--scroll-mask-l),
+      var(--scroll-mask-r);
+    mask-origin:
+      padding-box, border-box, padding-box, padding-box, padding-box,
+      padding-box;
+    mask-size: 100% 100%;
+    mask-position: 0 0;
     mask-repeat: no-repeat;
-    /* Union of the scrollbar strip with the intersected fades. */
-    mask-composite: add, intersect, intersect, intersect, intersect;
+    mask-composite:
+      exclude, subtract, intersect, intersect, intersect, intersect;
     animation:
       scroll-mask-y-scroll linear,
       scroll-mask-x-scroll linear;

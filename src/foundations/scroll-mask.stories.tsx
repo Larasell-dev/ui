@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import preview from '../../.storybook/preview.tsx';
 
 const meta = preview.meta({
@@ -174,55 +174,25 @@ export const NoOverflow = meta.story({
   ),
 });
 
-/** Sets --scroll-mask-scrollbar-width from the element's scrollbar. */
-function useScrollbarWidth() {
-  const ref = useRef<HTMLDivElement>(null);
-  useLayoutEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-    const measure = () => {
-      element.style.setProperty(
-        '--scroll-mask-scrollbar-width',
-        // The strip is pinned to the outer edge, so it spans the right
-        // border too; only the left border is subtracted.
-        `${element.offsetWidth - element.clientWidth - element.clientLeft}px`,
-      );
-    };
-    measure();
-    const observer = new ResizeObserver(measure);
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
-  return ref;
-}
-
-function KeptScrollbar() {
-  const ref = useScrollbarWidth();
-  return (
-    <div
-      ref={ref}
-      className={`scroll-mask-y h-64 w-72 overflow-y-scroll ${box}`}
-    >
-      <List />
-    </div>
-  );
-}
-
 /**
- * Only visible with classic scrollbars (Windows, Linux, or macOS with
- * "Show scroll bars: Always"). Overlay scrollbars take no width, so there is
- * nothing to keep out of the fade.
+ * The fade only covers the content. The scrollbar case is only visible with
+ * classic scrollbars (Windows, Linux, or macOS with "Show scroll bars:
+ * Always"); overlay scrollbars sit on top of the content.
  */
-export const Scrollbar = meta.story({
+export const BorderAndScrollbar = meta.story({
   render: () => (
     <div className="flex flex-wrap gap-8">
-      <Case title="Width not set: the scrollbar fades">
-        <div className={`scroll-mask-y h-64 w-72 overflow-y-scroll ${box}`}>
+      <Case title="Thick border: only the content fades">
+        <div
+          className={`scroll-mask-y h-64 w-72 overflow-y-auto ${box} border-primary-500 border-4`}
+        >
           <List />
         </div>
       </Case>
-      <Case title="--scroll-mask-scrollbar-width measured: it doesn't">
-        <KeptScrollbar />
+      <Case title="Always-visible scrollbar stays unfaded">
+        <div className={`scroll-mask-y h-64 w-72 overflow-y-scroll ${box}`}>
+          <List />
+        </div>
       </Case>
     </div>
   ),
