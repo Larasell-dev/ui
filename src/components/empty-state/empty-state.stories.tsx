@@ -93,3 +93,14 @@ export const TitleOnly = meta.story({
     title: 'No notes',
   },
 });
+
+/**
+ * Storybook's padded layout instead of centred. The empty state sits in the
+ * top-left corner because it doesn't position itself; its parent does.
+ */
+export const Padded = meta.story({
+  args: FirstUse.input.args,
+  parameters: {
+    layout: 'padded',
+  },
+});

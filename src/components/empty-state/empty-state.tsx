@@ -49,6 +49,9 @@ type EmptyStateProps = {
  * as an empty table or list. A good empty state explains why there is
  * nothing here and offers a way forward; see
  * https://design.gitlab.com/patterns/empty-states/.
+ *
+ * It doesn't position itself: the parent decides where it sits and how much
+ * space surrounds it, e.g. centring it inside an empty table.
  */
 export function EmptyState({
   title,
@@ -60,10 +63,7 @@ export function EmptyState({
 }: EmptyStateProps) {
   return (
     <div
-      className={cn(
-        'mx-auto max-w-md px-6 py-12 text-center',
-        DANGEROUS_className,
-      )}
+      className={cn('max-w-md text-center', DANGEROUS_className)}
       style={DANGEROUS_style}
     >
       <Stack spacing={6} align="center">
