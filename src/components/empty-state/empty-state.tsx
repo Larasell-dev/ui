@@ -66,10 +66,10 @@ export function EmptyState({
       )}
       style={DANGEROUS_style}
     >
-      <Stack spacing={6}>
-        <Stack spacing={4}>
+      <Stack spacing={6} align="center">
+        <Stack spacing={4} align="center">
           {icon && (
-            <span className="flex justify-center text-4xl text-mauve-600 dark:text-mauve-300">
+            <span className="flex text-4xl text-mauve-600 dark:text-mauve-300">
               <Icon icon={icon} />
             </span>
           )}
@@ -84,11 +84,7 @@ export function EmptyState({
             )}
           </Stack>
         </Stack>
-        {children != null && (
-          <div className="flex justify-center">
-            <Inline spacing={3}>{children}</Inline>
-          </div>
-        )}
+        {children != null && <Inline spacing={3}>{children}</Inline>}
       </Stack>
     </div>
   );
