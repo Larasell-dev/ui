@@ -49,3 +49,39 @@ test('only accepts spacing from the Tailwind scale', async () => {
 
   await expect.element(screen.getByTestId('stack')).toBeInTheDocument();
 });
+
+test('aligns children on the cross axis', async () => {
+  const screen = await render(
+    <Stack spacing={4} align="center" data-testid="stack">
+      <div>One</div>
+    </Stack>,
+  );
+
+  await expect
+    .element(screen.getByTestId('stack'))
+    .toHaveStyle({ alignItems: 'center' });
+});
+
+test('justifies children on the main axis', async () => {
+  const screen = await render(
+    <Stack spacing={4} justify="between" data-testid="stack">
+      <div>One</div>
+    </Stack>,
+  );
+
+  await expect
+    .element(screen.getByTestId('stack'))
+    .toHaveStyle({ justifyContent: 'space-between' });
+});
+
+test('keeps the flexbox defaults without align or justify', async () => {
+  const screen = await render(
+    <Stack spacing={4} data-testid="stack">
+      <div>One</div>
+    </Stack>,
+  );
+
+  await expect
+    .element(screen.getByTestId('stack'))
+    .toHaveStyle({ alignItems: 'normal', justifyContent: 'normal' });
+});
