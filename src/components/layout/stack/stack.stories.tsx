@@ -17,6 +17,14 @@ const meta = preview.meta({
   },
   argTypes: {
     spacing: { control: 'select', options: spacingScale },
+    align: {
+      control: 'select',
+      options: ['start', 'center', 'end', 'baseline', 'stretch'],
+    },
+    justify: {
+      control: 'select',
+      options: ['start', 'center', 'end', 'between'],
+    },
     children: { control: false },
   },
   parameters: {
@@ -36,6 +44,41 @@ export const Spacious = meta.story({
   args: {
     spacing: 12,
   },
+});
+
+/** Centres children horizontally instead of stretching them. */
+export const AlignCenter = meta.story({
+  args: {
+    align: 'center',
+    children: (
+      <>
+        <Box>One</Box>
+        <Box>Two, a little wider</Box>
+        <Box>Three</Box>
+      </>
+    ),
+  },
+  decorators: [(Story) => <div className="w-80">{Story()}</div>],
+});
+
+/** Aligns children to the end of each row. */
+export const AlignEnd = meta.story({
+  args: { ...AlignCenter.input.args, align: 'end' },
+  decorators: AlignCenter.input.decorators,
+});
+
+/** Centres children vertically in a stack taller than its content. */
+export const JustifyCenter = meta.story({
+  args: { justify: 'center' },
+  decorators: [
+    (Story) => <div className="flex h-80 w-40 [&>*]:flex-1">{Story()}</div>,
+  ],
+});
+
+/** Pushes the first and last child to the top and bottom. */
+export const JustifyBetween = meta.story({
+  args: { justify: 'between' },
+  decorators: JustifyCenter.input.decorators,
 });
 
 function Box({ children }: { children: string }) {

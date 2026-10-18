@@ -38,3 +38,39 @@ test('does not accept style', async () => {
     .element(screen.getByTestId('inline'))
     .not.toHaveStyle({ marginTop: '16px' });
 });
+
+test('aligns children on the cross axis', async () => {
+  const screen = await render(
+    <Inline spacing={4} align="center" data-testid="inline">
+      <div>One</div>
+    </Inline>,
+  );
+
+  await expect
+    .element(screen.getByTestId('inline'))
+    .toHaveStyle({ alignItems: 'center' });
+});
+
+test('justifies children on the main axis', async () => {
+  const screen = await render(
+    <Inline spacing={4} justify="between" data-testid="inline">
+      <div>One</div>
+    </Inline>,
+  );
+
+  await expect
+    .element(screen.getByTestId('inline'))
+    .toHaveStyle({ justifyContent: 'space-between' });
+});
+
+test('keeps the flexbox defaults without align or justify', async () => {
+  const screen = await render(
+    <Inline spacing={4} data-testid="inline">
+      <div>One</div>
+    </Inline>,
+  );
+
+  await expect
+    .element(screen.getByTestId('inline'))
+    .toHaveStyle({ alignItems: 'normal', justifyContent: 'normal' });
+});
