@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.10](https://github.com/Larasell-dev/ui/compare/v0.1.9...v0.1.10) (2026-10-18)
+
+
+### Features
+
+* add a semi-transparent border color token ([#58](https://github.com/Larasell-dev/ui/issues/58)) ([bd8ba0a](https://github.com/Larasell-dev/ui/commit/bd8ba0aa6df4121309d70b6495e64ad79c0eeba2))
+
 ## [0.1.9](https://github.com/Larasell-dev/ui/compare/v0.1.8...v0.1.9) (2026-10-17)
 
 
