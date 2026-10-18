@@ -15,7 +15,7 @@ export function TableHeader({ children }: TableHeaderProps) {
     // the header columns line up with the cells below.
     <thead
       role="rowgroup"
-      className="block shrink-0 [scrollbar-gutter:stable] overflow-y-hidden border-b border-mauve-200 bg-mauve-50 dark:border-mauve-700 dark:bg-mauve-950"
+      className="border-border block shrink-0 [scrollbar-gutter:stable] overflow-y-hidden border-b bg-mauve-50 dark:bg-mauve-950"
     >
       <tr role="row" className={rowGrid}>
         {children}

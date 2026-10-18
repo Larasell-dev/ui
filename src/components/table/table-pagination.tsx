@@ -14,7 +14,7 @@ export function TablePagination({
   const { scrollBodyToTop } = useTableContext('Pagination');
 
   return (
-    <div className="shrink-0 border-t border-mauve-200 px-4 py-3 dark:border-mauve-700">
+    <div className="border-border shrink-0 border-t px-4 py-3">
       <Pagination
         {...props}
         onPaginationChange={(change) => {

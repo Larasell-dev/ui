@@ -43,6 +43,16 @@
     transparent
   );
 
+  /*
+   * Borders and dividers, used as `border-border`. Semi-transparent, so the
+   * same color reads right on any surface it sits on. On white it matches
+   * mauve-200; in dark mode (see below) it falls between mauve-700 and
+   * mauve-800 on the page background. Overlays with a shadow add
+   * `bg-clip-padding`, so the border blends with the shadow, not with the
+   * overlay's own background, and the edge stays sharp.
+   */
+  --color-border: color-mix(in oklch, var(--color-mauve-950) 10%, transparent);
+
   --type-display-font: var(--font-heading);
   --type-display-weight-base: var(--font-weight-semibold);
   --type-display-tracking: var(--tracking-tight);
@@ -145,6 +155,12 @@
       --type-input-md-size: var(--text-sm);
       --type-input-md-line-height: var(--text-sm--line-height);
     }
+  }
+}
+
+@layer base {
+  .dark {
+    --color-border: color-mix(in oklch, var(--color-mauve-50) 15%, transparent);
   }
 }
 

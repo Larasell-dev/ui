@@ -19,8 +19,8 @@ const buttonVariants = cva(
           'dark:border-mauve-100 dark:bg-mauve-100 dark:text-mauve-950 dark:not-data-disabled:hover:border-white dark:not-data-disabled:hover:bg-white',
         ],
         secondary: [
-          'border border-mauve-200 bg-white text-mauve-950 not-data-disabled:hover:bg-mauve-100',
-          'dark:border-mauve-700 dark:bg-mauve-900 dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800',
+          'border-border border bg-white text-mauve-950 not-data-disabled:hover:bg-mauve-100',
+          'dark:bg-mauve-900 dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800',
         ],
         tertiary: [
           'border border-transparent bg-transparent px-5 py-2.5 text-mauve-950 no-underline not-data-disabled:hover:bg-mauve-100 not-data-disabled:hover:no-underline focus-visible:no-underline',

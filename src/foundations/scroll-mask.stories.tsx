@@ -43,7 +43,7 @@ function List({ count = moons.length }: { count?: number }) {
   return moons.slice(0, count).map((moon, index) => (
     <div
       key={moon}
-      className="type-body-md flex justify-between border-b border-mauve-100 px-3 py-2 text-mauve-950 last:border-b-0 dark:border-mauve-800 dark:text-mauve-100"
+      className="type-body-md border-border flex justify-between border-b px-3 py-2 text-mauve-950 last:border-b-0 dark:text-mauve-100"
     >
       {moon}
       <span className="type-mono-sm text-mauve-500">
@@ -59,7 +59,7 @@ function Row() {
       {moons.map((moon) => (
         <span
           key={moon}
-          className="type-label-md border border-mauve-200 px-3 py-1.5 text-mauve-950 dark:border-mauve-700 dark:text-mauve-100"
+          className="type-label-md border-border border px-3 py-1.5 text-mauve-950 dark:text-mauve-100"
         >
           {moon}
         </span>
@@ -68,8 +68,7 @@ function Row() {
   );
 }
 
-const box =
-  'border border-mauve-200 bg-white dark:border-mauve-700 dark:bg-mauve-900';
+const box = 'border border-border bg-white dark:bg-mauve-900';
 
 export const Vertical = meta.story({
   render: () => (

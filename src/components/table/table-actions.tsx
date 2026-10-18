@@ -107,8 +107,8 @@ export function TableActionsPopup({ children }: TableActionsPopupProps) {
                 <PopupMotion {...props} side={state.side} />
               )}
               className={cn(
-                'min-w-40 border border-mauve-200 bg-white shadow-md outline-none',
-                'dark:border-mauve-700 dark:bg-mauve-900',
+                'border-border min-w-40 border bg-white bg-clip-padding shadow-md outline-none',
+                'dark:bg-mauve-900',
               )}
             >
               {children}
