@@ -43,11 +43,11 @@ export function PageSizeSelect({
         aria-disabled={disabled || undefined}
         data-disabled={disabled ? '' : undefined}
         className={cn(
-          'type-label-md inline-flex min-w-18 cursor-pointer items-center justify-between gap-2 border border-mauve-200 bg-white py-1.5 pr-2 pl-3 text-mauve-950 tabular-nums select-none',
+          'type-label-md border-border inline-flex min-w-18 cursor-pointer items-center justify-between gap-2 border bg-white py-1.5 pr-2 pl-3 text-mauve-950 tabular-nums select-none',
           'focus-visible:focus-ring not-data-disabled:hover:bg-mauve-100',
           // Only disabled while a page loads.
           'data-disabled:cursor-wait data-disabled:opacity-50',
-          'dark:border-mauve-700 dark:bg-mauve-900 dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800',
+          'dark:bg-mauve-900 dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800',
         )}
       >
         <Select.Value />
@@ -68,8 +68,8 @@ export function PageSizeSelect({
                   <PopupMotion {...props} side={state.side} />
                 )}
                 className={cn(
-                  'min-w-(--anchor-width) border border-mauve-200 bg-white shadow-md',
-                  'dark:border-mauve-700 dark:bg-mauve-900',
+                  'border-border min-w-(--anchor-width) border bg-white bg-clip-padding shadow-md',
+                  'dark:bg-mauve-900',
                 )}
               >
                 {options.map((option) => (

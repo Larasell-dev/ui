@@ -30,7 +30,7 @@ test('applies DANGEROUS_className as className', async () => {
   const input = screen.getByRole('textbox', { name: 'Email' });
 
   await expect.element(input).toHaveClass('mt-4');
-  await expect.element(input).toHaveClass('border-mauve-200');
+  await expect.element(input).toHaveClass('border-border');
 });
 
 test('does not accept style', async () => {

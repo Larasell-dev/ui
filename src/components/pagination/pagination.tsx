@@ -163,13 +163,13 @@ function PageButton({
       focusableWhenDisabled
       onClick={onClick}
       className={cn(
-        'inline-flex cursor-pointer items-center justify-center border border-mauve-200 bg-white p-2 text-mauve-950 select-none',
+        'border-border inline-flex cursor-pointer items-center justify-center border bg-white p-2 text-mauve-950 select-none',
         'focus-visible:focus-ring not-data-disabled:hover:bg-mauve-100',
         'data-disabled:opacity-50',
         loading
           ? 'data-disabled:cursor-wait'
           : 'data-disabled:cursor-not-allowed',
-        'dark:border-mauve-700 dark:bg-mauve-900 dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800',
+        'dark:bg-mauve-900 dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800',
       )}
     >
       <Icon icon={icon} />

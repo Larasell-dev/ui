@@ -251,7 +251,7 @@ export const roles = [
 ];
 
 export const Cell = ({ children, className = '' }) => (
-  <td className={`border-t border-mauve-200 py-3 pr-6 align-top ${className}`}>
+  <td className={`border-t border-border py-3 pr-6 align-top ${className}`}>
     {children}
   </td>
 );
@@ -273,10 +273,7 @@ export const Items = ({ items }) => (
 export const Detail = ({ term, children }) => (
   <div className="flex items-baseline gap-2">
     <dt className="text-mauve-600">{term}</dt>
-    <span
-      aria-hidden
-      className="flex-1 border-b border-dotted border-mauve-200"
-    />
+    <span aria-hidden className="flex-1 border-b border-dotted border-border" />
     <dd>{children}</dd>
   </div>
 );
@@ -286,7 +283,7 @@ export const Role = ({ role }) => (
     <section className="my-10 font-sans text-mauve-950">
       <h3 className="type-title-lg">{role.name}</h3>
       <p className="mt-1 type-body-md">{role.purpose}</p>
-      <div className="mt-4 grid grid-cols-2 gap-6 border-b border-dashed border-mauve-200 pb-6">
+      <div className="mt-4 grid grid-cols-2 gap-6 border-b border-dashed border-border pb-6">
         <Do>
           <Items items={role.useFor} />
         </Do>

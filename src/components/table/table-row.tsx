@@ -29,9 +29,9 @@ export function TableRow({ children, onClick, render }: TableRowProps) {
       className: cn(
         rowGrid,
         // `relative` lets a <Table.Link> stretch over the whole row.
-        'relative border-b border-mauve-100 last:border-b-0 hover:bg-mauve-50',
+        'border-border relative border-b last:border-b-0 hover:bg-mauve-50',
         'has-[a:focus-visible]:outline-primary-500 has-[a:focus-visible]:bg-mauve-50 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:-outline-offset-2',
-        'dark:border-mauve-800 dark:hover:bg-mauve-800/50 dark:has-[a:focus-visible]:bg-mauve-800/50',
+        'dark:hover:bg-mauve-800/50 dark:has-[a:focus-visible]:bg-mauve-800/50',
         onClick && 'cursor-pointer',
       ),
     },

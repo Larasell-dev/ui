@@ -24,9 +24,9 @@ export function DataListItem({ children, onClick, render }: DataListItemProps) {
       children,
       className: cn(
         // `relative` lets a <DataList.Link> stretch over the whole item.
-        'relative flex flex-col gap-2 border-b border-mauve-100 px-4 py-3 last:border-b-0 hover:bg-mauve-50',
+        'border-border relative flex flex-col gap-2 border-b px-4 py-3 last:border-b-0 hover:bg-mauve-50',
         'has-[a:focus-visible]:outline-primary-500 has-[a:focus-visible]:bg-mauve-50 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:-outline-offset-2',
-        'dark:border-mauve-800 dark:hover:bg-mauve-800/50 dark:has-[a:focus-visible]:bg-mauve-800/50',
+        'dark:hover:bg-mauve-800/50 dark:has-[a:focus-visible]:bg-mauve-800/50',
         onClick && 'cursor-pointer',
       ),
     },
