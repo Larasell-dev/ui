@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.11](https://github.com/Larasell-dev/ui/compare/v0.1.10...v0.1.11) (2026-10-18)
+
+
+### Features
+
+* add align and justify props to Stack and Inline ([#61](https://github.com/Larasell-dev/ui/issues/61)) ([e71ae81](https://github.com/Larasell-dev/ui/commit/e71ae81cbeb9039c666361d4bb1f6d87e920d027))
+* add EmptyState component ([#60](https://github.com/Larasell-dev/ui/issues/60)) ([43cc02e](https://github.com/Larasell-dev/ui/commit/43cc02ed18b82bed8552d1b904fde9069d615f00))
+
 ## [0.1.10](https://github.com/Larasell-dev/ui/compare/v0.1.9...v0.1.10) (2026-10-18)
 
 
