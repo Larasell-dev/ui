@@ -2,6 +2,8 @@ import type { IconifyIcon } from '@iconify/types';
 import type { CSSProperties, ReactNode } from 'react';
 import { cn } from 'cn';
 import { Icon } from '../icon/icon.tsx';
+import { Inline } from '../layout/inline/inline.tsx';
+import { Stack } from '../layout/stack/stack.tsx';
 
 type EmptyStateProps = {
   /**
@@ -59,29 +61,35 @@ export function EmptyState({
   return (
     <div
       className={cn(
-        'mx-auto flex max-w-md flex-col items-center px-6 py-12 text-center',
+        'mx-auto max-w-md px-6 py-12 text-center',
         DANGEROUS_className,
       )}
       style={DANGEROUS_style}
     >
-      {icon && (
-        <span className="mb-4 flex text-4xl text-mauve-600 dark:text-mauve-300">
-          <Icon icon={icon} />
-        </span>
-      )}
-      <h2 className="type-body-lg font-semibold text-mauve-950 dark:text-mauve-50">
-        {title}
-      </h2>
-      {description != null && (
-        <p className="type-body-md mt-2 text-mauve-600 dark:text-mauve-400">
-          {description}
-        </p>
-      )}
-      {children != null && (
-        <div className="mt-6 flex flex-wrap justify-center gap-3">
-          {children}
-        </div>
-      )}
+      <Stack spacing={6}>
+        <Stack spacing={4}>
+          {icon && (
+            <span className="flex justify-center text-4xl text-mauve-600 dark:text-mauve-300">
+              <Icon icon={icon} />
+            </span>
+          )}
+          <Stack spacing={2}>
+            <h2 className="type-body-lg font-semibold text-mauve-950 dark:text-mauve-50">
+              {title}
+            </h2>
+            {description != null && (
+              <p className="type-body-md text-mauve-600 dark:text-mauve-400">
+                {description}
+              </p>
+            )}
+          </Stack>
+        </Stack>
+        {children != null && (
+          <div className="flex justify-center">
+            <Inline spacing={3}>{children}</Inline>
+          </div>
+        )}
+      </Stack>
     </div>
   );
 }
