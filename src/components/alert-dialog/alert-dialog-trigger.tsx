@@ -1,36 +1,25 @@
 import { AlertDialog } from '@base-ui/react/alert-dialog';
-import type { CSSProperties, ReactNode } from 'react';
-import { Button } from '../form/button/button.tsx';
+import type { useRender } from '@base-ui/react/use-render';
+import type { ReactNode } from 'react';
 
 type AlertDialogTriggerProps = {
   children?: ReactNode;
-  variant?: 'primary' | 'secondary' | 'tertiary';
+  /**
+   * The element to render, e.g. `render={<Button variant="secondary" />}`.
+   * Without it, the trigger is a plain, unstyled `<button>`.
+   */
+  render?: useRender.RenderProp;
+  /** Set to `false` when `render` is not a `<button>`, e.g. a `<span>`. */
+  nativeButton?: boolean;
   disabled?: boolean;
-  DANGEROUS_className?: string;
-  DANGEROUS_style?: CSSProperties;
 };
 
-/** A button that opens the alert dialog. */
-export function AlertDialogTrigger({
-  children,
-  variant,
-  disabled,
-  DANGEROUS_className,
-  DANGEROUS_style,
-}: AlertDialogTriggerProps) {
+/** Opens the alert dialog. Renders whatever element it is given. */
+export function AlertDialogTrigger(props: AlertDialogTriggerProps) {
   return (
     <AlertDialog.Trigger
-      disabled={disabled}
-      render={
-        <Button
-          variant={variant}
-          disabled={disabled}
-          DANGEROUS_className={DANGEROUS_className}
-          DANGEROUS_style={DANGEROUS_style}
-        />
-      }
-    >
-      {children}
-    </AlertDialog.Trigger>
+      {...props}
+      render={props.render as AlertDialog.Trigger.Props['render']}
+    />
   );
 }

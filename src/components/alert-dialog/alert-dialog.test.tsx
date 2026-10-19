@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { expect, test, vi } from 'vite-plus/test';
 import { userEvent } from 'vite-plus/test/browser';
 import { render } from 'vitest-browser-react';
+import { Button } from '../form/button/button.tsx';
 import { AlertDialog } from './alert-dialog.ts';
 
 function DeleteOrder() {
@@ -177,51 +178,72 @@ test('the trigger can be disabled', async () => {
   await expect.element(screen.getByRole('alertdialog')).not.toBeInTheDocument();
 });
 
-test('the trigger can be restyled through the DANGEROUS_ props', async () => {
+test('the trigger renders the element passed to render', async () => {
+  const screen = await render(
+    <>
+      <Button variant="secondary">Reference</Button>
+      <AlertDialog.Root>
+        <AlertDialog.Trigger render={<Button variant="secondary" />}>
+          Delete order
+        </AlertDialog.Trigger>
+        <AlertDialog.Popup title="Delete order #1001?" />
+      </AlertDialog.Root>
+    </>,
+  );
+
+  const trigger = screen.getByRole('button', { name: 'Delete order' });
+  const reference = screen.getByRole('button', { name: 'Reference' });
+  expect(trigger.element().className).toBe(reference.element().className);
+  await trigger.click();
+
+  await expect.element(screen.getByRole('alertdialog')).toBeVisible();
+});
+
+test('the trigger can render an element that is not a button', async () => {
   const screen = await render(
     <AlertDialog.Root>
-      <AlertDialog.Trigger
-        DANGEROUS_className="mt-4"
-        DANGEROUS_style={{ marginLeft: '16px' }}
-      >
+      <AlertDialog.Trigger nativeButton={false} render={<span />}>
         Delete order
       </AlertDialog.Trigger>
+      <AlertDialog.Popup title="Delete order #1001?" />
     </AlertDialog.Root>,
   );
 
   const trigger = screen.getByRole('button', { name: 'Delete order' });
-  await expect.element(trigger).toHaveClass('mt-4');
-  await expect.element(trigger).toHaveStyle({ marginLeft: '16px' });
+  expect(trigger.element().tagName).toBe('SPAN');
+  (trigger.element() as HTMLElement).focus();
+  await userEvent.keyboard('{Enter}');
+
+  await expect.element(screen.getByRole('alertdialog')).toBeVisible();
 });
 
-test('the trigger does not accept className', async () => {
+test('the trigger has no styling of its own', async () => {
   const screen = await render(
     <AlertDialog.Root>
-      {/* @ts-expect-error className is blocked; use DANGEROUS_className */}
-      <AlertDialog.Trigger className="mt-4">Delete order</AlertDialog.Trigger>
+      <AlertDialog.Trigger>Delete order</AlertDialog.Trigger>
+    </AlertDialog.Root>,
+  );
+
+  await expect
+    .element(screen.getByRole('button', { name: 'Delete order' }))
+    .not.toHaveAttribute('class');
+});
+
+test('the trigger takes no styling props', async () => {
+  const screen = await render(
+    <AlertDialog.Root>
+      {/* @ts-expect-error style the element passed to render instead */}
+      <AlertDialog.Trigger DANGEROUS_className="mt-4">
+        Delete order
+      </AlertDialog.Trigger>
+      {/* @ts-expect-error variants belong to the element passed to render */}
+      <AlertDialog.Trigger variant="secondary">Discard</AlertDialog.Trigger>
     </AlertDialog.Root>,
   );
 
   await expect
     .element(screen.getByRole('button', { name: 'Delete order' }))
     .not.toHaveClass('mt-4');
-});
-
-test('the trigger does not accept style', async () => {
-  const screen = await render(
-    <AlertDialog.Root>
-      <AlertDialog.Trigger
-        // @ts-expect-error style is blocked; use DANGEROUS_style
-        style={{ marginLeft: '16px' }}
-      >
-        Delete order
-      </AlertDialog.Trigger>
-    </AlertDialog.Root>,
-  );
-
-  await expect
-    .element(screen.getByRole('button', { name: 'Delete order' }))
-    .not.toHaveStyle({ marginLeft: '16px' });
 });
 
 test('the popup, title and description cannot be restyled', async () => {

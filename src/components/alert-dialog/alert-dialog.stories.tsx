@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Button } from '../form/button/button.tsx';
 import { Field } from '../form/field/field.tsx';
 import { Input } from '../form/input/input.tsx';
 import preview from '../../../.storybook/preview.tsx';
@@ -17,7 +18,9 @@ const meta = preview.meta({
 export const Default = meta.story({
   render: () => (
     <AlertDialog.Root>
-      <AlertDialog.Trigger>Delete order</AlertDialog.Trigger>
+      <AlertDialog.Trigger render={<Button />}>
+        Delete order
+      </AlertDialog.Trigger>
       <AlertDialog.Popup>
         <AlertDialog.Title>Delete order #1001?</AlertDialog.Title>
         <AlertDialog.Description>
@@ -39,7 +42,9 @@ export const Default = meta.story({
 export const TitleAndDescriptionProps = meta.story({
   render: () => (
     <AlertDialog.Root>
-      <AlertDialog.Trigger>Delete order</AlertDialog.Trigger>
+      <AlertDialog.Trigger render={<Button />}>
+        Delete order
+      </AlertDialog.Trigger>
       <AlertDialog.Popup
         title="Delete order #1001?"
         description="The order and its invoices are removed for good. This cannot be undone."
@@ -48,11 +53,11 @@ export const TitleAndDescriptionProps = meta.story({
   ),
 });
 
-/** The trigger takes the same variants as `Button`. */
+/** The trigger renders whatever element it is given, here a secondary `Button`. */
 export const SecondaryTrigger = meta.story({
   render: () => (
     <AlertDialog.Root>
-      <AlertDialog.Trigger variant="secondary">
+      <AlertDialog.Trigger render={<Button variant="secondary" />}>
         Discard draft
       </AlertDialog.Trigger>
       <AlertDialog.Popup>
@@ -188,7 +193,7 @@ export const PrettyDescription = meta.story({
 export const Destructive = meta.story({
   render: () => (
     <AlertDialog.Root>
-      <AlertDialog.Trigger variant="secondary">
+      <AlertDialog.Trigger render={<Button variant="secondary" />}>
         Delete order
       </AlertDialog.Trigger>
       <AlertDialog.Popup
@@ -215,7 +220,7 @@ function SlowRequest({ fails }: { fails: boolean }) {
 
   return (
     <AlertDialog.Root onOpenChange={() => setError(null)}>
-      <AlertDialog.Trigger variant="secondary">
+      <AlertDialog.Trigger render={<Button variant="secondary" />}>
         Delete order
       </AlertDialog.Trigger>
       <AlertDialog.Popup
@@ -271,7 +276,7 @@ function TypeToConfirmDialog() {
         setError(undefined);
       }}
     >
-      <AlertDialog.Trigger variant="secondary">
+      <AlertDialog.Trigger render={<Button variant="secondary" />}>
         Remove team member
       </AlertDialog.Trigger>
       <AlertDialog.Popup
