@@ -9,7 +9,7 @@ type AlertDialogTitleProps = {
 /** Names the alert dialog. Every alert dialog needs one. */
 export function AlertDialogTitle({ children }: AlertDialogTitleProps) {
   return (
-    <AlertDialog.Title className="type-body-lg m-0 font-semibold text-mauve-950 dark:text-mauve-50">
+    <AlertDialog.Title className="type-headline-md m-0 text-mauve-950 dark:text-mauve-100">
       {children}
     </AlertDialog.Title>
   );
