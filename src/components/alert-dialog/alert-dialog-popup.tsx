@@ -1,13 +1,23 @@
 import { AlertDialog } from '@base-ui/react/alert-dialog';
 import type { ReactNode } from 'react';
 import { cn } from 'cn';
+import { AlertDialogDescription } from './alert-dialog-description.tsx';
+import { AlertDialogTitle } from './alert-dialog-title.tsx';
 
 type AlertDialogPopupProps = {
+  /** Shorthand for a `<AlertDialog.Title>` as the first child. */
+  title?: ReactNode;
+  /** Shorthand for a `<AlertDialog.Description>` after the title. */
+  description?: ReactNode;
   children?: ReactNode;
 };
 
 /** The dialog itself, centered over a backdrop. */
-export function AlertDialogPopup({ children }: AlertDialogPopupProps) {
+export function AlertDialogPopup({
+  title,
+  description,
+  children,
+}: AlertDialogPopupProps) {
   return (
     <AlertDialog.Portal>
       <AlertDialog.Backdrop
@@ -26,6 +36,10 @@ export function AlertDialogPopup({ children }: AlertDialogPopupProps) {
           'dark:bg-mauve-900',
         )}
       >
+        {title != null && <AlertDialogTitle>{title}</AlertDialogTitle>}
+        {description != null && (
+          <AlertDialogDescription>{description}</AlertDialogDescription>
+        )}
         {children}
       </AlertDialog.Popup>
     </AlertDialog.Portal>

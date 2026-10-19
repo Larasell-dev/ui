@@ -30,6 +30,19 @@ export const Default = meta.story({
   ),
 });
 
+/** The title and description can be passed as props instead of children. */
+export const TitleAndDescriptionProps = meta.story({
+  render: () => (
+    <AlertDialog.Root>
+      <AlertDialog.Trigger>Delete order</AlertDialog.Trigger>
+      <AlertDialog.Popup
+        title="Delete order #1001?"
+        description="The order and its invoices are removed for good. This cannot be undone."
+      />
+    </AlertDialog.Root>
+  ),
+});
+
 /** The trigger takes the same variants as `Button`. */
 export const SecondaryTrigger = meta.story({
   render: () => (

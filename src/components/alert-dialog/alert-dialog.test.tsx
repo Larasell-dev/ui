@@ -35,6 +35,46 @@ test('opens from the trigger as an alert dialog named by its title', async () =>
     );
 });
 
+test('takes the title and description as props', async () => {
+  const screen = await render(
+    <AlertDialog.Root defaultOpen>
+      <AlertDialog.Popup
+        title="Delete order #1001?"
+        description="The order and its invoices are removed for good."
+      />
+    </AlertDialog.Root>,
+  );
+
+  const dialog = screen.getByRole('alertdialog', {
+    name: 'Delete order #1001?',
+  });
+  await expect.element(dialog).toBeVisible();
+  await expect
+    .element(dialog)
+    .toHaveAccessibleDescription(
+      'The order and its invoices are removed for good.',
+    );
+  await expect
+    .element(screen.getByRole('heading', { name: 'Delete order #1001?' }))
+    .toBeVisible();
+});
+
+test('renders children after the title and description props', async () => {
+  const screen = await render(
+    <AlertDialog.Root defaultOpen>
+      <AlertDialog.Popup
+        title="Delete order #1001?"
+        description="Gone for good."
+      >
+        <p>Extra details</p>
+      </AlertDialog.Popup>
+    </AlertDialog.Root>,
+  );
+
+  const texts = screen.getByRole('alertdialog').element().textContent;
+  expect(texts).toBe('Delete order #1001?Gone for good.Extra details');
+});
+
 test('renders the title as a heading', async () => {
   const screen = await render(<DeleteOrder />);
   await screen.getByRole('button', { name: 'Delete order' }).click();
