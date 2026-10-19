@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.13](https://github.com/Larasell-dev/ui/compare/v0.1.12...v0.1.13) (2026-10-19)
+
+
+### Bug Fixes
+
+* do not highlight disabled table action items ([#66](https://github.com/Larasell-dev/ui/issues/66)) ([da13104](https://github.com/Larasell-dev/ui/commit/da13104ec45339528c87b8f3ca7e37546647a062))
+
 ## [0.1.12](https://github.com/Larasell-dev/ui/compare/v0.1.11...v0.1.12) (2026-10-19)
 
 
