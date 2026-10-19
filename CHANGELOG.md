@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.12](https://github.com/Larasell-dev/ui/compare/v0.1.11...v0.1.12) (2026-10-19)
+
+
+### Features
+
+* add AlertDialog component ([#64](https://github.com/Larasell-dev/ui/issues/64)) ([86a39d8](https://github.com/Larasell-dev/ui/commit/86a39d87109538a3bef002b455e3699b88602245))
+
 ## [0.1.11](https://github.com/Larasell-dev/ui/compare/v0.1.10...v0.1.11) (2026-10-18)
 
 
