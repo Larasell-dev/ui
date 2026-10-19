@@ -263,17 +263,29 @@ test('the trigger can be restyled through the DANGEROUS_ props', async () => {
   await expect.element(trigger).toHaveStyle({ marginLeft: '16px' });
 });
 
-test('the trigger does not take variants', async () => {
+test('the trigger passes on any other prop', async () => {
+  const onClick = vi.fn();
   const screen = await render(
     <AlertDialog.Root>
-      {/* @ts-expect-error variants belong to the element passed to render */}
-      <AlertDialog.Trigger variant="secondary">Discard</AlertDialog.Trigger>
+      <AlertDialog.Trigger
+        id="delete-order"
+        aria-label="Delete order #1001"
+        data-order="1001"
+        onClick={onClick}
+      >
+        Delete
+      </AlertDialog.Trigger>
+      <AlertDialog.Popup title="Delete order #1001?" />
     </AlertDialog.Root>,
   );
 
-  await expect
-    .element(screen.getByRole('button', { name: 'Discard' }))
-    .not.toHaveAttribute('variant');
+  const trigger = screen.getByRole('button', { name: 'Delete order #1001' });
+  await expect.element(trigger).toHaveAttribute('id', 'delete-order');
+  await expect.element(trigger).toHaveAttribute('data-order', '1001');
+  await trigger.click();
+
+  expect(onClick).toHaveBeenCalledOnce();
+  await expect.element(screen.getByRole('alertdialog')).toBeVisible();
 });
 
 test('the popup, title and description cannot be restyled', async () => {
