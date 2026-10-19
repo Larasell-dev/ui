@@ -229,21 +229,51 @@ test('the trigger has no styling of its own', async () => {
     .not.toHaveAttribute('class');
 });
 
-test('the trigger takes no styling props', async () => {
+test('the trigger drops className and style from the element passed to render', async () => {
   const screen = await render(
     <AlertDialog.Root>
-      {/* @ts-expect-error style the element passed to render instead */}
-      <AlertDialog.Trigger DANGEROUS_className="mt-4">
+      <AlertDialog.Trigger
+        nativeButton={false}
+        render={<span className="mt-4" style={{ marginLeft: '16px' }} />}
+      >
         Delete order
       </AlertDialog.Trigger>
+    </AlertDialog.Root>,
+  );
+
+  const trigger = screen.getByRole('button', { name: 'Delete order' });
+  await expect.element(trigger).not.toHaveClass('mt-4');
+  await expect.element(trigger).not.toHaveStyle({ marginLeft: '16px' });
+});
+
+test('the trigger can be restyled through the DANGEROUS_ props', async () => {
+  const screen = await render(
+    <AlertDialog.Root>
+      <AlertDialog.Trigger
+        DANGEROUS_className="mt-4"
+        DANGEROUS_style={{ marginLeft: '16px' }}
+      >
+        Delete order
+      </AlertDialog.Trigger>
+    </AlertDialog.Root>,
+  );
+
+  const trigger = screen.getByRole('button', { name: 'Delete order' });
+  await expect.element(trigger).toHaveClass('mt-4');
+  await expect.element(trigger).toHaveStyle({ marginLeft: '16px' });
+});
+
+test('the trigger does not take variants', async () => {
+  const screen = await render(
+    <AlertDialog.Root>
       {/* @ts-expect-error variants belong to the element passed to render */}
       <AlertDialog.Trigger variant="secondary">Discard</AlertDialog.Trigger>
     </AlertDialog.Root>,
   );
 
   await expect
-    .element(screen.getByRole('button', { name: 'Delete order' }))
-    .not.toHaveClass('mt-4');
+    .element(screen.getByRole('button', { name: 'Discard' }))
+    .not.toHaveAttribute('variant');
 });
 
 test('the popup, title and description cannot be restyled', async () => {
