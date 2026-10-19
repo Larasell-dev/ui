@@ -5,7 +5,7 @@ import { defineConfig } from 'vite-plus';
 export default defineConfig({
   plugins: [react()],
   pack: {
-    entry: ['src/index.ts', 'src/icons.ts'],
+    entry: ['src/index.ts', 'src/icons.ts', 'src/inertia.ts'],
     dts: { tsconfig: 'tsconfig.build.json' },
     ignore: ['**/*.stories.tsx', '**/*.test.tsx', '.storybook/**'],
   },

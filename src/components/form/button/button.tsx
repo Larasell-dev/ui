@@ -26,6 +26,10 @@ const buttonVariants = cva(
           'border border-transparent bg-transparent px-5 py-2.5 text-mauve-950 no-underline not-data-disabled:hover:bg-mauve-100 not-data-disabled:hover:no-underline focus-visible:no-underline',
           'dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800',
         ],
+        destructive: [
+          'border border-red-600 bg-red-600 text-white not-data-disabled:hover:border-red-700 not-data-disabled:hover:bg-red-700 not-data-disabled:active:border-red-800 not-data-disabled:active:bg-red-800',
+          'dark:border-red-500 dark:bg-red-500 dark:not-data-disabled:hover:border-red-400 dark:not-data-disabled:hover:bg-red-400',
+        ],
       },
       fullWidth: {
         true: 'w-full',

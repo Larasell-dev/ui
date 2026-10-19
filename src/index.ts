@@ -1,3 +1,4 @@
+export { AlertDialog } from './components/alert-dialog/alert-dialog.ts';
 export { Button } from './components/form/button/button.tsx';
 export { Container } from './components/layout/container/container.tsx';
 export { DataList } from './components/data-list/data-list.ts';

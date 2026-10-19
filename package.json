@@ -18,6 +18,7 @@
   "exports": {
     ".": "./dist/index.mjs",
     "./icons": "./dist/icons.mjs",
+    "./inertia": "./dist/inertia.mjs",
     "./styles.css": "./src/styles.css",
     "./package.json": "./package.json"
   },
@@ -49,6 +50,7 @@
     "@commitlint/config-conventional": "^21.2.3",
     "@iconify-icons/ri": "2.0.0",
     "@iconify/types": "2.0.0",
+    "@inertiajs/react": "^3.9.1",
     "@storybook/addon-docs": "^10.6.2",
     "@storybook/react-vite": "^10.6.2",
     "@tailwindcss/typography": "^0.5.20",
@@ -70,8 +72,14 @@
     "vitest-browser-react": "^2.3.0"
   },
   "peerDependencies": {
+    "@inertiajs/react": "^3.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwindcss": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@inertiajs/react": {
+      "optional": true
+    }
   }
 }
