@@ -34,6 +34,13 @@ export const Tertiary = meta.story({
   },
 });
 
+export const Destructive = meta.story({
+  args: {
+    variant: 'destructive',
+    children: 'Delete',
+  },
+});
+
 export const Disabled = meta.story({
   args: {
     disabled: true,

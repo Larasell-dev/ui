@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Field } from '../form/field/field.tsx';
+import { Input } from '../form/input/input.tsx';
 import preview from '../../../.storybook/preview.tsx';
 import { Table } from '../table/table.ts';
 import { AlertDialog } from './alert-dialog.ts';
@@ -11,10 +13,7 @@ const meta = preview.meta({
   },
 });
 
-/**
- * Opens from its trigger. Actions are not part of the component yet, so for
- * now press Escape to close it.
- */
+/** Opens from its trigger; cancel or Escape closes it again. */
 export const Default = meta.story({
   render: () => (
     <AlertDialog.Root>
@@ -25,6 +24,12 @@ export const Default = meta.story({
           The order and its invoices are removed for good. This cannot be
           undone.
         </AlertDialog.Description>
+        <AlertDialog.Actions>
+          <AlertDialog.Cancel />
+          <AlertDialog.Confirm onClick={(_event, { close }) => close()}>
+            Delete
+          </AlertDialog.Confirm>
+        </AlertDialog.Actions>
       </AlertDialog.Popup>
     </AlertDialog.Root>
   ),
@@ -120,6 +125,15 @@ function OpenFromMenu() {
           <AlertDialog.Description>
             The order and its invoices are removed for good.
           </AlertDialog.Description>
+          <AlertDialog.Actions>
+            <AlertDialog.Cancel />
+            <AlertDialog.Confirm
+              variant="destructive"
+              onClick={() => setOrder(null)}
+            >
+              Delete
+            </AlertDialog.Confirm>
+          </AlertDialog.Actions>
         </AlertDialog.Popup>
       </AlertDialog.Root>
     </>
@@ -168,4 +182,119 @@ export const PrettyDescription = meta.story({
       </AlertDialog.Popup>
     </AlertDialog.Root>
   ),
+});
+
+/** Destroys data, so the confirm button is red. */
+export const Destructive = meta.story({
+  render: () => (
+    <AlertDialog.Root>
+      <AlertDialog.Trigger variant="secondary">
+        Delete order
+      </AlertDialog.Trigger>
+      <AlertDialog.Popup
+        title="Delete order #1001?"
+        description="The order and its invoices are removed for good."
+      >
+        <AlertDialog.Actions>
+          <AlertDialog.Cancel />
+          <AlertDialog.Confirm
+            variant="destructive"
+            onClick={(_event, { close }) => close()}
+          >
+            Delete
+          </AlertDialog.Confirm>
+        </AlertDialog.Actions>
+      </AlertDialog.Popup>
+    </AlertDialog.Root>
+  ),
+});
+
+function SlowRequest({ fails }: { fails: boolean }) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  return (
+    <AlertDialog.Root onOpenChange={() => setError(null)}>
+      <AlertDialog.Trigger variant="secondary">
+        Delete order
+      </AlertDialog.Trigger>
+      <AlertDialog.Popup
+        title="Delete order #1001?"
+        description="The order and its invoices are removed for good."
+      >
+        {error && <p className="type-body-md m-0 text-red-600">{error}</p>}
+        <AlertDialog.Actions>
+          <AlertDialog.Cancel />
+          <AlertDialog.Confirm
+            variant="destructive"
+            loading={loading}
+            onClick={(_event, { close }) => {
+              setLoading(true);
+              setError(null);
+              setTimeout(() => {
+                setLoading(false);
+                if (fails) setError('The order could not be deleted.');
+                else close();
+              }, 2000);
+            }}
+          >
+            Delete
+          </AlertDialog.Confirm>
+        </AlertDialog.Actions>
+      </AlertDialog.Popup>
+    </AlertDialog.Root>
+  );
+}
+
+/**
+ * While the request runs, confirm shows a spinner and the dialog cannot be
+ * closed: cancel is disabled and Escape does nothing. It closes on success.
+ */
+export const Loading = meta.story({
+  render: () => <SlowRequest fails={false} />,
+});
+
+/** When the request fails, the dialog stays open so the user can retry. */
+export const FailedRequest = meta.story({
+  render: () => <SlowRequest fails />,
+});
+
+function TypeToConfirmDialog() {
+  const [typed, setTyped] = useState('');
+  const expected = 'grace@example.com';
+
+  return (
+    <AlertDialog.Root onOpenChange={() => setTyped('')}>
+      <AlertDialog.Trigger variant="secondary">
+        Remove team member
+      </AlertDialog.Trigger>
+      <AlertDialog.Popup
+        title="Remove Grace Hopper from the team?"
+        description="They lose access to the admin panel immediately."
+      >
+        <Field label={`Type "${expected}" to confirm`} name="confirmation">
+          <Input
+            autoComplete="off"
+            value={typed}
+            onChange={(event) => setTyped(event.currentTarget.value)}
+          />
+        </Field>
+        <AlertDialog.Actions>
+          <AlertDialog.Cancel />
+          <AlertDialog.Confirm
+            variant="destructive"
+            disabled={typed !== expected}
+            onClick={(_event, { close }) => close()}
+          >
+            Remove
+          </AlertDialog.Confirm>
+        </AlertDialog.Actions>
+      </AlertDialog.Popup>
+    </AlertDialog.Root>
+  );
+}
+
+/** Confirm stays disabled until the user types the expected text. */
+export const TypeToConfirm = meta.story({
+  render: () => <TypeToConfirmDialog />,
 });

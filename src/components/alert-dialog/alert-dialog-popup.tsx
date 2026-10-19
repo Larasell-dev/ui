@@ -1,6 +1,7 @@
 import { AlertDialog } from '@base-ui/react/alert-dialog';
 import type { ReactNode } from 'react';
 import { cn } from 'cn';
+import { useAlertDialog } from './alert-dialog-context.ts';
 import { AlertDialogDescription } from './alert-dialog-description.tsx';
 import { AlertDialogTitle } from './alert-dialog-title.tsx';
 
@@ -9,7 +10,8 @@ type AlertDialogPopupProps = {
   title?: ReactNode;
   /** Shorthand for a `<AlertDialog.Description>` after the title. */
   description?: ReactNode;
-  children?: ReactNode;
+  /** Content after the title and description, or a function that gets `close`, e.g. for a form's `onSuccess`. */
+  children?: ReactNode | ((dialog: { close: () => void }) => ReactNode);
 };
 
 /** The dialog itself, centered over a backdrop. */
@@ -18,6 +20,8 @@ export function AlertDialogPopup({
   description,
   children,
 }: AlertDialogPopupProps) {
+  const { close } = useAlertDialog();
+
   return (
     <AlertDialog.Portal>
       <AlertDialog.Backdrop
@@ -40,7 +44,7 @@ export function AlertDialogPopup({
         {description != null && (
           <AlertDialogDescription>{description}</AlertDialogDescription>
         )}
-        {children}
+        {typeof children === 'function' ? children({ close }) : children}
       </AlertDialog.Popup>
     </AlertDialog.Portal>
   );
