@@ -129,12 +129,12 @@ const itemVariants = cva(
     variants: {
       variant: {
         default: [
-          'text-mauve-950 data-highlighted:bg-mauve-100',
-          'dark:text-mauve-100 dark:data-highlighted:bg-mauve-800',
+          'text-mauve-950 not-data-disabled:data-highlighted:bg-mauve-100',
+          'dark:text-mauve-100 dark:not-data-disabled:data-highlighted:bg-mauve-800',
         ],
         destructive: [
-          'text-red-600 data-highlighted:bg-red-100',
-          'dark:text-red-400 dark:data-highlighted:bg-red-950',
+          'text-red-600 not-data-disabled:data-highlighted:bg-red-100',
+          'dark:text-red-400 dark:not-data-disabled:data-highlighted:bg-red-950',
         ],
       },
     },

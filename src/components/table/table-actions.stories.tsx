@@ -184,3 +184,54 @@ export const IconsAndDestructive = meta.story({
     </Table.Root>
   ),
 });
+
+/**
+ * Disabled items are dimmed and do not highlight on hover or keyboard focus,
+ * e.g. when an order can no longer be refunded.
+ */
+export const DisabledItems = meta.story({
+  render: () => (
+    <Table.Root aria-label="Orders">
+      <Table.Content>
+        <Table.Header>
+          <Table.Column>Order</Table.Column>
+          <Table.Column>Status</Table.Column>
+          <Table.Column type="action">Actions</Table.Column>
+        </Table.Header>
+        <Table.Body>
+          {orders.map((order) => (
+            <Table.Row key={order.id}>
+              <Table.Cell>{order.id}</Table.Cell>
+              <Table.Cell>{order.status}</Table.Cell>
+              <Table.Cell>
+                <Table.Actions>
+                  <Table.ActionsTrigger
+                    aria-label={`Actions for ${order.id}`}
+                  />
+                  <Table.ActionsPopup>
+                    <Table.ActionsItem onClick={() => onEdit(order.id)}>
+                      Edit
+                    </Table.ActionsItem>
+                    <Table.ActionsItem
+                      disabled={order.status === 'Refunded'}
+                      onClick={() => onDuplicate(order.id)}
+                    >
+                      Refund
+                    </Table.ActionsItem>
+                    <Table.ActionsItem
+                      variant="destructive"
+                      disabled={order.status !== 'Pending'}
+                      onClick={() => onDelete(order.id)}
+                    >
+                      Delete
+                    </Table.ActionsItem>
+                  </Table.ActionsPopup>
+                </Table.Actions>
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table.Content>
+    </Table.Root>
+  ),
+});
