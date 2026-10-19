@@ -261,10 +261,16 @@ export const FailedRequest = meta.story({
 
 function TypeToConfirmDialog() {
   const [typed, setTyped] = useState('');
+  const [error, setError] = useState<string>();
   const expected = 'grace@example.com';
 
   return (
-    <AlertDialog.Root onOpenChange={() => setTyped('')}>
+    <AlertDialog.Root
+      onOpenChange={() => {
+        setTyped('');
+        setError(undefined);
+      }}
+    >
       <AlertDialog.Trigger variant="secondary">
         Remove team member
       </AlertDialog.Trigger>
@@ -272,7 +278,11 @@ function TypeToConfirmDialog() {
         title="Remove Grace Hopper from the team?"
         description="They lose access to the admin panel immediately."
       >
-        <Field label={`Type "${expected}" to confirm`} name="confirmation">
+        <Field
+          label={`Type "${expected}" to confirm`}
+          name="confirmation"
+          error={error}
+        >
           <Input
             autoComplete="off"
             value={typed}
@@ -283,8 +293,13 @@ function TypeToConfirmDialog() {
           <AlertDialog.Cancel />
           <AlertDialog.Confirm
             variant="destructive"
-            disabled={typed !== expected}
-            onClick={(_event, { close }) => close()}
+            onClick={(_event, { close }) => {
+              if (typed !== expected) {
+                setError(`Type "${expected}" exactly to remove them.`);
+                return;
+              }
+              close();
+            }}
           >
             Remove
           </AlertDialog.Confirm>
@@ -294,7 +309,10 @@ function TypeToConfirmDialog() {
   );
 }
 
-/** Confirm stays disabled until the user types the expected text. */
+/**
+ * The user has to type the expected text. Confirm stays enabled and explains
+ * what is missing when the text does not match.
+ */
 export const TypeToConfirm = meta.story({
   render: () => <TypeToConfirmDialog />,
 });
