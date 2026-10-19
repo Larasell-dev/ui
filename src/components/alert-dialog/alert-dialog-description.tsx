@@ -10,7 +10,7 @@ export function AlertDialogDescription({
   children,
 }: AlertDialogDescriptionProps) {
   return (
-    <AlertDialog.Description className="type-body-md m-0 max-w-xs text-mauve-600 dark:text-mauve-400">
+    <AlertDialog.Description className="type-body-md m-0 max-w-xs text-pretty text-mauve-600 dark:text-mauve-400">
       {children}
     </AlertDialog.Description>
   );
