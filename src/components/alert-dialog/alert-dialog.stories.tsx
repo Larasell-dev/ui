@@ -118,3 +118,41 @@ export const ControlledFromMenu = meta.story({
   parameters: { layout: 'padded' },
   render: () => <OpenFromMenu />,
 });
+
+/**
+ * A title that wraps is balanced, so its lines have a similar length instead
+ * of one short word on the last line.
+ */
+export const BalancedTitle = meta.story({
+  render: () => (
+    <AlertDialog.Root defaultOpen>
+      <AlertDialog.Popup>
+        <AlertDialog.Title>
+          Remove Grace Hopper and every pending invitation from the team?
+        </AlertDialog.Title>
+        <AlertDialog.Description>
+          They lose access right away.
+        </AlertDialog.Description>
+      </AlertDialog.Popup>
+    </AlertDialog.Root>
+  ),
+});
+
+/**
+ * A long description wraps prettily, so its last line never holds a single
+ * word on its own.
+ */
+export const PrettyDescription = meta.story({
+  render: () => (
+    <AlertDialog.Root defaultOpen>
+      <AlertDialog.Popup>
+        <AlertDialog.Title>Delete order #1001?</AlertDialog.Title>
+        <AlertDialog.Description>
+          The order, its invoices, its shipping labels and every note your team
+          left on it are removed for good. Customers keep the emails they
+          already received.
+        </AlertDialog.Description>
+      </AlertDialog.Popup>
+    </AlertDialog.Root>
+  ),
+});
