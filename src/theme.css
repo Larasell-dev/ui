@@ -160,6 +160,15 @@
   ::selection {
     background-color: var(--color-selection);
   }
+
+  /* Browsers paint autofilled fields with their own background and text
+     colors using !important, so they cannot be overridden directly. Delaying
+     the transition to those colors indefinitely keeps the field's own styles. */
+  :autofill {
+    transition:
+      background-color 0s 600000s,
+      color 0s 600000s;
+  }
 }
 
 @utility type-display-lg {
