@@ -1,4 +1,4 @@
-import { useRef, type ReactNode } from 'react';
+import { useLayoutEffect, useRef, type ReactNode } from 'react';
 import { useScrollMaskScrollbar } from '../../utils/use-scroll-mask-scrollbar.ts';
 import { useTableContext } from './table-context.ts';
 
@@ -12,11 +12,36 @@ export function TableBody({ children }: TableBodyProps) {
   const ref = useRef<HTMLTableSectionElement>(null);
   useScrollMaskScrollbar(ref);
 
+  // Shares the body's scrollbar width with the header, which pads its end by
+  // it so the columns line up. Without a scrollbar it is 0 and the rows reach
+  // the table's edge.
+  useLayoutEffect(() => {
+    const body = ref.current;
+    const table = body?.parentElement;
+    if (!body || !table) return;
+    const measure = () => {
+      const style = getComputedStyle(body);
+      const scrollbar =
+        body.offsetWidth -
+        body.clientWidth -
+        parseFloat(style.borderLeftWidth) -
+        parseFloat(style.borderRightWidth);
+      table.style.setProperty(
+        '--table-scrollbar',
+        `${Math.max(scrollbar, 0)}px`,
+      );
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(body);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <tbody
       ref={ref}
       role="rowgroup"
-      className="scroll-mask-y-from-90% block min-h-0 flex-1 [scrollbar-gutter:stable] overflow-y-auto outline-none [anchor-name:var(--table-body-anchor)]"
+      className="scroll-mask-y-from-90% block min-h-0 flex-1 overflow-y-auto outline-none [anchor-name:var(--table-body-anchor)]"
     >
       {children}
     </tbody>
