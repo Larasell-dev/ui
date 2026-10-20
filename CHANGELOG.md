@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.14](https://github.com/Larasell-dev/ui/compare/v0.1.13...v0.1.14) (2026-10-20)
+
+
+### Bug Fixes
+
+* keep input styles when the browser autofills a field ([#68](https://github.com/Larasell-dev/ui/issues/68)) ([7ffb811](https://github.com/Larasell-dev/ui/commit/7ffb811ea9a2de50210b3c1212e2f92b84e615b1))
+* let table rows reach the right edge when the body does not scroll ([#70](https://github.com/Larasell-dev/ui/issues/70)) ([7c177da](https://github.com/Larasell-dev/ui/commit/7c177dae5699603d2c91ae13becb1ce2c2b25902))
+
 ## [0.1.13](https://github.com/Larasell-dev/ui/compare/v0.1.12...v0.1.13) (2026-10-19)
 
 

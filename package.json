@@ -1,6 +1,6 @@
 {
   "name": "@larasell-dev/ui",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "Bare React and Base UI design system for Larasell admin UI.",
   "license": "MIT",
   "repository": {
