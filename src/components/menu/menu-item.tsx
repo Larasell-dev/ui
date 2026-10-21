@@ -1,5 +1,4 @@
 import { Menu } from '@base-ui/react/menu';
-import type { useRender } from '@base-ui/react/use-render';
 import type { IconifyIcon } from '@iconify/types';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { MouseEventHandler, ReactNode } from 'react';
@@ -40,7 +39,7 @@ type MenuItemProps = VariantProps<typeof itemVariants> & {
    * Renders the item as another element, e.g. `render={<a href="/orders/1001/edit" />}`
    * or a router link. Its `className` and `style` are ignored.
    */
-  render?: useRender.RenderProp;
+  render?: Menu.Item.Props['render'];
 };
 
 export function MenuItem({
@@ -53,7 +52,7 @@ export function MenuItem({
   return (
     <Menu.Item
       {...props}
-      render={withoutStyling(render) as Menu.Item.Props['render']}
+      render={withoutStyling(render)}
       className={itemVariants({ variant })}
     >
       {icon && <Icon icon={icon} />}

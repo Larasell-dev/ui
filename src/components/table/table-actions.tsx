@@ -1,8 +1,8 @@
+import { Menu } from '@base-ui/react/menu';
 import More2Fill from '@iconify-icons/ri/more-2-fill';
 import type { CSSProperties, MouseEvent } from 'react';
 import { cn } from 'cn';
 import { Icon } from '../icon/icon.tsx';
-import { MenuTrigger } from '../menu/menu-trigger.tsx';
 
 // The trigger sits inside the row, so its clicks would otherwise reach a
 // clickable row.
@@ -26,7 +26,7 @@ export function TableActionsTrigger({
   ...props
 }: TableActionsTriggerProps) {
   return (
-    <MenuTrigger
+    <Menu.Trigger
       {...props}
       onClick={stopPropagation}
       className={cn(
@@ -41,6 +41,6 @@ export function TableActionsTrigger({
       style={DANGEROUS_style}
     >
       <Icon icon={More2Fill} />
-    </MenuTrigger>
+    </Menu.Trigger>
   );
 }

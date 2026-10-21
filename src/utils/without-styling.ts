@@ -1,4 +1,3 @@
-import type { useRender } from '@base-ui/react/use-render';
 import {
   cloneElement,
   isValidElement,
@@ -8,14 +7,22 @@ import {
 
 type StylingProps = { className?: string; style?: CSSProperties };
 
+/** A `render` prop: an element, or a function of the component's props and state. */
+type RenderProp<Props, State> =
+  | ReactElement
+  | ((props: Props, state: State) => ReactElement);
+
 /**
  * Lets `render` swap the element but not restyle it: the `className` and
  * `style` it passes are dropped, so the component's own styles always apply.
  * Restyling goes through the `DANGEROUS_` props instead.
+ *
+ * Generic over the render prop's props and state, so it returns the exact
+ * render type the wrapped Base UI component expects.
  */
-export function withoutStyling(
-  render: useRender.RenderProp | undefined,
-): useRender.RenderProp | undefined {
+export function withoutStyling<Props extends StylingProps, State>(
+  render: RenderProp<Props, State> | undefined,
+): RenderProp<Props, State> | undefined {
   if (isValidElement<StylingProps>(render)) {
     return cloneElement(render, { className: undefined, style: undefined });
   }
@@ -23,10 +30,9 @@ export function withoutStyling(
     return (props, state) => {
       const element = render(props, state) as ReactElement<StylingProps>;
       if (!isValidElement<StylingProps>(element)) return element;
-      const own = props as StylingProps;
       return cloneElement(element, {
-        className: own.className,
-        style: own.style,
+        className: props.className,
+        style: props.style,
       });
     };
   }
