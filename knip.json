@@ -1,5 +1,6 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "entry": ["src/index.ts!", "src/icons.ts!"],
-  "project": ["**/*.{js,mjs,cjs,jsx,ts,tsx,mts,cts}!", "!.storybook/**!"]
+  "project": ["**/*.{js,mjs,cjs,jsx,ts,tsx,mts,cts}!", "!.storybook/**!"],
+  "ignoreDependencies": ["tailwindcss", "@tailwindcss/typography"]
 }
