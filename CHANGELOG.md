@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.15](https://github.com/Larasell-dev/ui/compare/v0.1.14...v0.1.15) (2026-10-21)
+
+
+### Features
+
+* add a shared Menu component ([#71](https://github.com/Larasell-dev/ui/issues/71)) ([b851360](https://github.com/Larasell-dev/ui/commit/b851360eeeb0b7879ef464e3fbe9bf37675c77c0))
+
 ## [0.1.14](https://github.com/Larasell-dev/ui/compare/v0.1.13...v0.1.14) (2026-10-20)
 
 
