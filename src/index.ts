@@ -9,6 +9,7 @@ export { Icon } from './components/icon/icon.tsx';
 export { Inline } from './components/layout/inline/inline.tsx';
 export { Input } from './components/form/input/input.tsx';
 export { Label, type Required } from './components/form/label/label.tsx';
+export { Menu } from './components/menu/menu.ts';
 export {
   Pagination,
   type PaginationChange,
