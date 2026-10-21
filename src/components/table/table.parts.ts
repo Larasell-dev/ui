@@ -7,7 +7,8 @@ export { TableRow as Row } from './table-row.tsx';
 export { TableCell as Cell } from './table-cell.tsx';
 export { TableLink as Link } from './table-link.tsx';
 export { TablePagination as Pagination } from './table-pagination.tsx';
-export { TableActions as Actions } from './table-actions.tsx';
+// A row's menu of actions: the shared menu, with a table-styled trigger.
+export { MenuRoot as Actions } from '../menu/menu-root.tsx';
 export { TableActionsTrigger as ActionsTrigger } from './table-actions.tsx';
-export { TableActionsPopup as ActionsPopup } from './table-actions.tsx';
-export { TableActionsItem as ActionsItem } from './table-actions.tsx';
+export { MenuPopup as ActionsPopup } from '../menu/menu-popup.tsx';
+export { MenuItem as ActionsItem } from '../menu/menu-item.tsx';
