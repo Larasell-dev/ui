@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.17](https://github.com/Larasell-dev/ui/compare/v0.1.16...v0.1.17) (2026-10-22)
+
+
+### Features
+
+* add Section, SectionStack and Inset components ([#76](https://github.com/Larasell-dev/ui/issues/76)) ([172f8db](https://github.com/Larasell-dev/ui/commit/172f8dbdc555daa95894afead0ac7bb1af0f272a))
+
 ## [0.1.16](https://github.com/Larasell-dev/ui/compare/v0.1.15...v0.1.16) (2026-10-22)
 
 
