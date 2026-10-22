@@ -5,7 +5,7 @@ import type { ComponentProps, CSSProperties } from 'react';
 import { cn } from 'cn';
 import { Icon } from '../../icon/icon.tsx';
 
-type CheckboxProps = Omit<
+type IndicatorProps = Omit<
   ComponentProps<typeof BaseCheckbox.Root>,
   'className' | 'style' | 'children'
 > & {
@@ -14,14 +14,15 @@ type CheckboxProps = Omit<
 };
 
 /**
- * A checkbox. Name it with a wrapping `<label>` or a Field `<Label>`. It
- * submits `value` with its form while ticked, like a native checkbox.
+ * The checkbox's box. Name it by putting it in a `Checkbox.Label`, or with
+ * `aria-label` when there is no visible label. It submits `value` with its form
+ * while ticked, like a native checkbox.
  */
-export function Checkbox({
+export function Indicator({
   DANGEROUS_className,
   DANGEROUS_style,
   ...props
-}: CheckboxProps) {
+}: IndicatorProps) {
   return (
     <BaseCheckbox.Root
       {...props}

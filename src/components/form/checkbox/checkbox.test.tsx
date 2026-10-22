@@ -1,14 +1,17 @@
+import { Field } from '@base-ui/react/field';
 import { expect, test } from 'vite-plus/test';
 import { render } from 'vitest-browser-react';
-import { Checkbox } from './checkbox.tsx';
+import { Checkbox } from './checkbox.ts';
 
 test('ticks and unticks when its label is clicked', async () => {
   // Tests load no CSS, so the empty, unticked box has no size to click on.
   const screen = await render(
-    <label>
-      <Checkbox />
-      Visible
-    </label>,
+    <Field.Root>
+      <Checkbox.Label>
+        <Checkbox.Indicator />
+        Visible
+      </Checkbox.Label>
+    </Field.Root>,
   );
 
   const checkbox = screen.getByRole('checkbox', { name: 'Visible' });
@@ -24,7 +27,12 @@ test('ticks and unticks when its label is clicked', async () => {
 test('submits its value with the form only while ticked', async () => {
   const screen = await render(
     <form data-testid="form">
-      <Checkbox aria-label="Visible" name="visible" value="1" defaultChecked />
+      <Checkbox.Indicator
+        aria-label="Visible"
+        name="visible"
+        value="1"
+        defaultChecked
+      />
     </form>,
   );
   const form = screen.getByTestId('form').element() as HTMLFormElement;
@@ -39,7 +47,7 @@ test('submits its value with the form only while ticked', async () => {
 test('does not accept className', async () => {
   const screen = await render(
     // @ts-expect-error className is blocked; use DANGEROUS_className
-    <Checkbox aria-label="Visible" className="mt-4" />,
+    <Checkbox.Indicator aria-label="Visible" className="mt-4" />,
   );
 
   await expect
@@ -49,7 +57,7 @@ test('does not accept className', async () => {
 
 test('applies DANGEROUS_className as className', async () => {
   const screen = await render(
-    <Checkbox aria-label="Visible" DANGEROUS_className="mt-4" />,
+    <Checkbox.Indicator aria-label="Visible" DANGEROUS_className="mt-4" />,
   );
 
   const checkbox = screen.getByRole('checkbox', { name: 'Visible' });
@@ -61,7 +69,7 @@ test('applies DANGEROUS_className as className', async () => {
 test('does not accept style', async () => {
   const screen = await render(
     // @ts-expect-error style is blocked; use DANGEROUS_style
-    <Checkbox aria-label="Visible" style={{ marginTop: 16 }} />,
+    <Checkbox.Indicator aria-label="Visible" style={{ marginTop: 16 }} />,
   );
 
   await expect
@@ -71,7 +79,10 @@ test('does not accept style', async () => {
 
 test('applies DANGEROUS_style as style', async () => {
   const screen = await render(
-    <Checkbox aria-label="Visible" DANGEROUS_style={{ marginTop: '16px' }} />,
+    <Checkbox.Indicator
+      aria-label="Visible"
+      DANGEROUS_style={{ marginTop: '16px' }}
+    />,
   );
 
   await expect

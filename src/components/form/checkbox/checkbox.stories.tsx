@@ -2,12 +2,11 @@ import { Field as BaseField } from '@base-ui/react/field';
 import { fn } from 'storybook/test';
 import preview from '../../../../.storybook/preview.tsx';
 import { Error } from '../error/error.tsx';
-import { Label } from '../label/label.tsx';
-import { Checkbox } from './checkbox.tsx';
+import { Checkbox } from './checkbox.ts';
 
 const meta = preview.meta({
   title: 'Atoms/Checkbox',
-  component: Checkbox,
+  component: Checkbox.Indicator,
   args: {
     onCheckedChange: fn(),
   },
@@ -20,10 +19,10 @@ const meta = preview.meta({
   },
   render: (args) => (
     <BaseField.Root>
-      <Label DANGEROUS_className="flex items-center gap-2.5">
-        <Checkbox {...args} />
+      <Checkbox.Label>
+        <Checkbox.Indicator {...args} />
         Visible in the store
-      </Label>
+      </Checkbox.Label>
     </BaseField.Root>
   ),
 });
@@ -41,7 +40,7 @@ export const WithoutLabel = meta.story({
   args: {
     'aria-label': 'Select row',
   },
-  render: (args) => <Checkbox {...args} />,
+  render: (args) => <Checkbox.Indicator {...args} />,
 });
 
 export const Indeterminate = meta.story({
@@ -66,10 +65,10 @@ export const DisabledChecked = meta.story({
 export const Invalid = meta.story({
   render: (args) => (
     <BaseField.Root invalid className="flex flex-col gap-1.5">
-      <Label DANGEROUS_className="flex items-center gap-2.5">
-        <Checkbox {...args} />
+      <Checkbox.Label>
+        <Checkbox.Indicator {...args} />
         Accept the terms
-      </Label>
+      </Checkbox.Label>
       <Error match>Accept the terms to continue.</Error>
     </BaseField.Root>
   ),
