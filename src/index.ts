@@ -1,5 +1,6 @@
 export { AlertDialog } from './components/alert-dialog/alert-dialog.ts';
 export { Button } from './components/form/button/button.tsx';
+export { Checkbox } from './components/form/checkbox/checkbox.tsx';
 export { Container } from './components/layout/container/container.tsx';
 export { DataList } from './components/data-list/data-list.ts';
 export { EmptyState } from './components/empty-state/empty-state.tsx';
