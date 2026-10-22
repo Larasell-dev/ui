@@ -2,6 +2,7 @@ import { Field as BaseField } from '@base-ui/react/field';
 import { fn } from 'storybook/test';
 import preview from '../../../../.storybook/preview.tsx';
 import { Error } from '../error/error.tsx';
+import { Label } from '../label/label.tsx';
 import { Checkbox } from './checkbox.tsx';
 
 const meta = preview.meta({
@@ -18,10 +19,12 @@ const meta = preview.meta({
     layout: 'centered',
   },
   render: (args) => (
-    <label className="type-label-md flex items-center gap-2.5 text-mauve-950 select-none dark:text-mauve-100">
-      <Checkbox {...args} />
-      Visible in the store
-    </label>
+    <BaseField.Root>
+      <Label DANGEROUS_className="flex items-center gap-2.5">
+        <Checkbox {...args} />
+        Visible in the store
+      </Label>
+    </BaseField.Root>
   ),
 });
 
@@ -63,10 +66,10 @@ export const DisabledChecked = meta.story({
 export const Invalid = meta.story({
   render: (args) => (
     <BaseField.Root invalid className="flex flex-col gap-1.5">
-      <BaseField.Label className="type-label-md flex items-center gap-2.5 text-mauve-950 select-none dark:text-mauve-100">
+      <Label DANGEROUS_className="flex items-center gap-2.5">
         <Checkbox {...args} />
         Accept the terms
-      </BaseField.Label>
+      </Label>
       <Error match>Accept the terms to continue.</Error>
     </BaseField.Root>
   ),
