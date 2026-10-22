@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.16](https://github.com/Larasell-dev/ui/compare/v0.1.15...v0.1.16) (2026-10-22)
+
+
+### Features
+
+* add Checkbox component ([#74](https://github.com/Larasell-dev/ui/issues/74)) ([a83aaec](https://github.com/Larasell-dev/ui/commit/a83aaec44847a048e19bf0d212b1b2f79c55d61e))
+
 ## [0.1.15](https://github.com/Larasell-dev/ui/compare/v0.1.14...v0.1.15) (2026-10-21)
 
 
