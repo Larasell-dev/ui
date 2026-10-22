@@ -8,6 +8,7 @@ export { Error } from './components/form/error/error.tsx';
 export { Field } from './components/form/field/field.tsx';
 export { Icon } from './components/icon/icon.tsx';
 export { Inline } from './components/layout/inline/inline.tsx';
+export { Inset } from './components/layout/inset/inset.tsx';
 export { Input } from './components/form/input/input.tsx';
 export { Label, type Required } from './components/form/label/label.tsx';
 export { Menu } from './components/menu/menu.ts';
@@ -16,6 +17,8 @@ export {
   type PaginationChange,
   type PaginationProps,
 } from './components/pagination/pagination.tsx';
+export { Section } from './components/layout/section/section.ts';
+export { SectionStack } from './components/layout/section/section-stack.tsx';
 export { Spacer } from './components/layout/spacer/spacer.tsx';
 export type { Spacing } from './components/layout/spacing.ts';
 export { Spinner } from './components/spinner/spinner.tsx';
