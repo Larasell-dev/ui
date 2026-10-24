@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.20](https://github.com/Larasell-dev/ui/compare/v0.1.19...v0.1.20) (2026-10-24)
+
+
+### Features
+
+* keep secondary and tertiary buttons highlighted while their popup is open ([#91](https://github.com/Larasell-dev/ui/issues/91)) ([ba92fe7](https://github.com/Larasell-dev/ui/commit/ba92fe799dd2c694eb00739896d49ad4b4410e44))
+
+
+### Bug Fixes
+
+* let IconButton take its icon as children ([#90](https://github.com/Larasell-dev/ui/issues/90)) ([dcd64c2](https://github.com/Larasell-dev/ui/commit/dcd64c297da7912cffd337ad17b659c3da8b93fa))
+
 ## [0.1.19](https://github.com/Larasell-dev/ui/compare/v0.1.18...v0.1.19) (2026-10-24)
 
 
