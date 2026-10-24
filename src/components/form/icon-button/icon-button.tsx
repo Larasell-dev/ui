@@ -52,7 +52,11 @@ export function IconButton({
   const disabled = Boolean(props.disabled || group.disabled);
 
   return (
-    <ButtonGroupItem grouped={group.grouped} disabled={disabled}>
+    <ButtonGroupItem
+      grouped={group.grouped}
+      focusable={!disabled}
+      disabled={disabled}
+    >
       <BaseButton
         {...props}
         disabled={disabled}

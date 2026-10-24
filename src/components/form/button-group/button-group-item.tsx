@@ -1,13 +1,11 @@
 import { RovingFocusItem } from '@roving-focus/react';
-import type { ReactElement } from 'react';
+import { cloneElement, type ReactElement } from 'react';
 
 type ButtonGroupItemProps = {
   grouped: boolean;
-  /**
-   * A disabled or loading button is skipped by the arrow keys. This also keeps
-   * the roving item from clearing Base UI's `data-disabled`, which the
-   * disabled styles rely on.
-   */
+  /** Whether the arrow keys can reach the button. */
+  focusable: boolean;
+  /** Whether the button is disabled, e.g. while loading. */
   disabled: boolean;
   children: ReactElement;
 };
@@ -18,13 +16,19 @@ type ButtonGroupItemProps = {
  */
 export function ButtonGroupItem({
   grouped,
+  focusable,
   disabled,
   children,
 }: ButtonGroupItemProps) {
   if (!grouped) return children;
   return (
-    <RovingFocusItem asChild focusable={!disabled}>
-      {children}
+    <RovingFocusItem asChild focusable={focusable}>
+      {/* The roving item clears `data-disabled` on any focusable item, which
+          would drop the disabled styles of a loading button. Set on the button
+          itself, it wins over the item's. */}
+      {cloneElement(children as ReactElement<Record<string, unknown>>, {
+        'data-disabled': disabled ? '' : undefined,
+      })}
     </RovingFocusItem>
   );
 }

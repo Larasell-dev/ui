@@ -117,6 +117,8 @@ export function Button({
   return (
     <ButtonGroupItem
       grouped={group.grouped}
+      // A loading button stays a stop, as it stays focusable.
+      focusable={!disabled && !group.disabled}
       disabled={Boolean(loading || disabled || group.disabled)}
     >
       <BaseButton
