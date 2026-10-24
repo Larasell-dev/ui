@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.21](https://github.com/Larasell-dev/ui/compare/v0.1.20...v0.1.21) (2026-10-24)
+
+
+### Features
+
+* add ButtonGroup with roving focus and a shared size and disabled state ([d77e869](https://github.com/Larasell-dev/ui/commit/d77e8695300167df5a5d64e2bcd00685bd4e89e9))
+
+
+### Bug Fixes
+
+* keep a loading button in a ButtonGroup focusable ([ee02aae](https://github.com/Larasell-dev/ui/commit/ee02aaeded364cafec36a7dc78a27607c047da8d))
+
 ## [0.1.20](https://github.com/Larasell-dev/ui/compare/v0.1.19...v0.1.20) (2026-10-24)
 
 
