@@ -21,7 +21,7 @@ export function TableColumn({ children, type = 'data' }: TableColumnProps) {
     <th
       role="columnheader"
       scope="col"
-      className="type-label-sm truncate px-4 py-2.5 text-left text-mauve-600 dark:text-mauve-400"
+      className="type-label-sm truncate px-6 py-2.5 text-left text-mauve-600 dark:text-mauve-400"
     >
       {type === 'action' ? (
         <span className="sr-only">{children}</span>
