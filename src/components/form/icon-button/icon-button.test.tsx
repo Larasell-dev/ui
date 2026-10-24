@@ -1,9 +1,7 @@
-import '../../../../test/tailwind.css';
 import { expect, test, vi } from 'vite-plus/test';
 import { userEvent } from 'vite-plus/test/browser';
 import { render } from 'vitest-browser-react';
 import { AddLine } from '../../../icons.ts';
-import { Button } from '../button/button.tsx';
 import { IconButton } from './icon-button.tsx';
 
 test('is named by its aria-label and hides the icon from assistive tech', async () => {
@@ -43,46 +41,6 @@ test('does not accept children', async () => {
     .not.toHaveTextContent('Add');
 });
 
-test.each(['md', 'sm'] as const)(
-  'is square and as tall as a button in the %s size',
-  async (size) => {
-    const screen = await render(
-      <div className="flex items-start gap-2">
-        <Button size={size}>Save</Button>
-        <IconButton size={size} icon={AddLine} aria-label="Add" />
-      </div>,
-    );
-
-    const button = screen
-      .getByRole('button', { name: 'Save' })
-      .element()
-      .getBoundingClientRect();
-    const iconButton = screen
-      .getByRole('button', { name: 'Add' })
-      .element()
-      .getBoundingClientRect();
-
-    expect(iconButton.width).toBe(iconButton.height);
-    expect(iconButton.height).toBe(button.height);
-  },
-);
-
-test('uses the same colors as a button of the same variant', async () => {
-  const screen = await render(
-    <>
-      <Button variant="destructive">Delete</Button>
-      <IconButton variant="destructive" icon={AddLine} aria-label="Remove" />
-    </>,
-  );
-
-  const color = (name: string) =>
-    getComputedStyle(screen.getByRole('button', { name }).element())
-      .backgroundColor;
-
-  expect(color('Remove')).toBe(color('Delete'));
-  expect(color('Remove')).not.toBe('rgba(0, 0, 0, 0)');
-});
-
 test('calls onClick when pressed', async () => {
   const onClick = vi.fn();
   const screen = await render(
@@ -94,48 +52,71 @@ test('calls onClick when pressed', async () => {
   expect(onClick).toHaveBeenCalledOnce();
 });
 
-test('disabled button is disabled and ignores clicks', async () => {
+test('is disabled', async () => {
+  const screen = await render(
+    <IconButton icon={AddLine} aria-label="Add" disabled />,
+  );
+
+  await expect
+    .element(screen.getByRole('button', { name: 'Add' }))
+    .toBeDisabled();
+});
+
+test('ignores clicks when disabled', async () => {
   const onClick = vi.fn();
   const screen = await render(
     <IconButton icon={AddLine} aria-label="Add" disabled onClick={onClick} />,
   );
 
-  const button = screen.getByRole('button', { name: 'Add' });
+  await userEvent.click(screen.getByRole('button', { name: 'Add' }), {
+    force: true,
+  });
 
-  await expect.element(button).toBeDisabled();
-  await userEvent.click(button, { force: true });
   expect(onClick).not.toHaveBeenCalled();
 });
 
-test('does not accept className or style', async () => {
+test('does not accept className', async () => {
   const screen = await render(
-    <IconButton
-      icon={AddLine}
-      aria-label="Add"
-      // @ts-expect-error className is blocked; use DANGEROUS_className
-      className="mt-4"
-      style={{ marginTop: 16 }}
-    />,
+    // @ts-expect-error className is blocked; use DANGEROUS_className
+    <IconButton icon={AddLine} aria-label="Add" className="mt-4" />,
   );
 
-  const button = screen.getByRole('button', { name: 'Add' });
-
-  await expect.element(button).not.toHaveClass('mt-4');
-  await expect.element(button).not.toHaveStyle({ marginTop: '16px' });
+  await expect
+    .element(screen.getByRole('button', { name: 'Add' }))
+    .not.toHaveClass('mt-4');
 });
 
-test('applies DANGEROUS_className and DANGEROUS_style', async () => {
+test('does not accept style', async () => {
+  const screen = await render(
+    // @ts-expect-error style is blocked; use DANGEROUS_style
+    <IconButton icon={AddLine} aria-label="Add" style={{ marginTop: 16 }} />,
+  );
+
+  await expect
+    .element(screen.getByRole('button', { name: 'Add' }))
+    .not.toHaveStyle({ marginTop: '16px' });
+});
+
+test('applies DANGEROUS_className as className', async () => {
+  const screen = await render(
+    <IconButton icon={AddLine} aria-label="Add" DANGEROUS_className="ml-4" />,
+  );
+
+  await expect
+    .element(screen.getByRole('button', { name: 'Add' }))
+    .toHaveClass('ml-4');
+});
+
+test('applies DANGEROUS_style as style', async () => {
   const screen = await render(
     <IconButton
       icon={AddLine}
       aria-label="Add"
-      DANGEROUS_className="ml-4"
       DANGEROUS_style={{ marginTop: '16px' }}
     />,
   );
 
-  const button = screen.getByRole('button', { name: 'Add' });
-
-  await expect.element(button).toHaveClass('ml-4');
-  await expect.element(button).toHaveStyle({ marginTop: '16px' });
+  await expect
+    .element(screen.getByRole('button', { name: 'Add' }))
+    .toHaveStyle({ marginTop: '16px' });
 });

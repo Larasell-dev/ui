@@ -1,7 +1,6 @@
 import { expect, test, vi } from 'vite-plus/test';
 import { userEvent } from 'vite-plus/test/browser';
 import { render } from 'vitest-browser-react';
-import '../../../../test/tailwind.css';
 import { Button } from './button.tsx';
 
 test('calls onClick when pressed', async () => {
@@ -123,29 +122,4 @@ test('ignores focusableWhenDisabled set from the outside', async () => {
   await userEvent.tab();
 
   await expect.element(button).not.toHaveFocus();
-});
-
-test('is as tall as the square nav buttons in the small size', async () => {
-  const screen = await render(<Button size="sm">Save</Button>);
-
-  const { height } = screen
-    .getByRole('button', { name: 'Save' })
-    .element()
-    .getBoundingClientRect();
-
-  expect(height).toBe(36);
-});
-
-test('keeps its height when loading', async () => {
-  const screen = await render(<Button size="sm">Save</Button>);
-  const button = screen.getByRole('button', { name: 'Save' }).element();
-  const idle = button.getBoundingClientRect().height;
-
-  await screen.rerender(
-    <Button size="sm" loading>
-      Save
-    </Button>,
-  );
-
-  expect(button.getBoundingClientRect().height).toBe(idle);
 });

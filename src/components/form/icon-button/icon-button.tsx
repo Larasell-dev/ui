@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from 'cn';
 import type { ComponentProps, CSSProperties } from 'react';
 import { Icon } from '../../icon/icon.tsx';
-import { buttonColors } from '../button/button-colors.ts';
+import { buttonColors } from '../button/button.tsx';
 
 const iconButtonVariants = cva(
   [
