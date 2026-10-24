@@ -30,7 +30,7 @@
     "dev": "vp pack --watch",
     "test": "vp test",
     "check": "vp check",
-    "best-before": "sh scripts/best-before",
+    "best-before": "node scripts/best-before.mjs",
     "prepublishOnly": "vp run build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
