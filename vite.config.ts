@@ -1,9 +1,11 @@
 import { playwright } from '@vitest/browser-playwright';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite-plus';
 
 export default defineConfig({
-  plugins: [react()],
+  // Tailwind only for tests, which measure rendered sizes; the package ships source classes.
+  plugins: [react(), ...(process.env.VITEST ? [tailwindcss()] : [])],
   pack: {
     entry: ['src/index.ts', 'src/icons.ts', 'src/inertia.ts'],
     dts: { tsconfig: 'tsconfig.build.json' },

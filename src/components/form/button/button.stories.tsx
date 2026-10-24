@@ -73,3 +73,18 @@ export const LoadingFullWidth = meta.story({
     layout: 'padded',
   },
 });
+
+/** As tall as the square icon buttons, e.g. to sit in a page header beside them. */
+export const Small = meta.story({
+  args: {
+    size: 'sm',
+  },
+});
+
+export const SmallTertiary = meta.story({
+  args: {
+    size: 'sm',
+    variant: 'tertiary',
+    children: 'Skip',
+  },
+});
