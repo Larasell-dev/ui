@@ -7,6 +7,8 @@ updates:
       interval: weekly
     cooldown:
       default-days: 3
+    commit-message:
+      prefix: build
 
   - package-ecosystem: github-actions
     directory: /
@@ -14,3 +16,5 @@ updates:
       interval: weekly
     cooldown:
       default-days: 3
+    commit-message:
+      prefix: build
