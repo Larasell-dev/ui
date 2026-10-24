@@ -1,6 +1,5 @@
 import { createContext, useContext } from 'react';
-
-type ButtonSize = 'md' | 'sm';
+import type { ButtonSize } from '../button/button.tsx';
 
 type ButtonGroupContextValue = {
   /** Undefined leaves each button at its default size. */

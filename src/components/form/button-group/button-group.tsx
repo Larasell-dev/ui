@@ -1,13 +1,14 @@
 import { RovingFocusGroup } from '@roving-focus/react';
 import type { CSSProperties, KeyboardEvent, ReactNode } from 'react';
 import { cn } from 'cn';
+import type { ButtonSize } from '../button/button.tsx';
 import { ButtonGroupContext } from './button-group-context.ts';
 
 type ButtonGroupProps = {
   /** Names the group for assistive tech. */
   label: string;
   /** The size of every button in the group, which may not set its own. */
-  size?: 'md' | 'sm';
+  size?: ButtonSize;
   /** Disables every button in the group. */
   disabled?: boolean;
   /** `Button`s and `IconButton`s, also as a `Menu.Trigger`. */

@@ -25,7 +25,8 @@ export function ButtonGroupItem({
     <RovingFocusItem asChild focusable={focusable}>
       {/* The roving item clears `data-disabled` on any focusable item, which
           would drop the disabled styles of a loading button. Set on the button
-          itself, it wins over the item's. */}
+          itself, it wins over the item's. Remove once @roving-focus/react
+          keeps a `data-disabled` set on the child; best-before: 2026-12-05 */}
       {cloneElement(children as ReactElement<Record<string, unknown>>, {
         'data-disabled': disabled ? '' : undefined,
       })}
