@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.22](https://github.com/Larasell-dev/ui/compare/v0.1.21...v0.1.22) (2026-10-24)
+
+
+### Features
+
+* add Dialog component ([186c01f](https://github.com/Larasell-dev/ui/commit/186c01fab5f3e0dfd1580b42fdb93589ebfbff3d))
+
 ## [0.1.21](https://github.com/Larasell-dev/ui/compare/v0.1.20...v0.1.21) (2026-10-24)
 
 
