@@ -5,10 +5,24 @@ export type ClipboardWriter = {
   writeText: (text: string) => Promise<void>;
 };
 
-/** Writes to `navigator.clipboard`. Used when no provider is present. */
+/**
+ * Writes to `navigator.clipboard`. Used when no provider is present. Rejects
+ * when the browser has no clipboard, as in insecure contexts.
+ */
 export const browserClipboard: ClipboardWriter = {
   // Looked up on every call, so tests can spy on `navigator.clipboard`.
-  writeText: (text) => navigator.clipboard.writeText(text),
+  writeText: (text) => {
+    // Typed as always present, but browsers leave it out over plain HTTP.
+    // Rejecting, like a denied write, lets callers handle both the same way.
+    if (navigator.clipboard === undefined) {
+      return Promise.reject(
+        new Error(
+          'The clipboard is unavailable: navigator.clipboard needs a secure context (HTTPS or localhost).',
+        ),
+      );
+    }
+    return navigator.clipboard.writeText(text);
+  },
 };
 
 /**

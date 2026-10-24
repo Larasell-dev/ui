@@ -1,6 +1,6 @@
 import { afterEach, expect, test, vi } from 'vite-plus/test';
 import { act } from 'react';
-import { render } from 'vitest-browser-react';
+import { render, renderHook } from 'vitest-browser-react';
 import { ClipboardProvider, TestClipboard } from './clipboard.tsx';
 import { useCopy } from './use-copy.ts';
 
@@ -119,4 +119,60 @@ test('rejects and stays not copied when the write fails', async () => {
     .element(screen.getByRole('button', { name: 'Copy' }))
     .toBeVisible();
   expect(clipboard.texts).toEqual([]);
+});
+
+test.each([NaN, -1, Infinity, 2 ** 31])(
+  'throws when resetAfter is %s',
+  async (resetAfter) => {
+    await expect(
+      render(<CopyButton text="secret" resetAfter={resetAfter} />),
+    ).rejects.toThrow(RangeError);
+  },
+);
+
+test.each([0, 2 ** 31 - 1])('accepts resetAfter %s', async (resetAfter) => {
+  const screen = await render(
+    <CopyButton text="secret" resetAfter={resetAfter} />,
+  );
+
+  await expect.element(screen.getByRole('button')).toBeVisible();
+});
+
+test.each([undefined, 42, null])(
+  'throws without writing when copy gets %s',
+  async (text) => {
+    const clipboard = new TestClipboard();
+    const { result } = await renderHook(() => useCopy(), {
+      wrapper: ({ children }) => (
+        <ClipboardProvider clipboard={clipboard}>{children}</ClipboardProvider>
+      ),
+    });
+
+    // Synchronous, so the mistake can't be swallowed by a caller's catch.
+    expect(() => result.current.copy(text as unknown as string)).toThrow(
+      TypeError,
+    );
+    expect(clipboard.texts).toEqual([]);
+  },
+);
+
+test('rejects with a clear error when the browser has no clipboard', async () => {
+  vi.spyOn(navigator, 'clipboard', 'get').mockReturnValue(
+    undefined as unknown as Clipboard,
+  );
+  const onError = vi.fn();
+  const screen = await render(<CopyButton text="secret" onError={onError} />);
+
+  await screen.getByRole('button', { name: 'Copy' }).click();
+
+  await vi.waitFor(() =>
+    expect(onError).toHaveBeenCalledWith(
+      expect.objectContaining({
+        message: expect.stringContaining('secure context'),
+      }),
+    ),
+  );
+  await expect
+    .element(screen.getByRole('button', { name: 'Copy' }))
+    .toBeVisible();
 });
