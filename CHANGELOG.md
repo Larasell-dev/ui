@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.18](https://github.com/Larasell-dev/ui/compare/v0.1.17...v0.1.18) (2026-10-24)
+
+
+### Features
+
+* add PasswordInput, a swappable clipboard and useCopy ([#83](https://github.com/Larasell-dev/ui/issues/83)) ([7cae6f1](https://github.com/Larasell-dev/ui/commit/7cae6f1359ced5390c39e396d42fa99efaa841fd))
+
 ## [0.1.17](https://github.com/Larasell-dev/ui/compare/v0.1.16...v0.1.17) (2026-10-22)
 
 
