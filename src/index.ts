@@ -17,6 +17,7 @@ export {
   type PaginationChange,
   type PaginationProps,
 } from './components/pagination/pagination.tsx';
+export { PasswordInput } from './components/form/password-input/password-input.tsx';
 export { Section } from './components/layout/section/section.ts';
 export { SectionStack } from './components/layout/section/section-stack.tsx';
 export { Spacer } from './components/layout/spacer/spacer.tsx';
@@ -24,4 +25,12 @@ export type { Spacing } from './components/layout/spacing.ts';
 export { Spinner } from './components/spinner/spinner.tsx';
 export { Stack } from './components/layout/stack/stack.tsx';
 export { Table } from './components/table/table.ts';
+export {
+  browserClipboard,
+  ClipboardProvider,
+  type ClipboardWriter,
+  TestClipboard,
+  useClipboard,
+} from './utils/clipboard.tsx';
+export { useCopy } from './utils/use-copy.ts';
 export { useScrollMaskScrollbar } from './utils/use-scroll-mask-scrollbar.ts';
