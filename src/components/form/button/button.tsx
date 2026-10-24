@@ -4,11 +4,15 @@ import { useMemo, type ComponentProps, type CSSProperties } from 'react';
 import { cn } from 'cn';
 import { Spinner } from '../../spinner/spinner.tsx';
 import { match } from '../../../utils/match.ts';
+import { useButtonGroup } from '../button-group/button-group-context.ts';
+import { ButtonGroupItem } from '../button-group/button-group-item.tsx';
 
 /**
  * The colors of each button variant, shared by Button and IconButton. Only colors live
  * here: each button sets its own size and spacing. Secondary and tertiary buttons that
- * open a menu or another popup keep their hover color while it is open.
+ * open a menu or another popup keep their hover color while it is open. Solid buttons
+ * in a ButtonGroup draw a divider on their leading edge, as their neighbour's border
+ * matches their background.
  */
 export const buttonColors = cva('', {
   variants: {
@@ -30,9 +34,26 @@ export const buttonColors = cva('', {
         'dark:border-red-500 dark:bg-red-500 dark:not-data-disabled:hover:border-red-400 dark:not-data-disabled:hover:bg-red-400',
       ],
     },
+    grouped: {
+      true: '',
+      false: '',
+    },
   },
+  compoundVariants: [
+    {
+      variant: 'primary',
+      grouped: true,
+      class: '[button~&]:border-l-mauve-600 dark:[button~&]:border-l-mauve-400',
+    },
+    {
+      variant: 'destructive',
+      grouped: true,
+      class: '[button~&]:border-l-red-800 dark:[button~&]:border-l-red-700',
+    },
+  ],
   defaultVariants: {
     variant: 'primary',
+    grouped: false,
   },
 });
 
@@ -70,7 +91,7 @@ type ButtonProps = Omit<
   'className' | 'style' | 'disabled' | 'focusableWhenDisabled'
 > &
   VariantProps<typeof buttonVariants> &
-  VariantProps<typeof buttonColors> &
+  Pick<VariantProps<typeof buttonColors>, 'variant'> &
   LoadingProps & {
     DANGEROUS_className?: string;
     DANGEROUS_style?: CSSProperties;
@@ -87,45 +108,52 @@ export function Button({
   children,
   ...props
 }: ButtonProps) {
+  const group = useButtonGroup('Button', size);
   const content = useMemo(() => {
     if (!loading) return 'idle';
     return fullWidth ? 'inline' : 'overlay';
   }, [loading, fullWidth]);
 
   return (
-    <BaseButton
-      {...props}
-      disabled={loading || disabled}
-      focusableWhenDisabled={loading}
-      aria-busy={loading || undefined}
-      className={cn(
-        buttonColors({ variant }),
-        buttonVariants({ size, fullWidth }),
-        DANGEROUS_className,
-      )}
-      style={DANGEROUS_style}
+    <ButtonGroupItem
+      grouped={group.grouped}
+      disabled={Boolean(loading || disabled || group.disabled)}
     >
-      {match(content, {
-        idle: () => children,
-        overlay: () => (
-          <>
-            {/* Hidden visually but kept in the accessibility tree and the layout,
+      <BaseButton
+        {...props}
+        disabled={loading || disabled || group.disabled}
+        // A disabled group takes even a loading button out of the tab order.
+        focusableWhenDisabled={loading && !group.disabled}
+        aria-busy={loading || undefined}
+        className={cn(
+          buttonColors({ variant, grouped: group.grouped }),
+          buttonVariants({ size: group.size, fullWidth }),
+          DANGEROUS_className,
+        )}
+        style={DANGEROUS_style}
+      >
+        {match(content, {
+          idle: () => children,
+          overlay: () => (
+            <>
+              {/* Hidden visually but kept in the accessibility tree and the layout,
                 so the button keeps its name and size. */}
-            <span className="opacity-0">{children}</span>
-            <span className="absolute inset-0 flex items-center justify-center">
-              <Spinner aria-hidden />
+              <span className="opacity-0">{children}</span>
+              <span className="absolute inset-0 flex items-center justify-center">
+                <Spinner aria-hidden />
+              </span>
+            </>
+          ),
+          inline: () => (
+            <span className="relative">
+              <span className="absolute top-1/2 right-full mr-2 flex -translate-y-1/2">
+                <Spinner aria-hidden />
+              </span>
+              {children}
             </span>
-          </>
-        ),
-        inline: () => (
-          <span className="relative">
-            <span className="absolute top-1/2 right-full mr-2 flex -translate-y-1/2">
-              <Spinner aria-hidden />
-            </span>
-            {children}
-          </span>
-        ),
-      })}
-    </BaseButton>
+          ),
+        })}
+      </BaseButton>
+    </ButtonGroupItem>
   );
 }
