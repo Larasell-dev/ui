@@ -2,6 +2,7 @@ export { AlertDialog } from './components/alert-dialog/alert-dialog.ts';
 export { Button } from './components/form/button/button.tsx';
 export { ButtonGroup } from './components/form/button-group/button-group.tsx';
 export { IconButton } from './components/form/icon-button/icon-button.tsx';
+export { Dialog } from './components/dialog/dialog.ts';
 export { Checkbox } from './components/form/checkbox/checkbox.ts';
 export { Container } from './components/layout/container/container.tsx';
 export { DataList } from './components/data-list/data-list.ts';
