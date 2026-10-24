@@ -5,31 +5,48 @@ import { cn } from 'cn';
 import { Spinner } from '../../spinner/spinner.tsx';
 import { match } from '../../../utils/match.ts';
 
+/**
+ * The colors of each button variant, shared by Button and IconButton. Only colors live
+ * here: each button sets its own size and spacing.
+ */
+export const buttonColors = cva('', {
+  variants: {
+    variant: {
+      primary: [
+        'border border-mauve-950 bg-mauve-950 text-mauve-50 not-data-disabled:hover:border-mauve-800 not-data-disabled:hover:bg-mauve-800 not-data-disabled:active:border-mauve-900 not-data-disabled:active:bg-mauve-900',
+        'dark:border-mauve-100 dark:bg-mauve-100 dark:text-mauve-950 dark:not-data-disabled:hover:border-white dark:not-data-disabled:hover:bg-white',
+      ],
+      secondary: [
+        'border-border border bg-white text-mauve-950 not-data-disabled:hover:bg-mauve-100',
+        'dark:bg-mauve-900 dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800',
+      ],
+      tertiary: [
+        'border border-transparent bg-transparent text-mauve-950 no-underline not-data-disabled:hover:bg-mauve-100 not-data-disabled:hover:no-underline focus-visible:no-underline',
+        'dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800',
+      ],
+      destructive: [
+        'border border-red-600 bg-red-600 text-white not-data-disabled:hover:border-red-700 not-data-disabled:hover:bg-red-700 not-data-disabled:active:border-red-800 not-data-disabled:active:bg-red-800',
+        'dark:border-red-500 dark:bg-red-500 dark:not-data-disabled:hover:border-red-400 dark:not-data-disabled:hover:bg-red-400',
+      ],
+    },
+  },
+  defaultVariants: {
+    variant: 'primary',
+  },
+});
+
 const buttonVariants = cva(
   [
-    'type-label-md relative inline-flex cursor-pointer items-center justify-center gap-2 px-5 py-2.5 whitespace-nowrap no-underline select-none',
+    'type-label-md relative box-border inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap no-underline select-none',
     'focus-visible:focus-ring',
     'data-disabled:cursor-not-allowed data-disabled:opacity-50',
   ],
   {
     variants: {
-      variant: {
-        primary: [
-          'border border-mauve-950 bg-mauve-950 text-mauve-50 not-data-disabled:hover:border-mauve-800 not-data-disabled:hover:bg-mauve-800 not-data-disabled:active:border-mauve-900 not-data-disabled:active:bg-mauve-900',
-          'dark:border-mauve-100 dark:bg-mauve-100 dark:text-mauve-950 dark:not-data-disabled:hover:border-white dark:not-data-disabled:hover:bg-white',
-        ],
-        secondary: [
-          'border-border border bg-white text-mauve-950 not-data-disabled:hover:bg-mauve-100',
-          'dark:bg-mauve-900 dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800',
-        ],
-        tertiary: [
-          'border border-transparent bg-transparent px-5 py-2.5 text-mauve-950 no-underline not-data-disabled:hover:bg-mauve-100 not-data-disabled:hover:no-underline focus-visible:no-underline',
-          'dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800',
-        ],
-        destructive: [
-          'border border-red-600 bg-red-600 text-white not-data-disabled:hover:border-red-700 not-data-disabled:hover:bg-red-700 not-data-disabled:active:border-red-800 not-data-disabled:active:bg-red-800',
-          'dark:border-red-500 dark:bg-red-500 dark:not-data-disabled:hover:border-red-400 dark:not-data-disabled:hover:bg-red-400',
-        ],
+      // As tall as IconButton in the same size, but set here on its own so either can change.
+      size: {
+        md: 'h-10.5 px-5',
+        sm: 'h-9 px-4',
       },
       fullWidth: {
         true: 'w-full',
@@ -37,7 +54,7 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: 'primary',
+      size: 'md',
       fullWidth: false,
     },
   },
@@ -52,6 +69,7 @@ type ButtonProps = Omit<
   'className' | 'style' | 'disabled' | 'focusableWhenDisabled'
 > &
   VariantProps<typeof buttonVariants> &
+  VariantProps<typeof buttonColors> &
   LoadingProps & {
     DANGEROUS_className?: string;
     DANGEROUS_style?: CSSProperties;
@@ -59,6 +77,7 @@ type ButtonProps = Omit<
 
 export function Button({
   variant,
+  size,
   fullWidth,
   loading,
   disabled,
@@ -79,7 +98,8 @@ export function Button({
       focusableWhenDisabled={loading}
       aria-busy={loading || undefined}
       className={cn(
-        buttonVariants({ variant, fullWidth }),
+        buttonColors({ variant }),
+        buttonVariants({ size, fullWidth }),
         DANGEROUS_className,
       )}
       style={DANGEROUS_style}
