@@ -64,7 +64,7 @@ export function TableRoot({
         style={{
           '--table-columns': Math.max(columnCount, 1),
           // Fits the actions trigger and the cell's padding.
-          '--table-actions': actionsCount > 0 ? '4.25rem' : undefined,
+          '--table-actions': actionsCount > 0 ? '5.25rem' : undefined,
           '--table-body-anchor': bodyAnchor,
           ...DANGEROUS_style,
         }}
