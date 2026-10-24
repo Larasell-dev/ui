@@ -239,3 +239,48 @@ test('a disabled group takes a loading button out of the tab order too', async (
     .element(screen.getByRole('button', { name: 'Next' }))
     .toHaveFocus();
 });
+
+test('a loading button in it stays focusable but looks disabled and ignores presses', async () => {
+  const onSave = vi.fn();
+  const screen = await render(
+    <ButtonGroup label="Actions">
+      <Button loading onClick={onSave}>
+        Save
+      </Button>
+      <IconButton aria-label="More save options">
+        <Icon icon={MoreLine} />
+      </IconButton>
+    </ButtonGroup>,
+  );
+
+  const save = screen.getByRole('button', { name: 'Save' });
+
+  await userEvent.tab();
+  await expect.element(save).toHaveFocus();
+  await expect.element(save).toHaveAttribute('aria-disabled', 'true');
+  await expect.element(save).toHaveAttribute('data-disabled');
+
+  await userEvent.keyboard('{Enter}');
+  await userEvent.click(save, { force: true });
+  expect(onSave).not.toHaveBeenCalled();
+});
+
+test('the arrow keys move onto and off a loading button in it', async () => {
+  const screen = await render(
+    <ButtonGroup label="Actions">
+      <Button variant="secondary">Edit</Button>
+      <Button loading>Save</Button>
+      <Button variant="secondary">Archive</Button>
+    </ButtonGroup>,
+  );
+
+  await userEvent.tab();
+  await userEvent.keyboard('{ArrowRight}');
+  await expect
+    .element(screen.getByRole('button', { name: 'Save' }))
+    .toHaveFocus();
+  await userEvent.keyboard('{ArrowRight}');
+  await expect
+    .element(screen.getByRole('button', { name: 'Archive' }))
+    .toHaveFocus();
+});

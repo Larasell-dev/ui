@@ -1,5 +1,5 @@
 import { RovingFocusGroup } from '@roving-focus/react';
-import type { CSSProperties, ReactNode } from 'react';
+import type { CSSProperties, KeyboardEvent, ReactNode } from 'react';
 import { cn } from 'cn';
 import { ButtonGroupContext } from './button-group-context.ts';
 
@@ -15,6 +15,21 @@ type ButtonGroupProps = {
   DANGEROUS_className?: string;
   DANGEROUS_style?: CSSProperties;
 };
+
+const navigationKeys = new Set(['ArrowLeft', 'ArrowRight', 'Home', 'End']);
+
+/**
+ * Base UI prevents every key but Tab on a disabled button that stays
+ * focusable, such as a loading one, and the roving focus skips prevented keys,
+ * so focus would be stuck on it. Runs before the roving focus handles the key
+ * and lets it see its own keys. Their default stays prevented.
+ */
+function allowNavigationFromDisabled(event: KeyboardEvent) {
+  if (!navigationKeys.has(event.key)) return;
+  if (!(event.target instanceof Element)) return;
+  if (event.target.getAttribute('aria-disabled') !== 'true') return;
+  (event as { defaultPrevented: boolean }).defaultPrevented = false;
+}
 
 /**
  * Joins buttons into one row that shares borders and a size. The group is a
@@ -33,6 +48,7 @@ export function ButtonGroup({
     <ButtonGroupContext value={{ size, disabled }}>
       <RovingFocusGroup
         orientation="horizontal"
+        onKeyDown={allowNavigationFromDisabled}
         role="group"
         aria-label={label}
         className={cn(
