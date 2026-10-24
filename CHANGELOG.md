@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.19](https://github.com/Larasell-dev/ui/compare/v0.1.18...v0.1.19) (2026-10-24)
+
+
+### Features
+
+* add a small Button size and an IconButton ([#85](https://github.com/Larasell-dev/ui/issues/85)) ([5e337c6](https://github.com/Larasell-dev/ui/commit/5e337c66fe76f22f7102a2680eea85f37b622b4a))
+
+
+### Bug Fixes
+
+* pad table cells and data list rows like page content ([#86](https://github.com/Larasell-dev/ui/issues/86)) ([1635483](https://github.com/Larasell-dev/ui/commit/163548325c1c6535e136c6cb15c007b78fb0bb3a))
+
 ## [0.1.18](https://github.com/Larasell-dev/ui/compare/v0.1.17...v0.1.18) (2026-10-24)
 
 
