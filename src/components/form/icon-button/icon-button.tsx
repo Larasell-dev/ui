@@ -2,7 +2,7 @@ import { Button as BaseButton } from '@base-ui/react/button';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from 'cn';
 import type { ComponentProps, CSSProperties, ReactNode } from 'react';
-import { buttonColors } from '../button/button.tsx';
+import { buttonColors, type ButtonSize } from '../button/button.tsx';
 import { useButtonGroup } from '../button-group/button-group-context.ts';
 import { ButtonGroupItem } from '../button-group/button-group-item.tsx';
 
@@ -18,7 +18,7 @@ const iconButtonVariants = cva(
       size: {
         md: 'size-10.5',
         sm: 'size-9',
-      },
+      } satisfies Record<ButtonSize, string>,
     },
     defaultVariants: {
       size: 'md',
@@ -30,12 +30,12 @@ type IconButtonProps = Omit<
   ComponentProps<typeof BaseButton>,
   'className' | 'style' | 'children' | 'aria-label'
 > &
-  VariantProps<typeof iconButtonVariants> &
   Pick<VariantProps<typeof buttonColors>, 'variant'> & {
     /** The icon to show, usually an `Icon` with a Remix icon from `@larasell-dev/ui/icons`. */
     children: ReactNode;
     /** Names the button, which shows no text of its own. */
     'aria-label': string;
+    size?: ButtonSize;
     DANGEROUS_className?: string;
     DANGEROUS_style?: CSSProperties;
   };

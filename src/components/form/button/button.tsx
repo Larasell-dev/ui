@@ -57,6 +57,9 @@ export const buttonColors = cva('', {
   },
 });
 
+/** The sizes of Button, IconButton and ButtonGroup. */
+export type ButtonSize = 'md' | 'sm';
+
 const buttonVariants = cva(
   [
     'type-label-md relative box-border inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap no-underline select-none',
@@ -69,7 +72,7 @@ const buttonVariants = cva(
       size: {
         md: 'h-10.5 px-5',
         sm: 'h-9 px-4',
-      },
+      } satisfies Record<ButtonSize, string>,
       fullWidth: {
         true: 'w-full',
         false: 'w-fit',

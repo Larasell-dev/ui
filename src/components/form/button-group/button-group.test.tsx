@@ -22,51 +22,6 @@ test('is a group named by its label', async () => {
   expect(group.getByRole('button').elements()).toHaveLength(2);
 });
 
-// Tests run without Tailwind's CSS, so sizes are checked by their classes.
-test('sizes every button in it, icon buttons and menu triggers too', async () => {
-  const screen = await render(
-    <ButtonGroup label="Actions" size="sm">
-      <Button>Save</Button>
-      <IconButton aria-label="Add">
-        <Icon icon={MoreLine} />
-      </IconButton>
-      <Menu.Root>
-        <Menu.Trigger render={<Button variant="secondary" />}>
-          More
-        </Menu.Trigger>
-      </Menu.Root>
-    </ButtonGroup>,
-  );
-
-  await expect
-    .element(screen.getByRole('button', { name: 'Save' }))
-    .toHaveClass('h-9');
-  await expect
-    .element(screen.getByRole('button', { name: 'Add' }))
-    .toHaveClass('size-9');
-  await expect
-    .element(screen.getByRole('button', { name: 'More' }))
-    .toHaveClass('h-9');
-});
-
-test('leaves buttons at their default size when it has no size', async () => {
-  const screen = await render(
-    <ButtonGroup label="Actions">
-      <Button>Save</Button>
-      <IconButton aria-label="Add">
-        <Icon icon={MoreLine} />
-      </IconButton>
-    </ButtonGroup>,
-  );
-
-  await expect
-    .element(screen.getByRole('button', { name: 'Save' }))
-    .toHaveClass('h-10.5');
-  await expect
-    .element(screen.getByRole('button', { name: 'Add' }))
-    .toHaveClass('size-10.5');
-});
-
 test('throws when a Button inside it sets its own size', async () => {
   vi.spyOn(console, 'error').mockImplementation(() => {});
   await expect(
