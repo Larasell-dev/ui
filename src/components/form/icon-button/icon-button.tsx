@@ -3,6 +3,8 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from 'cn';
 import type { ComponentProps, CSSProperties, ReactNode } from 'react';
 import { buttonColors } from '../button/button.tsx';
+import { useButtonGroup } from '../button-group/button-group-context.ts';
+import { ButtonGroupItem } from '../button-group/button-group-item.tsx';
 
 const iconButtonVariants = cva(
   [
@@ -29,7 +31,7 @@ type IconButtonProps = Omit<
   'className' | 'style' | 'children' | 'aria-label'
 > &
   VariantProps<typeof iconButtonVariants> &
-  VariantProps<typeof buttonColors> & {
+  Pick<VariantProps<typeof buttonColors>, 'variant'> & {
     /** The icon to show, usually an `Icon` with a Remix icon from `@larasell-dev/ui/icons`. */
     children: ReactNode;
     /** Names the button, which shows no text of its own. */
@@ -46,15 +48,21 @@ export function IconButton({
   DANGEROUS_style,
   ...props
 }: IconButtonProps) {
+  const group = useButtonGroup('IconButton', size);
+  const disabled = Boolean(props.disabled || group.disabled);
+
   return (
-    <BaseButton
-      {...props}
-      className={cn(
-        buttonColors({ variant }),
-        iconButtonVariants({ size }),
-        DANGEROUS_className,
-      )}
-      style={DANGEROUS_style}
-    />
+    <ButtonGroupItem grouped={group.grouped} disabled={disabled}>
+      <BaseButton
+        {...props}
+        disabled={disabled}
+        className={cn(
+          buttonColors({ variant, grouped: group.grouped }),
+          iconButtonVariants({ size: group.size }),
+          DANGEROUS_className,
+        )}
+        style={DANGEROUS_style}
+      />
+    </ButtonGroupItem>
   );
 }
