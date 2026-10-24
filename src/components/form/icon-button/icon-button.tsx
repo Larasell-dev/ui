@@ -1,9 +1,7 @@
 import { Button as BaseButton } from '@base-ui/react/button';
-import type { IconifyIcon } from '@iconify/types';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from 'cn';
-import type { ComponentProps, CSSProperties } from 'react';
-import { Icon } from '../../icon/icon.tsx';
+import type { ComponentProps, CSSProperties, ReactNode } from 'react';
 import { buttonColors } from '../button/button.tsx';
 
 const iconButtonVariants = cva(
@@ -32,18 +30,16 @@ type IconButtonProps = Omit<
 > &
   VariantProps<typeof iconButtonVariants> &
   VariantProps<typeof buttonColors> & {
-    /** Remix icon to show, imported from `@larasell-dev/ui/icons`. */
-    icon: IconifyIcon;
+    /** The icon to show, usually an `Icon` with a Remix icon from `@larasell-dev/ui/icons`. */
+    children: ReactNode;
     /** Names the button, which shows no text of its own. */
     'aria-label': string;
-    children?: never;
     DANGEROUS_className?: string;
     DANGEROUS_style?: CSSProperties;
   };
 
 /** A square button that shows only an icon, named by its aria-label. */
 export function IconButton({
-  icon,
   variant,
   size,
   DANGEROUS_className,
@@ -59,8 +55,6 @@ export function IconButton({
         DANGEROUS_className,
       )}
       style={DANGEROUS_style}
-    >
-      <Icon icon={icon} />
-    </BaseButton>
+    />
   );
 }

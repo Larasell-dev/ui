@@ -6,6 +6,7 @@ import {
   DeleteBinLine,
   Settings3Line,
 } from '../../../icons.ts';
+import { Icon } from '../../icon/icon.tsx';
 import { Button } from '../button/button.tsx';
 import { IconButton } from './icon-button.tsx';
 
@@ -13,7 +14,7 @@ const meta = preview.meta({
   title: 'Atoms/IconButton',
   component: IconButton,
   args: {
-    icon: AddLine,
+    children: <Icon icon={AddLine} />,
     'aria-label': 'Add',
     onClick: fn(),
   },
@@ -25,15 +26,27 @@ const meta = preview.meta({
 export const Primary = meta.story({});
 
 export const Secondary = meta.story({
-  args: { variant: 'secondary', icon: Settings3Line, 'aria-label': 'Settings' },
+  args: {
+    variant: 'secondary',
+    children: <Icon icon={Settings3Line} />,
+    'aria-label': 'Settings',
+  },
 });
 
 export const Tertiary = meta.story({
-  args: { variant: 'tertiary', icon: ArrowLeftLine, 'aria-label': 'Back' },
+  args: {
+    variant: 'tertiary',
+    children: <Icon icon={ArrowLeftLine} />,
+    'aria-label': 'Back',
+  },
 });
 
 export const Destructive = meta.story({
-  args: { variant: 'destructive', icon: DeleteBinLine, 'aria-label': 'Delete' },
+  args: {
+    variant: 'destructive',
+    children: <Icon icon={DeleteBinLine} />,
+    'aria-label': 'Delete',
+  },
 });
 
 export const Small = meta.story({
