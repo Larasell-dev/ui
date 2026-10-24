@@ -7,7 +7,8 @@ import { match } from '../../../utils/match.ts';
 
 /**
  * The colors of each button variant, shared by Button and IconButton. Only colors live
- * here: each button sets its own size and spacing.
+ * here: each button sets its own size and spacing. Secondary and tertiary buttons that
+ * open a menu or another popup keep their hover color while it is open.
  */
 export const buttonColors = cva('', {
   variants: {
@@ -17,12 +18,12 @@ export const buttonColors = cva('', {
         'dark:border-mauve-100 dark:bg-mauve-100 dark:text-mauve-950 dark:not-data-disabled:hover:border-white dark:not-data-disabled:hover:bg-white',
       ],
       secondary: [
-        'border-border border bg-white text-mauve-950 not-data-disabled:hover:bg-mauve-100',
-        'dark:bg-mauve-900 dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800',
+        'border-border border bg-white text-mauve-950 not-data-disabled:hover:bg-mauve-100 data-popup-open:bg-mauve-100',
+        'dark:bg-mauve-900 dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800 dark:data-popup-open:bg-mauve-800',
       ],
       tertiary: [
-        'border border-transparent bg-transparent text-mauve-950 no-underline not-data-disabled:hover:bg-mauve-100 not-data-disabled:hover:no-underline focus-visible:no-underline',
-        'dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800',
+        'border border-transparent bg-transparent text-mauve-950 no-underline not-data-disabled:hover:bg-mauve-100 not-data-disabled:hover:no-underline focus-visible:no-underline data-popup-open:bg-mauve-100',
+        'dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800 dark:data-popup-open:bg-mauve-800',
       ],
       destructive: [
         'border border-red-600 bg-red-600 text-white not-data-disabled:hover:border-red-700 not-data-disabled:hover:bg-red-700 not-data-disabled:active:border-red-800 not-data-disabled:active:bg-red-800',
