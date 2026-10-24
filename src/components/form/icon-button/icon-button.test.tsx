@@ -2,10 +2,15 @@ import { expect, test, vi } from 'vite-plus/test';
 import { userEvent } from 'vite-plus/test/browser';
 import { render } from 'vitest-browser-react';
 import { AddLine } from '../../../icons.ts';
+import { Icon } from '../../icon/icon.tsx';
 import { IconButton } from './icon-button.tsx';
 
 test('is named by its aria-label and hides the icon from assistive tech', async () => {
-  const screen = await render(<IconButton icon={AddLine} aria-label="Add" />);
+  const screen = await render(
+    <IconButton aria-label="Add">
+      <Icon icon={AddLine} />
+    </IconButton>,
+  );
 
   const button = screen.getByRole('button', { name: 'Add' });
 
@@ -16,11 +21,13 @@ test('is named by its aria-label and hides the icon from assistive tech', async 
   );
 });
 
-test('requires an aria-label and an icon', () => {
-  // Type checks only; rendering without an icon would have nothing to draw.
+test('requires an aria-label and children', () => {
+  // Type checks only.
   const withoutLabel = (
     // @ts-expect-error an icon-only button needs an aria-label
-    <IconButton icon={AddLine} />
+    <IconButton>
+      <Icon icon={AddLine} />
+    </IconButton>
   );
   // @ts-expect-error the icon is required
   const withoutIcon = <IconButton aria-label="Add" />;
@@ -28,23 +35,26 @@ test('requires an aria-label and an icon', () => {
   expect([withoutLabel, withoutIcon]).toHaveLength(2);
 });
 
-test('does not accept children', async () => {
+test('shows its children, so callers can wrap or animate the icon', async () => {
   const screen = await render(
-    // @ts-expect-error the icon prop is the only content
-    <IconButton icon={AddLine} aria-label="Add">
-      Add
+    <IconButton aria-label="Open">
+      <span data-testid="wrapper" className="rotate-90">
+        <Icon icon={AddLine} />
+      </span>
     </IconButton>,
   );
 
-  await expect
-    .element(screen.getByRole('button', { name: 'Add' }))
-    .not.toHaveTextContent('Add');
+  const wrapper = screen.getByTestId('wrapper');
+  await expect.element(wrapper).toBeInTheDocument();
+  expect(wrapper.element().querySelector('svg')).not.toBeNull();
 });
 
 test('calls onClick when pressed', async () => {
   const onClick = vi.fn();
   const screen = await render(
-    <IconButton icon={AddLine} aria-label="Add" onClick={onClick} />,
+    <IconButton aria-label="Add" onClick={onClick}>
+      <Icon icon={AddLine} />
+    </IconButton>,
   );
 
   await screen.getByRole('button', { name: 'Add' }).click();
@@ -54,7 +64,9 @@ test('calls onClick when pressed', async () => {
 
 test('is disabled', async () => {
   const screen = await render(
-    <IconButton icon={AddLine} aria-label="Add" disabled />,
+    <IconButton aria-label="Add" disabled>
+      <Icon icon={AddLine} />
+    </IconButton>,
   );
 
   await expect
@@ -65,7 +77,9 @@ test('is disabled', async () => {
 test('ignores clicks when disabled', async () => {
   const onClick = vi.fn();
   const screen = await render(
-    <IconButton icon={AddLine} aria-label="Add" disabled onClick={onClick} />,
+    <IconButton aria-label="Add" disabled onClick={onClick}>
+      <Icon icon={AddLine} />
+    </IconButton>,
   );
 
   await userEvent.click(screen.getByRole('button', { name: 'Add' }), {
@@ -78,7 +92,9 @@ test('ignores clicks when disabled', async () => {
 test('does not accept className', async () => {
   const screen = await render(
     // @ts-expect-error className is blocked; use DANGEROUS_className
-    <IconButton icon={AddLine} aria-label="Add" className="mt-4" />,
+    <IconButton aria-label="Add" className="mt-4">
+      <Icon icon={AddLine} />
+    </IconButton>,
   );
 
   await expect
@@ -89,7 +105,9 @@ test('does not accept className', async () => {
 test('does not accept style', async () => {
   const screen = await render(
     // @ts-expect-error style is blocked; use DANGEROUS_style
-    <IconButton icon={AddLine} aria-label="Add" style={{ marginTop: 16 }} />,
+    <IconButton aria-label="Add" style={{ marginTop: 16 }}>
+      <Icon icon={AddLine} />
+    </IconButton>,
   );
 
   await expect
@@ -99,7 +117,9 @@ test('does not accept style', async () => {
 
 test('applies DANGEROUS_className as className', async () => {
   const screen = await render(
-    <IconButton icon={AddLine} aria-label="Add" DANGEROUS_className="ml-4" />,
+    <IconButton aria-label="Add" DANGEROUS_className="ml-4">
+      <Icon icon={AddLine} />
+    </IconButton>,
   );
 
   await expect
@@ -109,11 +129,9 @@ test('applies DANGEROUS_className as className', async () => {
 
 test('applies DANGEROUS_style as style', async () => {
   const screen = await render(
-    <IconButton
-      icon={AddLine}
-      aria-label="Add"
-      DANGEROUS_style={{ marginTop: '16px' }}
-    />,
+    <IconButton aria-label="Add" DANGEROUS_style={{ marginTop: '16px' }}>
+      <Icon icon={AddLine} />
+    </IconButton>,
   );
 
   await expect
