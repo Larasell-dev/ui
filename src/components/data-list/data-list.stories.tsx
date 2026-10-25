@@ -118,9 +118,10 @@ export const LongTexts = meta.story({
         </DataList.Field>
       </DataList.Item>
       <DataList.Item>
-        <DataList.Title aside="€1,249,999,999.00 including shipping, taxes and fees">
+        <DataList.Title aside="€1,249,999,999,999,999,999,999.00">
           <DataList.Link render={<a href="#order-1002" />}>
-            Order #1002 for a customer with a very long company name
+            Order #1002 for
+            Donaudampfschifffahrtsgesellschaftskapitänsmützenfabrik
           </DataList.Link>
         </DataList.Title>
         <DataList.Field label="Customer name as registered with the company">
@@ -128,6 +129,9 @@ export const LongTexts = meta.story({
         </DataList.Field>
         <DataList.Field label="Primary email address for invoices">
           grace.brewster.murray.hopper@united-states-navy-reserve.example.com
+        </DataList.Field>
+        <DataList.Field label="Rechnungsempfängerumsatzsteueridentifikationsnummer">
+          DE123456789
         </DataList.Field>
       </DataList.Item>
     </DataList.Root>
