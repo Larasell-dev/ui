@@ -77,12 +77,12 @@ test('disables the toggle with the input', async () => {
     .toBeDisabled();
 });
 
-test('applies DANGEROUS_className to the input', async () => {
+test('applies DANGEROUS_className to the container', async () => {
   const screen = await render(
     <PasswordInput aria-label="Password" DANGEROUS_className="mt-4" />,
   );
 
-  await expect
-    .element(screen.getByLabelText('Password', { exact: true }))
-    .toHaveClass('mt-4');
+  expect(
+    screen.getByLabelText('Password', { exact: true }).element().parentElement,
+  ).toHaveClass('mt-4');
 });
