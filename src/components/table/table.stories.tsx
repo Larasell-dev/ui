@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fn } from 'storybook/test';
 import preview from '../../../.storybook/preview.tsx';
+import { Badge, type BadgeVariant } from '../badge/badge.tsx';
 import type { PaginationChange } from '../pagination/pagination.tsx';
 import { BuildingLine } from '../../icons.ts';
 import { swatch } from '../thumbnail/swatch.ts';
@@ -264,6 +265,37 @@ export const LinkedCellMedia = meta.story({
                 </Table.Link>
               </Table.Cell>
               <Table.Cell>{order.status}</Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table.Content>
+    </Table.Root>
+  ),
+});
+
+const statusVariants: Record<string, BadgeVariant> = {
+  Paid: 'success',
+  Pending: 'warning',
+  Refunded: 'danger',
+  Shipped: 'info',
+};
+
+export const StatusBadges = meta.story({
+  render: () => (
+    <Table.Root aria-label="Orders">
+      <Table.Content>
+        <OrderHeader />
+        <Table.Body>
+          {allOrders.slice(0, 8).map((order) => (
+            <Table.Row key={order.id}>
+              <Table.Cell>{order.id}</Table.Cell>
+              <Table.Cell>{order.customer}</Table.Cell>
+              <Table.Cell>
+                <Badge variant={statusVariants[order.status]}>
+                  {order.status}
+                </Badge>
+              </Table.Cell>
+              <Table.Cell>{order.total}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
