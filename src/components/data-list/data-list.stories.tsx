@@ -100,21 +100,34 @@ export const ClickableItems = meta.story({
   ),
 });
 
-export const LongValues = meta.story({
+export const LongTexts = meta.story({
   render: () => (
     <DataList.Root aria-label="Orders">
       <DataList.Item>
-        <DataList.Title aside="€1,249.00">
+        <DataList.Title aside="€1,249,999,999.00 including shipping, taxes and fees">
           Order #1001 for a customer with a very long company name
         </DataList.Title>
-        <DataList.Field label="Customer">
-          Margaret Hamilton-Featherstonehaugh
+        <DataList.Field label="Customer name as registered with the company">
+          Margaret Hamilton-Featherstonehaugh of Featherstonehaugh Enterprises
         </DataList.Field>
-        <DataList.Field label="Email">
+        <DataList.Field label="Primary email address for invoices">
           margaret.hamilton-featherstonehaugh@example-enterprises.com
         </DataList.Field>
-        <DataList.Field label="Shipping address">
+        <DataList.Field label="Shipping address for this order">
           Keizersgracht 123, 1015 CJ Amsterdam, The Netherlands
+        </DataList.Field>
+      </DataList.Item>
+      <DataList.Item>
+        <DataList.Title aside="€1,249,999,999.00 including shipping, taxes and fees">
+          <DataList.Link render={<a href="#order-1002" />}>
+            Order #1002 for a customer with a very long company name
+          </DataList.Link>
+        </DataList.Title>
+        <DataList.Field label="Customer name as registered with the company">
+          Grace Brewster Murray Hopper of the United States Navy Reserve
+        </DataList.Field>
+        <DataList.Field label="Primary email address for invoices">
+          grace.brewster.murray.hopper@united-states-navy-reserve.example.com
         </DataList.Field>
       </DataList.Item>
     </DataList.Root>

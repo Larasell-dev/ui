@@ -6,14 +6,14 @@ type DataListFieldProps = {
   children?: ReactNode;
 };
 
-/** One label/value pair. Long values wrap instead of overflowing. */
+/** One label/value pair. Long labels and values are truncated. */
 export function DataListField({ label, children }: DataListFieldProps) {
   return (
     <dl className="m-0 grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-3">
-      <dt className="type-body-md text-mauve-600 dark:text-mauve-400">
+      <dt className="type-body-md truncate text-mauve-600 dark:text-mauve-400">
         {label}
       </dt>
-      <dd className="type-body-md m-0 break-words text-mauve-950 dark:text-mauve-100">
+      <dd className="type-body-md m-0 truncate text-mauve-950 dark:text-mauve-100">
         {children}
       </dd>
     </dl>
