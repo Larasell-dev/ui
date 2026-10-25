@@ -1,6 +1,8 @@
 import { expect, test, vi } from 'vite-plus/test';
 import { userEvent } from 'vite-plus/test/browser';
 import { render } from 'vitest-browser-react';
+import { BookOpenLine } from '../../icons.ts';
+import { Thumbnail } from '../thumbnail/thumbnail.tsx';
 import { DataList } from './data-list.ts';
 
 // What a caller without TypeScript could pass: plain `className` and `style`.
@@ -224,4 +226,33 @@ test('render cannot restyle an item or a link', async () => {
   const renderedItem = screen.getByRole('listitem').nth(1);
   await expect.element(renderedItem).toHaveClass('relative');
   await expect.element(renderedItem).not.toHaveClass('mt-4');
+});
+
+test('the title and fields show their media before their value', async () => {
+  const screen = await render(
+    <DataList.Root aria-label="Books">
+      <DataList.Item>
+        <DataList.Title media={<Thumbnail src="/covers/dune.jpg" />}>
+          <DataList.Link render={<a href="/books/1" />}>Dune</DataList.Link>
+        </DataList.Title>
+        <DataList.Field
+          label="Author"
+          media={<Thumbnail icon={BookOpenLine} />}
+        >
+          Frank Herbert
+        </DataList.Field>
+      </DataList.Item>
+    </DataList.Root>,
+  );
+
+  const link = screen.getByRole('link', { name: 'Dune' }).element();
+  const image = screen.container.querySelector('img')!;
+  expect(
+    image.compareDocumentPosition(link) & Node.DOCUMENT_POSITION_FOLLOWING,
+  ).toBeTruthy();
+  expect(link.contains(image)).toBe(false);
+
+  const author = screen.getByRole('definition').element();
+  expect(author.textContent).toBe('Frank Herbert');
+  expect(author.firstElementChild?.querySelector('svg')).not.toBeNull();
 });

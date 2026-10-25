@@ -1,6 +1,7 @@
 import { expect, test, vi } from 'vite-plus/test';
 import { userEvent } from 'vite-plus/test/browser';
 import { render } from 'vitest-browser-react';
+import { Thumbnail } from '../thumbnail/thumbnail.tsx';
 import { Table } from './table.ts';
 
 function Orders({ rows }: { rows: number }) {
@@ -274,4 +275,31 @@ test('the pagination renders outside the table, wherever it is nested', async ()
 
   const nav = screen.getByRole('navigation', { name: 'Pagination' }).element();
   expect(table.contains(nav)).toBe(false);
+});
+
+test('a cell shows its media before its value, outside the row link', async () => {
+  const screen = await render(
+    <Table.Root aria-label="Books">
+      <Table.Content>
+        <Table.Header>
+          <Table.Column>Title</Table.Column>
+        </Table.Header>
+        <Table.Body>
+          <Table.Row>
+            <Table.Cell media={<Thumbnail src="/covers/dune.jpg" />}>
+              <Table.Link render={<a href="/books/1" />}>Dune</Table.Link>
+            </Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table.Content>
+    </Table.Root>,
+  );
+
+  const cell = screen.getByRole('cell').element();
+  const image = cell.querySelector('img')!;
+  const link = screen.getByRole('link', { name: 'Dune' }).element();
+  expect(
+    image.compareDocumentPosition(link) & Node.DOCUMENT_POSITION_FOLLOWING,
+  ).toBeTruthy();
+  expect(link.contains(image)).toBe(false);
 });

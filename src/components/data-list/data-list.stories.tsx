@@ -1,5 +1,8 @@
 import { fn } from 'storybook/test';
 import preview from '../../../.storybook/preview.tsx';
+import { BuildingLine } from '../../icons.ts';
+import { swatch } from '../thumbnail/swatch.ts';
+import { Thumbnail } from '../thumbnail/thumbnail.tsx';
 import { DataList } from './data-list.ts';
 
 type Order = {
@@ -134,6 +137,38 @@ export const LongTexts = meta.story({
           DE123456789
         </DataList.Field>
       </DataList.Item>
+    </DataList.Root>
+  ),
+});
+
+export const WithMedia = meta.story({
+  render: () => (
+    <DataList.Root aria-label="Orders">
+      {orders.slice(0, 5).map((order, index) => (
+        <DataList.Item key={order.id}>
+          <DataList.Title
+            aside={order.total}
+            media={<Thumbnail src={swatch('#a855f7')} title="Order" />}
+          >
+            <DataList.Link render={<a href={`#order-${order.id.slice(1)}`} />}>
+              {order.id}
+            </DataList.Link>
+          </DataList.Title>
+          <DataList.Field
+            label="Customer"
+            media={
+              index % 3 === 2 ? (
+                <Thumbnail icon={BuildingLine} title="Company" />
+              ) : (
+                <Thumbnail src={swatch('#0ea5e9')} shape="round" />
+              )
+            }
+          >
+            {order.customer}
+          </DataList.Field>
+          <DataList.Field label="Status">{order.status}</DataList.Field>
+        </DataList.Item>
+      ))}
     </DataList.Root>
   ),
 });

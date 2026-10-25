@@ -28,6 +28,7 @@ export type { Spacing } from './components/layout/spacing.ts';
 export { Spinner } from './components/spinner/spinner.tsx';
 export { Stack } from './components/layout/stack/stack.tsx';
 export { Table } from './components/table/table.ts';
+export { Thumbnail } from './components/thumbnail/thumbnail.tsx';
 export {
   browserClipboard,
   ClipboardProvider,
