@@ -14,7 +14,7 @@ type DataListRootProps = {
 /**
  * A vertical list of records, each showing its fields as label/value pairs.
  * The narrow-screen counterpart of `<Table>`: nothing scrolls sideways, every
- * field wraps within the item. Like the table it has no outer border.
+ * text wraps within the item. Like the table it has no outer border.
  */
 export function DataListRoot({
   children,
