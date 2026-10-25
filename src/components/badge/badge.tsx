@@ -11,7 +11,7 @@ export type BadgeVariant =
   | 'danger';
 
 const badgeVariants = cva(
-  'type-label-sm inline-flex w-fit items-center rounded-full px-2 py-0.5 whitespace-nowrap ring-1 ring-inset',
+  'type-label-sm inline-flex w-fit items-center px-2 py-0.5 whitespace-nowrap ring-1 ring-inset',
   {
     variants: {
       variant: {
