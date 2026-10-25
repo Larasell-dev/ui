@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.25](https://github.com/Larasell-dev/ui/compare/v0.1.24...v0.1.25) (2026-10-25)
+
+
+### Features
+
+* add prefix and suffix slots to Input ([#102](https://github.com/Larasell-dev/ui/issues/102)) ([4420387](https://github.com/Larasell-dev/ui/commit/4420387871ac5bf57e93e20eca49e09e0c342477))
+
 ## [0.1.24](https://github.com/Larasell-dev/ui/compare/v0.1.23...v0.1.24) (2026-10-25)
 
 
