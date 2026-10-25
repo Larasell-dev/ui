@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.23](https://github.com/Larasell-dev/ui/compare/v0.1.22...v0.1.23) (2026-10-25)
+
+
+### Features
+
+* add Thumbnail and a media slot for table cells and data list items ([#99](https://github.com/Larasell-dev/ui/issues/99)) ([e74f28b](https://github.com/Larasell-dev/ui/commit/e74f28be9b5ed531cb7f4ec922b04129cf32554f))
+
+
+### Bug Fixes
+
+* wrap all text in DataList so long text never overflows ([#97](https://github.com/Larasell-dev/ui/issues/97)) ([a048f0f](https://github.com/Larasell-dev/ui/commit/a048f0fdedde77ee034f5ea1cc2e5007a5f32555))
+
 ## [0.1.22](https://github.com/Larasell-dev/ui/compare/v0.1.21...v0.1.22) (2026-10-24)
 
 
