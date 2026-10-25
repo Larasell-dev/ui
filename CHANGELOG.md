@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.24](https://github.com/Larasell-dev/ui/compare/v0.1.23...v0.1.24) (2026-10-25)
+
+
+### Features
+
+* add Badge component ([#100](https://github.com/Larasell-dev/ui/issues/100)) ([32949d0](https://github.com/Larasell-dev/ui/commit/32949d0fb50ba50f6cda0c3a88b74f7b1136ea7a))
+
 ## [0.1.23](https://github.com/Larasell-dev/ui/compare/v0.1.22...v0.1.23) (2026-10-25)
 
 
