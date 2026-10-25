@@ -1,5 +1,6 @@
 import EyeLine from '@iconify-icons/ri/eye-line';
 import EyeOffLine from '@iconify-icons/ri/eye-off-line';
+import { Button } from '@base-ui/react/button';
 import { useState, type ComponentProps } from 'react';
 import { cn } from 'cn';
 import { Icon } from '../../icon/icon.tsx';
@@ -20,7 +21,7 @@ export function PasswordInput(props: PasswordInputProps) {
       // After the spread, so a `type` slipped past the types still loses.
       type={visible ? 'text' : 'password'}
       suffix={
-        <button
+        <Button
           type="button"
           // A fixed name with a pressed state, so screen readers announce the
           // change instead of a different control.
@@ -31,13 +32,13 @@ export function PasswordInput(props: PasswordInputProps) {
           className={cn(
             // Pulled over the box's right padding, so the hover fill reaches its border.
             '-mr-3.5 inline-flex w-11 cursor-pointer items-center justify-center self-stretch text-mauve-950 select-none',
-            'focus-visible:focus-ring not-disabled:hover:bg-mauve-100 focus-visible:outline-offset-0',
-            'disabled:cursor-not-allowed',
-            'dark:text-mauve-100 dark:not-disabled:hover:bg-mauve-800',
+            'focus-visible:focus-ring not-data-disabled:hover:bg-mauve-100 focus-visible:outline-offset-0',
+            'data-disabled:cursor-not-allowed',
+            'dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800',
           )}
         >
           <Icon icon={visible ? EyeOffLine : EyeLine} />
-        </button>
+        </Button>
       }
     />
   );
