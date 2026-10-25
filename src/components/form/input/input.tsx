@@ -24,15 +24,14 @@ export function Input({
   ...props
 }: InputProps) {
   return (
-    // The box draws the border and the focus outline, so the prefix and suffix
-    // sit inside them. Only the input's own focus outlines the box; a focused
-    // button in the suffix draws its own.
     <div
       className={cn(
         'border-border flex w-full items-center gap-2 border bg-white px-3.5 text-mauve-950',
-        'has-[input:focus]:focus-ring',
-        'has-[input[data-invalid]]:border-red-500 has-[input[data-invalid]]:[--focus-ring-color:var(--color-red-500)]',
-        'has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-50',
+        // Only its own input, a direct child marked with data-input, styles the
+        // box; inputs nested in the prefix or suffix, e.g. a select, don't.
+        'has-[>[data-input]:focus]:focus-ring',
+        'has-[>[data-input][data-invalid]]:border-red-500 has-[>[data-input][data-invalid]]:[--focus-ring-color:var(--color-red-500)]',
+        'has-[>[data-input]:disabled]:cursor-not-allowed has-[>[data-input]:disabled]:opacity-50',
         'dark:bg-mauve-900 dark:text-mauve-100',
         DANGEROUS_className,
       )}
@@ -41,9 +40,9 @@ export function Input({
       {prefix}
       <BaseInput
         {...props}
+        data-input=""
         className={cn(
           'type-input-md min-w-0 flex-1 bg-transparent py-2.5 outline-none',
-          // Only the text fades where it overflows; the prefix, suffix, and box stay solid.
           'scroll-mask-x',
           'placeholder:text-mauve-400 placeholder:select-none',
           'disabled:cursor-not-allowed',
