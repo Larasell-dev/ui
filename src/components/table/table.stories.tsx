@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { fn } from 'storybook/test';
 import preview from '../../../.storybook/preview.tsx';
 import type { PaginationChange } from '../pagination/pagination.tsx';
+import { BuildingLine } from '../../icons.ts';
+import { swatch } from '../thumbnail/swatch.ts';
+import { Thumbnail } from '../thumbnail/thumbnail.tsx';
 import { Table } from './table.ts';
 
 type Order = {
@@ -187,4 +190,84 @@ function ServerPaginatedOrders() {
 
 export const WithPagination = meta.story({
   render: () => <ServerPaginatedOrders />,
+});
+
+const avatarColors = ['#a855f7', '#0ea5e9', '#f97316', '#10b981', '#ef4444'];
+
+// Every third customer is a company, shown with an icon instead of an avatar.
+function CustomerMedia({
+  index,
+  customer,
+}: {
+  index: number;
+  customer: string;
+}) {
+  return index % 3 === 2 ? (
+    <Thumbnail icon={BuildingLine} title="Company" />
+  ) : (
+    <Thumbnail
+      src={swatch(avatarColors[index % avatarColors.length]!)}
+      shape="round"
+      title={customer}
+    />
+  );
+}
+
+export const CellMedia = meta.story({
+  render: () => (
+    <Table.Root aria-label="Orders">
+      <Table.Content>
+        <OrderHeader />
+        <Table.Body>
+          {allOrders.slice(0, 8).map((order, index) => (
+            <Table.Row key={order.id}>
+              <Table.Cell>
+                <Table.Link render={<a href={`#order-${order.id.slice(1)}`} />}>
+                  {order.id}
+                </Table.Link>
+              </Table.Cell>
+              <Table.Cell
+                media={
+                  <CustomerMedia index={index} customer={order.customer} />
+                }
+              >
+                {order.customer}
+              </Table.Cell>
+              <Table.Cell>{order.status}</Table.Cell>
+              <Table.Cell>{order.total}</Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table.Content>
+    </Table.Root>
+  ),
+});
+
+export const LinkedCellMedia = meta.story({
+  render: () => (
+    <Table.Root aria-label="Customers">
+      <Table.Content>
+        <Table.Header>
+          <Table.Column>Customer</Table.Column>
+          <Table.Column>Status</Table.Column>
+        </Table.Header>
+        <Table.Body>
+          {allOrders.slice(0, 5).map((order, index) => (
+            <Table.Row key={order.id}>
+              <Table.Cell
+                media={
+                  <CustomerMedia index={index} customer={order.customer} />
+                }
+              >
+                <Table.Link render={<a href={`#customer-${index}`} />}>
+                  {order.customer}
+                </Table.Link>
+              </Table.Cell>
+              <Table.Cell>{order.status}</Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table.Content>
+    </Table.Root>
+  ),
 });
