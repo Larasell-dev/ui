@@ -79,15 +79,20 @@ test('does not accept style', async () => {
     .not.toHaveStyle({ marginLeft: '8px' });
 });
 
-test('applies DANGEROUS_className and DANGEROUS_style', async () => {
+test('applies DANGEROUS_className as className', async () => {
   const screen = await render(
-    <Badge DANGEROUS_className="mt-4" DANGEROUS_style={{ marginLeft: 8 }}>
-      Approved
-    </Badge>,
+    <Badge DANGEROUS_className="mt-4">Approved</Badge>,
   );
 
-  const badge = screen.getByText('Approved');
+  await expect.element(screen.getByText('Approved')).toHaveClass('mt-4');
+});
 
-  await expect.element(badge).toHaveClass('mt-4');
-  await expect.element(badge).toHaveStyle({ marginLeft: '8px' });
+test('applies DANGEROUS_style as style', async () => {
+  const screen = await render(
+    <Badge DANGEROUS_style={{ marginLeft: 8 }}>Approved</Badge>,
+  );
+
+  await expect
+    .element(screen.getByText('Approved'))
+    .toHaveStyle({ marginLeft: '8px' });
 });
