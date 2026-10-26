@@ -78,7 +78,7 @@ export function EmptyState({
               {title}
             </h2>
             {description != null && (
-              <p className="type-body-md text-mauve-600 dark:text-mauve-400">
+              <p className="type-body-md text-balance text-mauve-600 dark:text-mauve-400">
                 {description}
               </p>
             )}
