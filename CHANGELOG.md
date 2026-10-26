@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.0](https://github.com/Larasell-dev/ui/compare/v0.1.25...v0.2.0) (2026-10-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* Button and IconButton no longer accept nativeButton. Remove it, together with any role="link" override, from links rendered through render.
+
+### Features
+
+* balance empty state description lines ([baf0a77](https://github.com/Larasell-dev/ui/commit/baf0a774d25ceb93e3f502e45cb080d6ee35ded5))
+* render links from Button and IconButton without button semantics ([c783299](https://github.com/Larasell-dev/ui/commit/c783299a7666fc8f993336055e06e7c5c41c06c1))
+
 ## [0.1.25](https://github.com/Larasell-dev/ui/compare/v0.1.24...v0.1.25) (2026-10-25)
 
 
