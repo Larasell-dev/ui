@@ -36,7 +36,8 @@
     "build-storybook": "storybook build",
     "commitlint": "commitlint --from=HEAD~1 --to=HEAD",
     "knip": "knip",
-    "generate-icons": "node scripts/generate-icons.js"
+    "generate-icons": "node scripts/generate-icons.js",
+    "chromatic": "chromatic"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
@@ -61,6 +62,7 @@
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^6.1.2",
     "@vitest/browser-playwright": "^5.0.4",
+    "chromatic": "^18.13.3",
     "knip": "^6.41.0",
     "playwright": "^1.64.1",
     "react": "^19.2.0",
