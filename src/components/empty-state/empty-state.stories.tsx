@@ -87,6 +87,21 @@ export const MultipleActions = meta.story({
   },
 });
 
+/**
+ * A description that wraps onto a second line. It uses `text-balance`, so
+ * the lines are about the same length instead of the last one holding a
+ * single orphaned word.
+ */
+export const LongDescription = meta.story({
+  args: {
+    icon: ShoppingBag3Line,
+    title: 'Add your first product',
+    description:
+      'Products are what customers buy in your shop. Add one to get started.',
+    children: <Button onClick={fn()}>Add product</Button>,
+  },
+});
+
 /** Title only, for tight spaces. */
 export const TitleOnly = meta.story({
   args: {
