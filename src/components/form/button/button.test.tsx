@@ -123,3 +123,54 @@ test('ignores focusableWhenDisabled set from the outside', async () => {
 
   await expect.element(button).not.toHaveFocus();
 });
+
+test('renders a link that keeps its role and the button styles', async () => {
+  const screen = await render(
+    <Button variant="secondary" render={<a href="#orders" />}>
+      Orders
+    </Button>,
+  );
+
+  const link = screen.getByRole('link', { name: 'Orders' });
+
+  await expect.element(link).toHaveAttribute('href', '#orders');
+  await expect.element(link).toHaveClass('bg-white');
+  expect(screen.container.querySelector('[role="button"]')).toBeNull();
+});
+
+test('loading link stays focusable but does not navigate', async () => {
+  const onLinkClick = vi.fn();
+  const screen = await render(
+    <>
+      <button type="button">Before</button>
+      <Button loading render={<a href="#orders" onClick={onLinkClick} />}>
+        Orders
+      </Button>
+    </>,
+  );
+
+  const link = screen.getByRole('link', { name: 'Orders' });
+  await screen.getByRole('button', { name: 'Before' }).click();
+  await userEvent.tab();
+  await expect.element(link).toHaveFocus();
+  await expect.element(link).toHaveAttribute('aria-disabled', 'true');
+  await expect.element(link).toHaveAttribute('aria-busy', 'true');
+
+  await userEvent.click(link, { force: true });
+
+  expect(onLinkClick).not.toHaveBeenCalled();
+  expect(window.location.hash).not.toBe('#orders');
+});
+
+test('does not accept nativeButton', async () => {
+  const screen = await render(
+    // @ts-expect-error a rendered link is never a native button
+    <Button nativeButton={false} render={<a href="#orders" />}>
+      Orders
+    </Button>,
+  );
+
+  await expect
+    .element(screen.getByRole('link', { name: 'Orders' }))
+    .toBeInTheDocument();
+});
