@@ -1,0 +1,49 @@
+name: chromatic
+
+# Chromatic recommends push over pull_request: pull_request builds run on an
+# ephemeral merge commit, which can pick the wrong baseline.
+on:
+  push:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  chromatic:
+    name: Visual tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          # Chromatic walks the git history to find each build's baseline.
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Chromatic
+        uses: chromaui/action@v18
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          # Pull requests are squash-merged, so the merge commit on main has
+          # never been built. Accept it as the new baseline.
+          autoAcceptChanges: main
+          # TurboSnap: only snapshot stories affected by the changed files.
+          onlyChanged: true
+          # Files outside the Vite module graph, such as the font links in
+          # preview-head.html. A change here re-tests every story.
+          externals: .storybook/**
