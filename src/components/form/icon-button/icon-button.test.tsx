@@ -138,3 +138,28 @@ test('applies DANGEROUS_style as style', async () => {
     .element(screen.getByRole('button', { name: 'Add' }))
     .toHaveStyle({ marginTop: '16px' });
 });
+
+test('renders a disabled link that keeps its role and does not navigate', async () => {
+  const onLinkClick = vi.fn();
+  const screen = await render(
+    <IconButton
+      aria-label="Back"
+      disabled
+      render={<a href="#back" onClick={onLinkClick} />}
+    >
+      <Icon icon={AddLine} />
+    </IconButton>,
+  );
+
+  const link = screen.getByRole('link', { name: 'Back' });
+  await expect.element(link).toHaveAttribute('aria-disabled', 'true');
+  await expect.element(link).toHaveAttribute('data-disabled');
+  await expect.element(link).not.toHaveAttribute('disabled');
+
+  await userEvent.click(link, { force: true });
+  await userEvent.tab();
+
+  expect(onLinkClick).not.toHaveBeenCalled();
+  expect(window.location.hash).not.toBe('#back');
+  await expect.element(link).not.toHaveFocus();
+});

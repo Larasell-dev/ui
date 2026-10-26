@@ -1,4 +1,5 @@
 import { Button as BaseButton } from '@base-ui/react/button';
+import type { useRender } from '@base-ui/react/use-render';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { useMemo, type ComponentProps, type CSSProperties } from 'react';
 import { cn } from 'cn';
@@ -6,6 +7,7 @@ import { Spinner } from '../../spinner/spinner.tsx';
 import { match } from '../../../utils/match.ts';
 import { useButtonGroup } from '../button-group/button-group-context.ts';
 import { ButtonGroupItem } from '../button-group/button-group-item.tsx';
+import { useButtonLink } from './use-button-link.ts';
 
 /**
  * The colors of each button variant, shared by Button and IconButton. Only colors live
@@ -91,11 +93,21 @@ type LoadingProps =
 
 type ButtonProps = Omit<
   ComponentProps<typeof BaseButton>,
-  'className' | 'style' | 'disabled' | 'focusableWhenDisabled'
+  | 'className'
+  | 'style'
+  | 'disabled'
+  | 'focusableWhenDisabled'
+  | 'nativeButton'
+  | 'render'
 > &
   VariantProps<typeof buttonVariants> &
   Pick<VariantProps<typeof buttonColors>, 'variant'> &
   LoadingProps & {
+    /**
+     * Renders a link that looks like the button, e.g. `render={<a href="/orders" />}`
+     * or a router link. It keeps its link role.
+     */
+    render?: useRender.RenderProp;
     DANGEROUS_className?: string;
     DANGEROUS_style?: CSSProperties;
   };
@@ -109,6 +121,8 @@ export function Button({
   DANGEROUS_className,
   DANGEROUS_style,
   children,
+  render,
+  ref,
   ...props
 }: ButtonProps) {
   const group = useButtonGroup('Button', size);
@@ -116,6 +130,45 @@ export function Button({
     if (!loading) return 'idle';
     return fullWidth ? 'inline' : 'overlay';
   }, [loading, fullWidth]);
+  const className = cn(
+    buttonColors({ variant, grouped: group.grouped }),
+    buttonVariants({ size: group.size, fullWidth }),
+    DANGEROUS_className,
+  );
+  const inner = match(content, {
+    idle: () => children,
+    overlay: () => (
+      <>
+        {/* Hidden visually but kept in the accessibility tree and the layout,
+          so the button keeps its name and size. */}
+        <span className="opacity-0">{children}</span>
+        <span className="absolute inset-0 flex items-center justify-center">
+          <Spinner aria-hidden />
+        </span>
+      </>
+    ),
+    inline: () => (
+      <span className="relative">
+        <span className="absolute top-1/2 right-full mr-2 flex -translate-y-1/2">
+          <Spinner aria-hidden />
+        </span>
+        {children}
+      </span>
+    ),
+  });
+  const link = useButtonLink({
+    render,
+    ref,
+    disabled: Boolean(loading || disabled || group.disabled),
+    focusableWhenDisabled: loading && !group.disabled,
+    props: {
+      ...props,
+      'aria-busy': loading || undefined,
+      className,
+      style: DANGEROUS_style,
+      children: inner,
+    },
+  });
 
   return (
     <ButtonGroupItem
@@ -124,41 +177,20 @@ export function Button({
       focusable={!disabled && !group.disabled}
       disabled={Boolean(loading || disabled || group.disabled)}
     >
-      <BaseButton
-        {...props}
-        disabled={loading || disabled || group.disabled}
-        // A disabled group takes even a loading button out of the tab order.
-        focusableWhenDisabled={loading && !group.disabled}
-        aria-busy={loading || undefined}
-        className={cn(
-          buttonColors({ variant, grouped: group.grouped }),
-          buttonVariants({ size: group.size, fullWidth }),
-          DANGEROUS_className,
-        )}
-        style={DANGEROUS_style}
-      >
-        {match(content, {
-          idle: () => children,
-          overlay: () => (
-            <>
-              {/* Hidden visually but kept in the accessibility tree and the layout,
-                so the button keeps its name and size. */}
-              <span className="opacity-0">{children}</span>
-              <span className="absolute inset-0 flex items-center justify-center">
-                <Spinner aria-hidden />
-              </span>
-            </>
-          ),
-          inline: () => (
-            <span className="relative">
-              <span className="absolute top-1/2 right-full mr-2 flex -translate-y-1/2">
-                <Spinner aria-hidden />
-              </span>
-              {children}
-            </span>
-          ),
-        })}
-      </BaseButton>
+      {link ?? (
+        <BaseButton
+          {...props}
+          ref={ref}
+          disabled={loading || disabled || group.disabled}
+          // A disabled group takes even a loading button out of the tab order.
+          focusableWhenDisabled={loading && !group.disabled}
+          aria-busy={loading || undefined}
+          className={className}
+          style={DANGEROUS_style}
+        >
+          {inner}
+        </BaseButton>
+      )}
     </ButtonGroupItem>
   );
 }
