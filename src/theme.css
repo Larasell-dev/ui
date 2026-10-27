@@ -120,6 +120,8 @@
   --type-input-md-line-height: calc(
     var(--text-sm) * var(--text-sm--line-height)
   );
+
+  --toast-width: calc(var(--spacing) * 85);
 }
 
 @utility focus-ring {
