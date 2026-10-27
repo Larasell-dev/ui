@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/Larasell-dev/ui/compare/v0.2.0...v0.2.1) (2026-10-27)
+
+
+### Features
+
+* add Tooltip component ([a55f66f](https://github.com/Larasell-dev/ui/commit/a55f66f661a5953b30bef2011cc55b8bcc47ab6e))
+
 ## [0.2.0](https://github.com/Larasell-dev/ui/compare/v0.1.25...v0.2.0) (2026-10-26)
 
 
