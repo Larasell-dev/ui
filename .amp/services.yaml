@@ -1,0 +1,6 @@
+services:
+  storybook:
+    # Listen on Amp's $PORT, not package.json's hardcoded 6006, so the portal reaches it.
+    command: npx storybook dev --ci --port "$PORT"
+    portal:
+      title: Storybook
