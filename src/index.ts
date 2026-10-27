@@ -30,6 +30,7 @@ export { Spinner } from './components/spinner/spinner.tsx';
 export { Stack } from './components/layout/stack/stack.tsx';
 export { Table } from './components/table/table.ts';
 export { Thumbnail } from './components/thumbnail/thumbnail.tsx';
+export { Tooltip } from './components/tooltip/tooltip.ts';
 export {
   browserClipboard,
   ClipboardProvider,
