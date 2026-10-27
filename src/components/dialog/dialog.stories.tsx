@@ -16,7 +16,7 @@ const meta = preview.meta({
 /** Opens from its trigger; close, Escape or a click outside closes it again. */
 export const Default = meta.story({
   render: () => (
-    <Dialog.Root>
+    <Dialog.Root defaultOpen>
       <Dialog.Trigger render={<Button />}>Show shipping details</Dialog.Trigger>
       <Dialog.Popup>
         <Dialog.Title>Shipping details</Dialog.Title>
@@ -34,7 +34,7 @@ export const Default = meta.story({
 /** The title and description can be passed as props instead of children. */
 export const TitleAndDescriptionProps = meta.story({
   render: () => (
-    <Dialog.Root>
+    <Dialog.Root defaultOpen>
       <Dialog.Trigger render={<Button />}>Show shipping details</Dialog.Trigger>
       <Dialog.Popup
         title="Shipping details"
@@ -67,7 +67,7 @@ function RenameOrder() {
   return (
     <div className="grid justify-items-center gap-4">
       <p className="type-body-md m-0">{name}</p>
-      <Dialog.Root onOpenChange={(open) => open && setDraft(name)}>
+      <Dialog.Root defaultOpen onOpenChange={(open) => open && setDraft(name)}>
         <Dialog.Trigger render={<Button variant="secondary" />}>
           Rename order
         </Dialog.Trigger>
@@ -104,7 +104,7 @@ export const WithForm = meta.story({
 });
 
 function Controlled() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   return (
     <>

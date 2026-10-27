@@ -29,9 +29,15 @@ const onEdit = fn();
 const onDuplicate = fn();
 const onDelete = fn();
 
-function OrderActions({ order }: { order: Order }) {
+function OrderActions({
+  order,
+  defaultOpen,
+}: {
+  order: Order;
+  defaultOpen?: boolean;
+}) {
   return (
-    <Table.Actions>
+    <Table.Actions defaultOpen={defaultOpen}>
       <Table.ActionsTrigger aria-label={`Actions for ${order.id}`} />
       <Table.ActionsPopup>
         <Table.ActionsItem onClick={() => onEdit(order.id)}>
@@ -80,7 +86,7 @@ export const Default = meta.story({
               <Table.Cell>{order.customer}</Table.Cell>
               <Table.Cell>{order.status}</Table.Cell>
               <Table.Cell>
-                <OrderActions order={order} />
+                <OrderActions order={order} defaultOpen={order === orders[0]} />
               </Table.Cell>
             </Table.Row>
           ))}
@@ -109,7 +115,7 @@ export const LinkItems = meta.story({
               </Table.Cell>
               <Table.Cell>{order.customer}</Table.Cell>
               <Table.Cell>
-                <Table.Actions>
+                <Table.Actions defaultOpen={order === orders[0]}>
                   <Table.ActionsTrigger
                     aria-label={`Actions for ${order.id}`}
                   />
@@ -150,7 +156,7 @@ export const IconsAndDestructive = meta.story({
               <Table.Cell>{order.customer}</Table.Cell>
               <Table.Cell>{order.status}</Table.Cell>
               <Table.Cell>
-                <Table.Actions>
+                <Table.Actions defaultOpen={order === orders[0]}>
                   <Table.ActionsTrigger
                     aria-label={`Actions for ${order.id}`}
                   />
@@ -204,7 +210,7 @@ export const DisabledItems = meta.story({
               <Table.Cell>{order.id}</Table.Cell>
               <Table.Cell>{order.status}</Table.Cell>
               <Table.Cell>
-                <Table.Actions>
+                <Table.Actions defaultOpen={order.status === 'Refunded'}>
                   <Table.ActionsTrigger
                     aria-label={`Actions for ${order.id}`}
                   />

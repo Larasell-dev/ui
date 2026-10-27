@@ -123,7 +123,7 @@ export const WithLoadingButton = meta.story({
     children: (
       <>
         <Button loading>Save</Button>
-        <Menu.Root>
+        <Menu.Root defaultOpen>
           <Menu.Trigger
             render={
               <IconButton aria-label="More save options">
