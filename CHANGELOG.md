@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/Larasell-dev/ui/compare/v0.2.1...v0.2.2) (2026-10-27)
+
+
+### Features
+
+* add ToastProvider, useToast and useToastPosition ([74b4655](https://github.com/Larasell-dev/ui/commit/74b4655069d05947103d40f01fe88925124954b4))
+
 ## [0.2.1](https://github.com/Larasell-dev/ui/compare/v0.2.0...v0.2.1) (2026-10-27)
 
 
