@@ -30,6 +30,12 @@ export { Spinner } from './components/spinner/spinner.tsx';
 export { Stack } from './components/layout/stack/stack.tsx';
 export { Table } from './components/table/table.ts';
 export { Thumbnail } from './components/thumbnail/thumbnail.tsx';
+export { ToastProvider } from './components/toast/toast-provider.tsx';
+export {
+  type ToastPosition,
+  useToastPosition,
+} from './components/toast/toast-position.ts';
+export { type ToastOptions, useToast } from './components/toast/use-toast.ts';
 export { Tooltip } from './components/tooltip/tooltip.ts';
 export {
   browserClipboard,
