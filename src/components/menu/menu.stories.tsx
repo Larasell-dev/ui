@@ -28,7 +28,7 @@ const meta = preview.meta({
 /** The trigger is unstyled; here it renders as a button. */
 export const Default = meta.story({
   render: () => (
-    <Menu.Root>
+    <Menu.Root defaultOpen>
       <Menu.Trigger render={<Button variant="secondary" />}>
         Actions
       </Menu.Trigger>
@@ -54,7 +54,7 @@ export const Default = meta.story({
 /** Items can be links, e.g. a router link; disabled items are dimmed. */
 export const LinkAndDisabledItems = meta.story({
   render: () => (
-    <Menu.Root>
+    <Menu.Root defaultOpen>
       <Menu.Trigger render={<Button variant="secondary" />}>
         Actions
       </Menu.Trigger>

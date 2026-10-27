@@ -17,7 +17,7 @@ const meta = preview.meta({
 /** Opens from its trigger; cancel or Escape closes it again. */
 export const Default = meta.story({
   render: () => (
-    <AlertDialog.Root>
+    <AlertDialog.Root defaultOpen>
       <AlertDialog.Trigger render={<Button />}>
         Delete order
       </AlertDialog.Trigger>
@@ -41,7 +41,7 @@ export const Default = meta.story({
 /** The title and description can be passed as props instead of children. */
 export const TitleAndDescriptionProps = meta.story({
   render: () => (
-    <AlertDialog.Root>
+    <AlertDialog.Root defaultOpen>
       <AlertDialog.Trigger render={<Button />}>
         Delete order
       </AlertDialog.Trigger>
@@ -56,7 +56,7 @@ export const TitleAndDescriptionProps = meta.story({
 /** The trigger renders whatever element it is given, here a secondary `Button`. */
 export const SecondaryTrigger = meta.story({
   render: () => (
-    <AlertDialog.Root>
+    <AlertDialog.Root defaultOpen>
       <AlertDialog.Trigger render={<Button variant="secondary" />}>
         Discard draft
       </AlertDialog.Trigger>
@@ -88,7 +88,7 @@ export const Open = meta.story({
 });
 
 function OpenFromMenu() {
-  const [order, setOrder] = useState<string | null>(null);
+  const [order, setOrder] = useState<string | null>('#1001');
 
   return (
     <>
@@ -192,7 +192,7 @@ export const PrettyDescription = meta.story({
 /** Destroys data, so the confirm button is red. */
 export const Destructive = meta.story({
   render: () => (
-    <AlertDialog.Root>
+    <AlertDialog.Root defaultOpen>
       <AlertDialog.Trigger render={<Button variant="secondary" />}>
         Delete order
       </AlertDialog.Trigger>
@@ -219,7 +219,7 @@ function SlowRequest({ fails }: { fails: boolean }) {
   const [error, setError] = useState<string | null>(null);
 
   return (
-    <AlertDialog.Root onOpenChange={() => setError(null)}>
+    <AlertDialog.Root defaultOpen onOpenChange={() => setError(null)}>
       <AlertDialog.Trigger render={<Button variant="secondary" />}>
         Delete order
       </AlertDialog.Trigger>
@@ -271,6 +271,7 @@ function TypeToConfirmDialog() {
 
   return (
     <AlertDialog.Root
+      defaultOpen
       onOpenChange={() => {
         setTyped('');
         setError(undefined);
