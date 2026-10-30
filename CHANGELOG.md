@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.3](https://github.com/Larasell-dev/ui/compare/v0.2.2...v0.2.3) (2026-10-30)
+
+
+### Features
+
+* bump a toast when a duplicate is added ([3631782](https://github.com/Larasell-dev/ui/commit/36317821fc777decdab4360e1cb6daad46896068))
+* deduplicate toasts with the same title and description ([f460c55](https://github.com/Larasell-dev/ui/commit/f460c55ecab0e3b9b796a38f3f959edd6847de9b))
+* render custom content in toasts ([dae3435](https://github.com/Larasell-dev/ui/commit/dae3435fb191155b6848bb881b81260a49c615a8))
+
 ## [0.2.2](https://github.com/Larasell-dev/ui/compare/v0.2.1...v0.2.2) (2026-10-27)
 
 
