@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import preview from '../../../.storybook/preview.tsx';
 import { Button } from '../form/button/button.tsx';
+import { Inset } from '../layout/inset/inset.tsx';
 import { useToastPosition } from './toast-position.ts';
 import { ToastProvider } from './toast-provider.tsx';
 import { type ToastOptions, useToast } from './use-toast.ts';
@@ -177,4 +178,62 @@ function AboveABarDemo() {
  */
 export const AboveABar = meta.story({
   render: () => <AboveABarDemo />,
+});
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  return (
+    <Inset>
+      <div className="flex items-center justify-between gap-6">
+        <p className="type-body-md m-0 text-mauve-950 dark:text-mauve-50">
+          Clicked {count} times
+        </p>
+        <Button variant="tertiary" onClick={() => setCount(count + 1)}>
+          Click
+        </Button>
+      </div>
+    </Inset>
+  );
+}
+
+/**
+ * `children` replace the title, description and buttons and render the whole
+ * toast, padded by `<Inset>`. They can keep their own state: click, then add
+ * the toast again and the count stays.
+ */
+export const CustomContent = meta.story({
+  render: () => (
+    <AddToast options={{ id: 'counter', children: <Counter />, timeout: 0 }}>
+      Show toast
+    </AddToast>
+  ),
+});
+
+/**
+ * Without `<Inset>`, custom content touches the toast's edges, e.g. for an
+ * image. `<Inset>` pads only the parts that need it.
+ */
+export const CustomContentToTheEdges = meta.story({
+  render: () => (
+    <ShowOnLoad
+      toasts={[
+        {
+          timeout: 0,
+          children: (
+            <div className="flex items-stretch">
+              <div className="w-20 shrink-0 bg-mauve-200 dark:bg-mauve-700" />
+              <Inset>
+                <div className="flex flex-col gap-1">
+                  <p className="type-body-md m-0 text-mauve-950 dark:text-mauve-50">
+                    Image uploaded
+                  </p>
+                  <div className="h-1 w-48 bg-mauve-950 dark:bg-mauve-50" />
+                </div>
+              </Inset>
+            </div>
+          ),
+        },
+      ]}
+    />
+  ),
 });
