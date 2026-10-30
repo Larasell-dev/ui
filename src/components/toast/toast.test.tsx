@@ -67,23 +67,29 @@ test('shows a toast once when the same id is added twice, with the latest text',
   expect(page.getByText(/Uploading/).elements()).toHaveLength(1);
 });
 
-test('a duplicate restarts the timeout of the toast that is shown', async () => {
-  const toast = await renderToasts(1000);
+test.each([
+  { name: 'with', bump: undefined },
+  { name: 'without', bump: false },
+])(
+  'a duplicate $name a bump restarts the timeout of the toast that is shown',
+  async ({ bump }) => {
+    const toast = await renderToasts(1000);
 
-  toast.add({ title: 'Product saved' });
-  await expect.element(page.getByText('Product saved')).toBeVisible();
-  const shown = page.getByText('Product saved').element();
-  await wait(700);
-  toast.add({ title: 'Product saved' });
-  // Past the first toast's timeout, but not the restarted one.
-  await wait(600);
+    toast.add({ title: 'Product saved', bump });
+    await expect.element(page.getByText('Product saved')).toBeVisible();
+    const shown = page.getByText('Product saved').element();
+    await wait(700);
+    toast.add({ title: 'Product saved', bump });
+    // Past the first toast's timeout, but not the restarted one.
+    await wait(600);
 
-  expect(shown.isConnected).toBe(true);
-  expect(page.getByText('Product saved').elements()).toHaveLength(1);
-  await expect
-    .element(page.getByText('Product saved'), { timeout: 2000 })
-    .not.toBeInTheDocument();
-});
+    expect(shown.isConnected).toBe(true);
+    expect(page.getByText('Product saved').elements()).toHaveLength(1);
+    await expect
+      .element(page.getByText('Product saved'), { timeout: 2000 })
+      .not.toBeInTheDocument();
+  },
+);
 
 test('renders children instead of a title', async () => {
   const toast = await renderToasts();

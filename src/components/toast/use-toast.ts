@@ -9,6 +9,8 @@ type ToastBaseOptions = {
    * are the same strings as a shown one's counts as that toast.
    */
   id?: string;
+  /** Whether the shown toast bumps when a duplicate is added. Defaults to `true`. */
+  bump?: boolean;
   /** Overrides the provider's timeout for this toast. `0` keeps it until closed. */
   timeout?: number;
   /** `high` interrupts screen readers; for errors the admin must notice. */
@@ -44,6 +46,9 @@ export type ToastOptions = ToastTextOptions | ToastCustomOptions;
 
 /** What the toast renders besides Base UI's own fields. */
 export type ToastData = {
+  bump: boolean;
+  /** A new object on every add, so the toast can tell it was added again. */
+  added: object;
   children?: ReactNode;
 };
 
@@ -66,11 +71,11 @@ export function useToast() {
     () => ({
       /** Shows a toast, or updates the one it duplicates, and returns its id. */
       add: (options: ToastOptions): string => {
-        const { children, ...rest } = options;
+        const { bump = true, children, ...rest } = options;
         return add({
           ...rest,
           id: options.id ?? textId(options),
-          data: { children },
+          data: { bump, added: {}, children },
         });
       },
       /** Closes the toast with the id, or every toast without one. */
