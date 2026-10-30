@@ -180,6 +180,17 @@ export const AboveABar = meta.story({
   render: () => <AboveABarDemo />,
 });
 
+/**
+ * Adding a toast that's already shown, by `id` or by the same title and
+ * description, restarts its timeout instead of stacking a copy.
+ * Click a few times.
+ */
+export const Deduplicated = meta.story({
+  render: () => (
+    <AddToast options={{ title: 'Product saved' }}>Save product</AddToast>
+  ),
+});
+
 function Counter() {
   const [count, setCount] = useState(0);
   return (
