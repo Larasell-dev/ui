@@ -1,7 +1,8 @@
 import { Toast as BaseToast, type ToastObject } from '@base-ui/react/toast';
 import CloseLine from '@iconify-icons/ri/close-line';
 import { cn } from 'cn';
-import { type ReactNode, useState } from 'react';
+import { type Transition, useAnimate, useReducedMotion } from 'motion/react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 import { Button } from '../form/button/button.tsx';
 import { IconButton } from '../form/icon-button/icon-button.tsx';
 import { Icon } from '../icon/icon.tsx';
@@ -63,12 +64,31 @@ function ToastViewport({ position }: { position: ToastPosition | null }) {
   );
 }
 
+const lift: Transition = { type: 'spring', bounce: 0, visualDuration: 0.1 };
+const settle: Transition = { type: 'spring', bounce: 0.5, visualDuration: 0.3 };
+
 function ToastRoot({ toast }: { toast: ToastObject<ToastData> }) {
+  const [scope, animate] = useAnimate<HTMLDivElement>();
+  const reduceMotion = useReducedMotion();
   const data = toast.data;
   const custom = data?.children !== undefined;
 
+  // Each add gives the data a new `added` object, so a change means a
+  // duplicate was added: jump up a little and spring back into place.
+  const added = useRef(data?.added);
+  useEffect(() => {
+    if (added.current === data?.added) return;
+    added.current = data?.added;
+    if (!data?.bump || reduceMotion || !scope.current) return;
+    const element = scope.current;
+    void animate(element, { y: -6, scale: 1.03 }, lift).then(() =>
+      animate(element, { y: 0, scale: 1 }, settle),
+    );
+  }, [data, reduceMotion, animate, scope]);
+
   return (
     <BaseToast.Root
+      ref={scope}
       toast={toast}
       swipeDirection="down"
       className={cn(

@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import preview from '../../../.storybook/preview.tsx';
 import { Button } from '../form/button/button.tsx';
 import { Inset } from '../layout/inset/inset.tsx';
@@ -182,12 +183,21 @@ export const AboveABar = meta.story({
 
 /**
  * Adding a toast that's already shown, by `id` or by the same title and
- * description, restarts its timeout instead of stacking a copy.
+ * description, bumps it and restarts its timeout instead of stacking a copy.
  * Click a few times.
  */
 export const Deduplicated = meta.story({
   render: () => (
     <AddToast options={{ title: 'Product saved' }}>Save product</AddToast>
+  ),
+});
+
+/** `bump: false` still dedupes and restarts the timeout, but keeps still. */
+export const DeduplicatedWithoutBump = meta.story({
+  render: () => (
+    <AddToast options={{ title: 'Product saved', bump: false }}>
+      Save product
+    </AddToast>
   ),
 });
 
@@ -247,4 +257,73 @@ export const CustomContentToTheEdges = meta.story({
       ]}
     />
   ),
+});
+
+const sizes = ['Small', 'Medium', 'Large'];
+const sizeListeners = new Set<() => void>();
+let size = 0;
+
+/** Custom content that follows outside state and animates the word that changes. */
+function SizeChanged() {
+  const current = useSyncExternalStore(
+    (listener) => {
+      sizeListeners.add(listener);
+      return () => sizeListeners.delete(listener);
+    },
+    () => size,
+  );
+  const reduceMotion = useReducedMotion();
+  const transition = reduceMotion
+    ? { duration: 0 }
+    : { type: 'spring' as const, bounce: 0.1, visualDuration: 0.3 };
+  // Each change gets its own key, so the word always spawns a new element that rises in, even
+  // when it comes back while its previous element is still on its way out.
+  const [shown, setShown] = useState({ current, change: 0 });
+  if (shown.current !== current)
+    setShown({ current, change: shown.change + 1 });
+
+  return (
+    <Inset>
+      <p className="type-body-md m-0 flex text-mauve-950 dark:text-mauve-50">
+        Changed size to&nbsp;
+        <span className="relative inline-flex overflow-y-clip">
+          <AnimatePresence mode="popLayout" initial={false}>
+            <motion.span
+              key={shown.change}
+              initial={{ y: '100%', opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: '-100%', opacity: 0 }}
+              transition={transition}
+            >
+              {sizes[shown.current]}
+            </motion.span>
+          </AnimatePresence>
+        </span>
+      </p>
+    </Inset>
+  );
+}
+
+function ChangeSize() {
+  const toast = useToast();
+  return (
+    <Button
+      variant="secondary"
+      onClick={() => {
+        size = (size + 1) % sizes.length;
+        sizeListeners.forEach((listener) => listener());
+        toast.add({ id: 'size', children: <SizeChanged />, bump: false });
+      }}
+    >
+      Change size
+    </Button>
+  );
+}
+
+/**
+ * Like the admin's theme toast: every change adds the toast again without a
+ * bump, and the content swaps the word it shows.
+ */
+export const CustomContentFollowingState = meta.story({
+  render: () => <ChangeSize />,
 });
