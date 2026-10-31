@@ -51,7 +51,7 @@ function ToastViewport({ position }: { position: ToastPosition | null }) {
         }}
         className={cn(
           // The first toast is the newest, so the stack grows upwards from it.
-          'fixed z-50 flex w-max max-w-[calc(100vw-2rem)] -translate-x-1/2 flex-col-reverse items-center gap-2 outline-none',
+          'fixed flex w-max max-w-[calc(100vw-2rem)] -translate-x-1/2 flex-col-reverse items-center gap-2 outline-none',
           // Glides when its position changes, e.g. as a bar below appears.
           'transition-[bottom] duration-200 ease-out motion-reduce:transition-none',
         )}
@@ -92,7 +92,7 @@ function ToastRoot({ toast }: { toast: ToastObject<ToastData> }) {
       toast={toast}
       swipeDirection="down"
       className={cn(
-        'border-border flex w-(--toast-width) max-w-full items-center gap-6 border bg-white bg-clip-padding shadow-lg dark:bg-mauve-900',
+        'border-border bg-elevated shadow-elevated flex w-(--toast-width) max-w-full items-center gap-6 border bg-clip-padding',
         // Like a bar of buttons: as tall as one, with room for the text on the left.
         !custom && 'py-1.5 pr-1.5 pl-5',
         // Custom content runs to the edges; `<Inset>` pads it by as much as the text.
