@@ -1,4 +1,5 @@
 import type { IconifyIcon } from '@iconify/types';
+import { spacing, type Spacing } from '../layout/spacing.ts';
 
 type IconProps = {
   /**
@@ -21,15 +22,27 @@ type IconProps = {
    * already names the control; that produces a duplicate announcement.
    */
   label?: string;
+  /**
+   * Width and height on the Tailwind spacing scale, like the `size-*`
+   * utilities: `4` is `size-4`, 16px by default. Omit it and the icon is 1em
+   * square, so it matches the size of the surrounding text.
+   */
+  size?: Spacing;
 };
 
-export function Icon({ icon, label }: IconProps) {
+export function Icon({ icon, label, size }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox={`0 0 ${icon.width ?? 16} ${icon.height ?? 16}`}
       width="1em"
       height="1em"
+      // CSS overrides the width and height attributes, which can't take calc().
+      style={
+        size === undefined
+          ? undefined
+          : { width: spacing(size), height: spacing(size) }
+      }
       role="img"
       {...(label ? { 'aria-label': label } : { 'aria-hidden': true })}
       // Trusted SVG markup from the pinned @iconify-icons/ri package.
