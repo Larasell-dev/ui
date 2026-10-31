@@ -45,6 +45,42 @@
 
   --color-border: color-mix(in oklch, var(--color-mauve-950) 10%, transparent);
 
+  /* Elevation (see src/foundations/elevation.mdx). Plane backgrounds, named
+     after the plane they paint. Dark mode overrides them below. */
+  --color-canvas: var(--color-white);
+  --color-sunken: var(--color-mauve-50);
+  --color-surface: var(--color-white);
+  --color-elevated: var(--color-white);
+  --color-overlay: color-mix(in oklch, var(--color-mauve-950) 40%, transparent);
+  --blur-overlay: var(--blur-sm);
+
+  /* The color of every elevation shadow. Dark mode deepens it, so shadows
+     still read on dark planes. */
+  --color-elevation-shadow: color-mix(
+    in oklch,
+    var(--color-black) 10%,
+    transparent
+  );
+
+  /* Same geometry as Tailwind's shadow-sm, -md and -lg. Depth 0 and 1
+     (canvas, sunken, surface) cast no shadow. */
+  --shadow-raised:
+    0 1px 3px 0 var(--color-elevation-shadow),
+    0 1px 2px -1px var(--color-elevation-shadow);
+  --shadow-popover:
+    0 4px 6px -1px var(--color-elevation-shadow),
+    0 2px 4px -2px var(--color-elevation-shadow);
+  --shadow-elevated:
+    0 10px 15px -3px var(--color-elevation-shadow),
+    0 4px 6px -4px var(--color-elevation-shadow);
+
+  /* Stacking layers of the page, lowest first. Everything in a Base UI
+     portal shares the popup layer and stacks by opening order. */
+  --z-index-sticky: 10;
+  --z-index-docked: 20;
+  --z-index-popup: 50;
+  --z-index-skip-link: 100;
+
   --type-display-font: var(--font-heading);
   --type-display-weight-base: var(--font-weight-semibold);
   --type-display-tracking: var(--tracking-tight);
@@ -155,6 +191,50 @@
 @layer base {
   .dark {
     --color-border: color-mix(in oklch, var(--color-mauve-50) 15%, transparent);
+
+    /* Higher planes are lighter in dark mode, where shadows barely show. */
+    --color-canvas: var(--color-mauve-950);
+    --color-sunken: color-mix(
+      in oklch,
+      var(--color-mauve-900) 50%,
+      var(--color-mauve-950)
+    );
+    --color-surface: var(--color-mauve-900);
+    --color-elevated: var(--color-mauve-900);
+    --color-overlay: color-mix(in oklch, var(--color-black) 60%, transparent);
+    --color-elevation-shadow: color-mix(
+      in oklch,
+      var(--color-black) 40%,
+      transparent
+    );
+  }
+}
+
+@layer base {
+  /* Each Base UI portal is one layer, so a dialog or menu opened later covers
+     earlier ones, backdrop included. Inside a portal, nothing sets a z-index:
+     the backdrop comes before its popup, so it stays below it. A portal
+     opened from inside another one is nested in it, after its popup, so it
+     ends up on top.
+     Pinned to the top left: portals come after the full-height app, so a
+     relative one would sit at the bottom of the viewport. Popups are
+     positioned within it, and while they first measure, one opening near the
+     bottom lands below the viewport and focusing it scrolls the page for a
+     frame. */
+  [data-base-ui-portal] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: var(--z-index-popup);
+  }
+
+  /* One scrim at a time: a backdrop marked with data-overlay gives way while
+     the backdrop of a dialog opened on top of it in another portal is open,
+     so the page isn't dimmed twice. Base UI already renders no backdrop for
+     a dialog nested in another one. */
+  [data-base-ui-portal]:has(~ [data-base-ui-portal] [data-overlay][data-open])
+    > [data-overlay] {
+    opacity: 0;
   }
 }
 

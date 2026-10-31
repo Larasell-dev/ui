@@ -48,6 +48,21 @@ Every Remix icon is available under its PascalCase name: `error-warning-line` be
 
 The icons are generated from the pinned `@iconify-icons/ri` package into `src/icons.ts`, so each release of the design system pins the icon set. After bumping `@iconify-icons/ri`, run `npm run generate-icons`.
 
+### Lint rules
+
+`@larasell-dev/ui/eslint` is an [Oxlint JS plugin](https://oxc.rs/docs/guide/usage/linter/js-plugins.html) that enforces the design system's rules on class names. Each rule lives in its own directory under `src/eslint/rules`, next to its tests. Extend its `recommended` config to enable all of them, in `oxlint.config.ts`:
+
+```ts
+import { recommended } from '@larasell-dev/ui/eslint';
+import { defineConfig } from 'oxlint';
+
+export default defineConfig({
+  extends: [recommended],
+});
+```
+
+Or in the `lint` block of a Vite+ `vite.config.ts`: `lint: { extends: [recommended] }`. A `.oxlintrc.json` can't extend a package; list the plugin and its rules (`larasell/no-margin`, `larasell/no-off-scale-font-size`, `larasell/prefer-cn`, `larasell/shadow-tokens`, `larasell/plane-tokens`) yourself there.
+
 ## Scripts
 
 ```bash
