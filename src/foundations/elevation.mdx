@@ -393,6 +393,8 @@ To change the elevation of the whole admin panel, change a semantic token. Dark 
 
 ## Rules
 
+The `elevation/shadow-tokens` and `elevation/plane-tokens` lint rules (`lint/elevation.ts`) enforce the shadow, plane and scrim rules in class names.
+
 - **Use the lowest plane that works.** Most of a page is canvas and surface.
 - **Surfaces don't cast shadows.** Only planes that leave the flow of the page do: raised, popover and elevated.
 - **Clip the background of floating planes.** Raised, popover and elevated planes use `bg-clip-padding`, so their semi-transparent border blends with what is behind them, not with their own background.
