@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.7](https://github.com/Larasell-dev/ui/compare/v0.2.6...v0.2.7) (2026-10-31)
+
+
+### Features
+
+* publish lint rules as @larasell-dev/ui/eslint ([c4ab838](https://github.com/Larasell-dev/ui/commit/c4ab838119e235bd8bb4d3d2e30f0d5945c9e3d0))
+
 ## [0.2.6](https://github.com/Larasell-dev/ui/compare/v0.2.5...v0.2.6) (2026-10-31)
 
 
