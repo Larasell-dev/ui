@@ -19,6 +19,7 @@
     ".": "./dist/index.mjs",
     "./icons": "./dist/icons.mjs",
     "./inertia": "./dist/inertia.mjs",
+    "./eslint": "./dist/eslint.mjs",
     "./styles.css": "./src/styles.css",
     "./package.json": "./package.json"
   },
