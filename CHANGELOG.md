@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.6](https://github.com/Larasell-dev/ui/compare/v0.2.5...v0.2.6) (2026-10-31)
+
+
+### Features
+
+* add elevation tokens and guide ([e197abb](https://github.com/Larasell-dev/ui/commit/e197abbbf904ef673d2ed20076737fda5a3aec39))
+
 ## [0.2.5](https://github.com/Larasell-dev/ui/compare/v0.2.4...v0.2.5) (2026-10-31)
 
 
