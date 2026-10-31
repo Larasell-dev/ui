@@ -5,15 +5,20 @@ import { defineConfig } from 'vite-plus';
 export default defineConfig({
   plugins: [react()],
   pack: {
-    entry: ['src/index.ts', 'src/icons.ts', 'src/inertia.ts'],
+    entry: {
+      index: 'src/index.ts',
+      icons: 'src/icons.ts',
+      inertia: 'src/inertia.ts',
+      eslint: 'src/eslint/index.ts',
+    },
     dts: { tsconfig: 'tsconfig.build.json' },
-    ignore: ['**/*.stories.tsx', '**/*.test.tsx', '.storybook/**'],
+    ignore: ['**/*.stories.tsx', '**/*.test.{ts,tsx}', '.storybook/**'],
   },
   lint: {
-    jsPlugins: ['./lint/elevation.ts'],
+    jsPlugins: ['./src/eslint/index.ts'],
     rules: {
-      'elevation/shadow-tokens': 'error',
-      'elevation/plane-tokens': 'error',
+      'larasell/shadow-tokens': 'error',
+      'larasell/plane-tokens': 'error',
     },
     options: {
       denyWarnings: true,
@@ -40,7 +45,7 @@ export default defineConfig({
         extends: true,
         test: {
           name: 'components',
-          include: ['src/**/*.test.{ts,tsx}'],
+          include: ['src/**/*.test.tsx'],
           browser: {
             enabled: true,
             provider: playwright(),
@@ -52,7 +57,7 @@ export default defineConfig({
       {
         // Lint rules run in Node, where Oxlint's RuleTester lives.
         extends: true,
-        test: { name: 'lint', include: ['lint/**/*.test.ts'] },
+        test: { name: 'lint', include: ['src/eslint/**/*.test.ts'] },
       },
     ],
   },
