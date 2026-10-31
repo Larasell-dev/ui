@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.4](https://github.com/Larasell-dev/ui/compare/v0.2.3...v0.2.4) (2026-10-31)
+
+
+### Features
+
+* add a size prop to Icon ([f9ce283](https://github.com/Larasell-dev/ui/commit/f9ce283a1cde407b119fac525d7df850087e89c1))
+
 ## [0.2.3](https://github.com/Larasell-dev/ui/compare/v0.2.2...v0.2.3) (2026-10-30)
 
 
