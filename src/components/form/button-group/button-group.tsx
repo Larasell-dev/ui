@@ -55,10 +55,11 @@ export function ButtonGroup({
         className={cn(
           // Neighbours overlap by their 1px border, so the two read as one line.
           // Each is positioned, so the later one paints its border on top, and the
-          // hovered or focused one comes to the front to show all of its own.
+          // hovered or focused one comes to the front to show all of its own,
+          // isolated so that z-index stays inside the group.
           // A sibling selector rather than :first-child, as an open menu inserts
           // hidden focus guards next to its trigger.
-          'inline-flex *:relative *:hover:z-10 *:focus-visible:z-10 [&>button~button]:-ml-px',
+          'isolate inline-flex *:relative *:hover:z-1 *:focus-visible:z-1 [&>button~button]:-ml-px',
           DANGEROUS_className,
         )}
         style={DANGEROUS_style}

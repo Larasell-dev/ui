@@ -68,7 +68,7 @@ function Row() {
   );
 }
 
-const box = 'border border-border bg-white dark:bg-mauve-900';
+const box = 'border border-border bg-surface';
 
 export const Vertical = meta.story({
   render: () => (
