@@ -10,6 +10,11 @@ export default defineConfig({
     ignore: ['**/*.stories.tsx', '**/*.test.tsx', '.storybook/**'],
   },
   lint: {
+    jsPlugins: ['./lint/elevation.ts'],
+    rules: {
+      'elevation/shadow-tokens': 'error',
+      'elevation/plane-tokens': 'error',
+    },
     options: {
       denyWarnings: true,
       typeAware: true,
@@ -30,11 +35,25 @@ export default defineConfig({
     },
   },
   test: {
-    browser: {
-      enabled: true,
-      provider: playwright(),
-      headless: true,
-      instances: [{ browser: 'chromium' }],
-    },
+    projects: [
+      {
+        extends: true,
+        test: {
+          name: 'components',
+          include: ['src/**/*.test.{ts,tsx}'],
+          browser: {
+            enabled: true,
+            provider: playwright(),
+            headless: true,
+            instances: [{ browser: 'chromium' }],
+          },
+        },
+      },
+      {
+        // Lint rules run in Node, where Oxlint's RuleTester lives.
+        extends: true,
+        test: { name: 'lint', include: ['lint/**/*.test.ts'] },
+      },
+    ],
   },
 });
