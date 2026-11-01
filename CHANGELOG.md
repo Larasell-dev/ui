@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.8](https://github.com/Larasell-dev/ui/compare/v0.2.7...v0.2.8) (2026-11-01)
+
+
+### Bug Fixes
+
+* keep popups from wrapping their text ([da64910](https://github.com/Larasell-dev/ui/commit/da64910474cceb4999caf55cd53f56977a567e70))
+
 ## [0.2.7](https://github.com/Larasell-dev/ui/compare/v0.2.6...v0.2.7) (2026-10-31)
 
 
