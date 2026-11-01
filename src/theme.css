@@ -220,11 +220,15 @@
      relative one would sit at the bottom of the viewport. Popups are
      positioned within it, and while they first measure, one opening near the
      bottom lands below the viewport and focusing it scrolls the page for a
-     frame. */
+     frame.
+     As wide as the page: its popups are absolutely positioned within it, so
+     in a portal without a width they'd shrink to their narrowest and wrap
+     their text. */
   [data-base-ui-portal] {
     position: absolute;
     top: 0;
     left: 0;
+    right: 0;
     z-index: var(--z-index-popup);
   }
 
