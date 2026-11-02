@@ -5,11 +5,21 @@ import { defineConfig } from 'vite-plus';
 export default defineConfig({
   plugins: [react()],
   pack: {
-    entry: ['src/index.ts', 'src/icons.ts', 'src/inertia.ts'],
+    entry: {
+      index: 'src/index.ts',
+      icons: 'src/icons.ts',
+      inertia: 'src/inertia.ts',
+      eslint: 'src/eslint/index.ts',
+    },
     dts: { tsconfig: 'tsconfig.build.json' },
-    ignore: ['**/*.stories.tsx', '**/*.test.tsx', '.storybook/**'],
+    ignore: ['**/*.stories.tsx', '**/*.test.{ts,tsx}', '.storybook/**'],
   },
   lint: {
+    jsPlugins: ['./src/eslint/index.ts'],
+    rules: {
+      'larasell/shadow-tokens': 'error',
+      'larasell/plane-tokens': 'error',
+    },
     options: {
       denyWarnings: true,
       typeAware: true,
@@ -30,11 +40,25 @@ export default defineConfig({
     },
   },
   test: {
-    browser: {
-      enabled: true,
-      provider: playwright(),
-      headless: true,
-      instances: [{ browser: 'chromium' }],
-    },
+    projects: [
+      {
+        extends: true,
+        test: {
+          name: 'components',
+          include: ['src/**/*.test.tsx'],
+          browser: {
+            enabled: true,
+            provider: playwright(),
+            headless: true,
+            instances: [{ browser: 'chromium' }],
+          },
+        },
+      },
+      {
+        // Lint rules run in Node, where Oxlint's RuleTester lives.
+        extends: true,
+        test: { name: 'lint', include: ['src/eslint/**/*.test.ts'] },
+      },
+    ],
   },
 });

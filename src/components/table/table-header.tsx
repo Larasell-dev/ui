@@ -15,7 +15,7 @@ export function TableHeader({ children }: TableHeaderProps) {
     // up with the cells below.
     <thead
       role="rowgroup"
-      className="border-border block shrink-0 border-b bg-mauve-50 pe-(--table-scrollbar) dark:bg-mauve-950"
+      className="border-border bg-sunken block shrink-0 border-b pe-(--table-scrollbar)"
     >
       <tr role="row" className={rowGrid}>
         {children}

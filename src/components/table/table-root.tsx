@@ -58,7 +58,9 @@ export function TableRoot({
       <div
         ref={frameRef}
         className={cn(
-          'flex h-full max-h-full min-h-0 w-full flex-col bg-white dark:bg-mauve-900',
+          // Isolated, so the z-index that lifts the actions above a row's link
+          // stays inside the table.
+          'bg-surface isolate flex h-full max-h-full min-h-0 w-full flex-col',
           DANGEROUS_className,
         )}
         style={{

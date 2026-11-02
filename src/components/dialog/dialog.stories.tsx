@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { AlertDialog } from '../alert-dialog/alert-dialog.ts';
 import { Button } from '../form/button/button.tsx';
 import { Field } from '../form/field/field.tsx';
 import { Input } from '../form/input/input.tsx';
@@ -128,4 +129,39 @@ function Controlled() {
 /** Controlled with `open`, without a trigger. */
 export const ControlledWithoutTrigger = meta.story({
   render: () => <Controlled />,
+});
+
+/**
+ * A confirmation opened on top of the dialog from elsewhere, in its own
+ * portal, covers it. Its backdrop replaces the dialog's, so the page is
+ * dimmed only once.
+ */
+export const WithConfirmationOnTop = meta.story({
+  render: () => (
+    <>
+      <Dialog.Root defaultOpen>
+        <Dialog.Popup
+          title="Shipping details"
+          description="Order #1001 ships with DHL Express and arrives on Tuesday."
+        >
+          <Dialog.Actions>
+            <Dialog.Close />
+          </Dialog.Actions>
+        </Dialog.Popup>
+      </Dialog.Root>
+      <AlertDialog.Root defaultOpen>
+        <AlertDialog.Popup
+          title="Cancel the shipment?"
+          description="DHL Express no longer picks up order #1001."
+        >
+          <AlertDialog.Actions>
+            <AlertDialog.Cancel />
+            <AlertDialog.Confirm onClick={(_event, { close }) => close()}>
+              Cancel shipment
+            </AlertDialog.Confirm>
+          </AlertDialog.Actions>
+        </AlertDialog.Popup>
+      </AlertDialog.Root>
+    </>
+  ),
 });

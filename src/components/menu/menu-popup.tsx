@@ -1,7 +1,6 @@
 import { Menu } from '@base-ui/react/menu';
 import { AnimatePresence } from 'motion/react';
 import { useContext, type MouseEvent, type ReactNode } from 'react';
-import { cn } from 'cn';
 import { PopupMotion } from '../../utils/popup-motion.tsx';
 import { MenuOpenContext } from './menu-context.ts';
 
@@ -23,17 +22,14 @@ export function MenuPopup({ children }: MenuPopupProps) {
           <Menu.Positioner
             sideOffset={4}
             align="end"
-            className="z-50 outline-none"
+            className="outline-none"
             onClick={stopPropagation}
           >
             <Menu.Popup
               render={(props, state) => (
                 <PopupMotion {...props} side={state.side} />
               )}
-              className={cn(
-                'border-border min-w-40 border bg-white bg-clip-padding shadow-md outline-none',
-                'dark:bg-mauve-900',
-              )}
+              className="border-border bg-elevated shadow-popover min-w-40 border bg-clip-padding outline-none"
             >
               {children}
             </Menu.Popup>

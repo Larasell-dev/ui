@@ -117,7 +117,7 @@ export const Stacked = meta.story({
  */
 function UnsavedChangesBar({ onCancel }: { onCancel: () => void }) {
   return (
-    <div className="border-border flex w-(--toast-width) max-w-full items-center justify-between gap-6 border bg-white bg-clip-padding py-1.5 pr-1.5 pl-5 shadow-lg dark:bg-mauve-900">
+    <div className="border-border bg-elevated shadow-elevated flex w-(--toast-width) max-w-full items-center justify-between gap-6 border bg-clip-padding py-1.5 pr-1.5 pl-5">
       <p className="type-body-md m-0 whitespace-nowrap text-mauve-950 dark:text-mauve-50">
         Unsaved changes
       </p>
@@ -164,7 +164,7 @@ function AboveABarDemo() {
       {dirty && (
         <div
           ref={bar}
-          className="fixed bottom-6 left-1/2 z-30 -translate-x-1/2"
+          className="z-docked fixed bottom-6 left-1/2 -translate-x-1/2"
         >
           <UnsavedChangesBar onCancel={() => setDirty(false)} />
         </div>

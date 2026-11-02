@@ -61,16 +61,13 @@ export function PageSizeSelect({
             <Select.Positioner
               alignItemWithTrigger={false}
               sideOffset={4}
-              className="z-50 outline-none"
+              className="outline-none"
             >
               <Select.Popup
                 render={(props, state) => (
                   <PopupMotion {...props} side={state.side} />
                 )}
-                className={cn(
-                  'border-border min-w-(--anchor-width) border bg-white bg-clip-padding shadow-md',
-                  'dark:bg-mauve-900',
-                )}
+                className="border-border bg-elevated shadow-popover min-w-(--anchor-width) border bg-clip-padding"
               >
                 {options.map((option) => (
                   <Select.Item

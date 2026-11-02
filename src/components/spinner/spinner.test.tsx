@@ -38,6 +38,23 @@ test('is decorative when aria-hidden, e.g. inside a busy button', async () => {
     .not.toBeInTheDocument();
 });
 
+test('takes its size from the spacing scale when size is set, whatever the font size', async () => {
+  // Tests load no CSS, so --spacing falls back to Tailwind's default of 0.25rem: 5 × 4px.
+  const screen = await render(
+    <span style={{ fontSize: '32px' }}>
+      <Spinner size={5} />
+    </span>,
+  );
+
+  const box = screen
+    .getByRole('img', { includeHidden: true })
+    .element()
+    .getBoundingClientRect();
+
+  expect(box.width).toBe(20);
+  expect(box.height).toBe(20);
+});
+
 test('does not accept className or style', async () => {
   const screen = await render(
     <Spinner
