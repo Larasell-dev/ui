@@ -1,6 +1,7 @@
 import { Tooltip as BaseTooltip } from '@base-ui/react/tooltip';
 
 export { TooltipPopup as Popup } from './tooltip-popup.tsx';
+export { TooltipTruncated as Truncated } from './tooltip-truncated.tsx';
 
 /** Shares the open delay across tooltips, so moving between them is instant. */
 export const Provider = BaseTooltip.Provider;
