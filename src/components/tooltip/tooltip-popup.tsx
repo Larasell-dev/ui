@@ -2,7 +2,10 @@ import { Tooltip } from '@base-ui/react/tooltip';
 import type { ReactNode } from 'react';
 import { cn } from 'cn';
 
-type TooltipPopupProps = Pick<Tooltip.Positioner.Props, 'side' | 'align'> & {
+export type TooltipPopupProps = Pick<
+  Tooltip.Positioner.Props,
+  'side' | 'align'
+> & {
   children?: ReactNode;
 };
 
