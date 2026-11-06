@@ -5,6 +5,8 @@ import { Button } from '../button/button.tsx';
 import { Field } from '../field/field.tsx';
 import { Icon } from '../../icon/icon.tsx';
 import { FileCopyLine, SearchLine } from '../../../icons.ts';
+import { Tooltip } from '../../tooltip/tooltip.ts';
+import { TruncateMiddle } from '../../truncate-middle/truncate-middle.tsx';
 
 const meta = preview.meta({
   title: 'Atoms/Input',
@@ -65,8 +67,8 @@ export const WithPrefixAndSuffix = meta.story({
   args: {
     'aria-label': 'Shop address',
     placeholder: 'my-shop',
-    prefix: <span className="text-base-tertiary">https://</span>,
-    suffix: <span className="text-base-tertiary">.larasell.shop</span>,
+    prefix: <Input.Text>https://</Input.Text>,
+    suffix: <Input.Text>.larasell.shop</Input.Text>,
   },
 });
 
@@ -115,5 +117,69 @@ export const OverflowingWithAffixes = meta.story({
   args: {
     ...WithPrefixAndSuffix.input.args,
     defaultValue: 'a-shop-name-that-is-much-too-long-to-fit',
+  },
+});
+
+// <Input.Text> reads as part of the value, so the input drops its gap to it:
+// the host and the path read as one URL. The unit keeps its gap.
+export const TextAffixes = meta.story({
+  args: {
+    'aria-label': 'URL',
+    placeholder: 'p/linen-shirt',
+    defaultValue: 'p/linen-shirt',
+    prefix: <Input.Text>shop.example/en/</Input.Text>,
+  },
+});
+
+// Each affix takes at most a third of the box. Plain <Input.Text> cuts the end
+// of what doesn't fit; Tooltip.Truncated shows all of it on hover.
+export const LongTextAffixes = meta.story({
+  args: {
+    'aria-label': 'URL',
+    defaultValue: 'p/a-product-name-that-goes-on-and-on',
+    prefix: (
+      <Tooltip.Truncated>
+        <Input.Text>
+          a-very-long-subdomain.of-a-shop-on-a-long-domain.example/en/
+        </Input.Text>
+      </Tooltip.Truncated>
+    ),
+    suffix: (
+      <Tooltip.Truncated>
+        <Input.Text>?utm_source=newsletter&utm_campaign=autumn</Input.Text>
+      </Tooltip.Truncated>
+    ),
+  },
+});
+
+// <TruncateMiddle> keeps both ends of a URL, here the language at its end,
+// which tells a shop's domains apart. Hover it for the whole URL.
+export const MiddleTruncatedPrefix = meta.story({
+  args: {
+    'aria-label': 'URL',
+    defaultValue: 'p/linen-shirt',
+    prefix: (
+      <Tooltip.Truncated>
+        <Input.Text>
+          <TruncateMiddle>
+            t-88w3bo8abjmllu1bnokv75gnz-p24221.onamp.dev/en/
+          </TruncateMiddle>
+        </Input.Text>
+      </Tooltip.Truncated>
+    ),
+  },
+});
+
+// A short prefix stays whole, and so shows no tooltip.
+export const MiddleTruncatedPrefixThatFits = meta.story({
+  args: {
+    ...MiddleTruncatedPrefix.input.args,
+    prefix: (
+      <Tooltip.Truncated>
+        <Input.Text>
+          <TruncateMiddle>shop.de/en/</TruncateMiddle>
+        </Input.Text>
+      </Tooltip.Truncated>
+    ),
   },
 });
