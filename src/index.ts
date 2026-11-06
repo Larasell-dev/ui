@@ -38,6 +38,7 @@ export {
 } from './components/toast/toast-position.ts';
 export { type ToastOptions, useToast } from './components/toast/use-toast.ts';
 export { Tooltip } from './components/tooltip/tooltip.ts';
+export { TruncateMiddle } from './components/truncate-middle/truncate-middle.tsx';
 export {
   browserClipboard,
   ClipboardProvider,
