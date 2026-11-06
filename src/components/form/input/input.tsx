@@ -85,7 +85,8 @@ export function Input({
 // Each affix takes at most a third of the box, so the input keeps at least a
 // third, and claims all the room the affixes don't need. Text cut to fit, e.g.
 // by <TruncateMiddle>, keeps to the input's side, so it never leaves a gap.
-const affix = 'flex min-w-0 max-w-1/3 shrink-0 items-center';
+// It's as tall as the box, so a button in it with self-stretch fills the box.
+const affix = 'flex min-w-0 max-w-1/3 shrink-0 items-center self-stretch';
 
 type InputTextProps = {
   children?: ReactNode;
