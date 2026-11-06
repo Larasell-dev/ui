@@ -26,14 +26,14 @@ test('renders the prefix and suffix', async () => {
     .toBeVisible();
 });
 
-test('focuses the input when the prefix or suffix text is clicked, not a button in it', async () => {
+test('focuses the input when the prefix or suffix text is clicked', async () => {
   const screen = await render(
     // Inside a focusable page wrapper, as apps put their main content.
     <main tabIndex={-1}>
       <Input
         aria-label="Website"
         prefix={<span>https://</span>}
-        suffix={<button type="button">Copy</button>}
+        suffix={<span>.com</span>}
       />
     </main>,
   );
@@ -41,6 +41,21 @@ test('focuses the input when the prefix or suffix text is clicked, not a button 
 
   await screen.getByText('https://').click();
   await expect.element(input).toHaveFocus();
+
+  (input.element() as HTMLInputElement).blur();
+  await screen.getByText('.com').click();
+  await expect.element(input).toHaveFocus();
+});
+
+test('keeps focus on a button inside an affix when it is clicked', async () => {
+  const screen = await render(
+    <main tabIndex={-1}>
+      <Input
+        aria-label="Website"
+        suffix={<button type="button">Copy</button>}
+      />
+    </main>,
+  );
 
   await screen.getByRole('button', { name: 'Copy' }).click();
   await expect
