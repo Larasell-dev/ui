@@ -43,15 +43,14 @@ export function PageSizeSelect({
         aria-disabled={disabled || undefined}
         data-disabled={disabled ? '' : undefined}
         className={cn(
-          'type-label-md border-border inline-flex min-w-18 cursor-pointer items-center justify-between gap-2 border bg-white py-1.5 pr-2 pl-3 text-mauve-950 tabular-nums select-none',
-          'focus-visible:focus-ring not-data-disabled:hover:bg-mauve-100',
+          'type-label-md border-base-subtle bg-action-neutral-secondary-default text-base-primary inline-flex min-w-18 cursor-pointer items-center justify-between gap-2 border py-1.5 pr-2 pl-3 tabular-nums select-none',
+          'focus-visible:focus-ring not-data-disabled:hover:bg-action-neutral-secondary-hover',
           // Only disabled while a page loads.
           'data-disabled:cursor-wait data-disabled:opacity-50',
-          'dark:bg-mauve-900 dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800',
         )}
       >
         <Select.Value />
-        <Select.Icon className="flex text-mauve-500">
+        <Select.Icon className="text-base-tertiary flex">
           <Icon icon={ArrowDownSLine} />
         </Select.Icon>
       </Select.Trigger>
@@ -67,16 +66,15 @@ export function PageSizeSelect({
                 render={(props, state) => (
                   <PopupMotion {...props} side={state.side} />
                 )}
-                className="border-border bg-elevated shadow-popover min-w-(--anchor-width) border bg-clip-padding"
+                className="border-base-subtle bg-base-elevated shadow-popover min-w-(--anchor-width) border bg-clip-padding"
               >
                 {options.map((option) => (
                   <Select.Item
                     key={option}
                     value={option}
                     className={cn(
-                      'type-label-md grid cursor-pointer grid-cols-[1rem_1fr] items-center gap-2 py-1.5 pr-4 pl-2 text-mauve-950 tabular-nums outline-none select-none',
-                      'data-highlighted:bg-mauve-100',
-                      'dark:text-mauve-100 dark:data-highlighted:bg-mauve-800',
+                      'type-label-md text-base-primary grid cursor-pointer grid-cols-[1rem_1fr] items-center gap-2 py-1.5 pr-4 pl-2 tabular-nums outline-none select-none',
+                      'data-highlighted:bg-action-neutral-ghost-hover',
                     )}
                   >
                     <Select.ItemIndicator className="col-start-1 flex">

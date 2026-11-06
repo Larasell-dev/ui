@@ -20,20 +20,19 @@ export const buttonColors = cva('', {
   variants: {
     variant: {
       primary: [
-        'border border-mauve-950 bg-mauve-950 text-mauve-50 not-data-disabled:hover:border-mauve-800 not-data-disabled:hover:bg-mauve-800 not-data-disabled:active:border-mauve-900 not-data-disabled:active:bg-mauve-900',
-        'dark:border-mauve-100 dark:bg-mauve-100 dark:text-mauve-950 dark:not-data-disabled:hover:border-white dark:not-data-disabled:hover:bg-white',
+        'border-action-neutral-primary-default bg-action-neutral-primary-default text-action-neutral-on-color not-data-disabled:hover:border-action-neutral-primary-hover not-data-disabled:hover:bg-action-neutral-primary-hover not-data-disabled:active:border-action-neutral-primary-pressed not-data-disabled:active:bg-action-neutral-primary-pressed border',
       ],
       secondary: [
-        'border-border border bg-white text-mauve-950 not-data-disabled:hover:bg-mauve-100 data-popup-open:bg-mauve-100',
-        'dark:bg-mauve-900 dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800 dark:data-popup-open:bg-mauve-800',
+        'border-base-subtle bg-action-neutral-secondary-default text-base-primary not-data-disabled:hover:bg-action-neutral-secondary-hover data-popup-open:bg-action-neutral-secondary-hover border',
       ],
       tertiary: [
-        'border border-transparent bg-transparent text-mauve-950 no-underline not-data-disabled:hover:bg-mauve-100 not-data-disabled:hover:no-underline focus-visible:no-underline data-popup-open:bg-mauve-100',
-        'dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800 dark:data-popup-open:bg-mauve-800',
+        // A translucent layer, so it shows on whatever the button sits on, a selected row included.
+        'not-data-disabled:hover:bg-action-neutral-ghost-hover data-popup-open:bg-action-neutral-ghost-hover text-base-primary border border-transparent bg-transparent no-underline not-data-disabled:hover:no-underline focus-visible:no-underline',
       ],
       destructive: [
-        'border border-red-600 bg-red-600 text-white not-data-disabled:hover:border-red-700 not-data-disabled:hover:bg-red-700 not-data-disabled:active:border-red-800 not-data-disabled:active:bg-red-800',
-        'dark:border-red-500 dark:bg-red-500 dark:not-data-disabled:hover:border-red-400 dark:not-data-disabled:hover:bg-red-400',
+        // A red or brand ring would blend into the red fill.
+        'focus-ring-neutral',
+        'border-action-negative-primary-default bg-action-negative-primary-default text-base-on-color not-data-disabled:hover:border-action-negative-primary-hover not-data-disabled:hover:bg-action-negative-primary-hover not-data-disabled:active:border-action-negative-primary-pressed not-data-disabled:active:bg-action-negative-primary-pressed border',
       ],
     },
     grouped: {
@@ -45,12 +44,12 @@ export const buttonColors = cva('', {
     {
       variant: 'primary',
       grouped: true,
-      class: '[button~&]:border-l-mauve-600 dark:[button~&]:border-l-mauve-400',
+      class: '[button~&]:border-l-action-neutral-primary-divider',
     },
     {
       variant: 'destructive',
       grouped: true,
-      class: '[button~&]:border-l-red-800 dark:[button~&]:border-l-red-700',
+      class: '[button~&]:border-l-action-negative-primary-divider',
     },
   ],
   defaultVariants: {

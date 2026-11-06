@@ -9,12 +9,12 @@ const ruleTester = new RuleTester({
   languageOptions: { parserOptions: { lang: 'tsx' } },
 });
 
-const popover = 'border border-border bg-elevated bg-clip-padding';
+const popover = 'border border-base-subtle bg-base-elevated bg-clip-padding';
 ruleTester.run('shadow-tokens', shadowTokens, {
   valid: [
     `<div className="${popover} shadow-popover" />`,
     `<div className="${popover} shadow-elevated" />`,
-    `<li className="border bg-surface bg-clip-padding shadow-raised" />`,
+    `<li className="border bg-base-surface bg-clip-padding shadow-raised" />`,
     `<div className="shadow-none" />`,
     // Other utilities that only share the word.
     `<img className="drop-shadow-md text-shadow-sm" />`,

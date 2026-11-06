@@ -60,7 +60,7 @@ export function Thumbnail({
     <span
       title={title}
       className={cn(
-        'flex size-[1lh] shrink-0 overflow-hidden bg-mauve-100 dark:bg-mauve-800',
+        'bg-base-muted flex size-[1lh] shrink-0 overflow-hidden',
         shape === 'round' ? 'rounded-full' : 'rounded-md',
       )}
     >

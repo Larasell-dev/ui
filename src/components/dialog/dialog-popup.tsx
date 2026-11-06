@@ -27,14 +27,14 @@ export function DialogPopup({
       <Dialog.Backdrop
         data-overlay=""
         className={cn(
-          'bg-overlay backdrop-blur-overlay fixed inset-0 transition-opacity duration-200',
+          'bg-base-overlay backdrop-blur-overlay fixed inset-0 transition-opacity duration-200',
           'data-ending-style:opacity-0 data-starting-style:opacity-0',
           'motion-reduce:transition-none',
         )}
       />
       <Dialog.Popup
         className={cn(
-          'border-border bg-elevated shadow-elevated fixed top-1/2 left-1/2 grid w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 gap-4 border bg-clip-padding p-6 outline-none',
+          'border-base-subtle bg-base-elevated shadow-elevated fixed top-1/2 left-1/2 grid w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 gap-4 border bg-clip-padding p-6 outline-none',
           'transition-[opacity,translate,scale] duration-200',
           'data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0',
           'motion-reduce:transition-none',

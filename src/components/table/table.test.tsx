@@ -184,7 +184,7 @@ test('render cannot restyle a row or a link', async () => {
                 render={
                   <a
                     href="#order"
-                    className="text-red-500"
+                    className="text-intent-negative"
                     style={{ color: 'rgb(255, 0, 0)' }}
                   />
                 }
@@ -208,7 +208,7 @@ test('render cannot restyle a row or a link', async () => {
 
   const link = screen.getByRole('link', { name: '#1001' });
   await expect.element(link).toHaveAttribute('href', '#order');
-  await expect.element(link).not.toHaveClass('text-red-500');
+  await expect.element(link).not.toHaveClass('text-intent-negative');
   await expect.element(link).not.toHaveStyle({ color: 'rgb(255, 0, 0)' });
 
   const renderedRow = screen.getByRole('row').nth(2);

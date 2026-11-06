@@ -29,7 +29,7 @@ export const planeTokens = defineRule({
       overlayShadow:
         'The overlay is a scrim and casts no shadow. Put the shadow on the elevated plane above it.',
       rawScrim:
-        '`{{className}}` is not the scrim blur. Scrims use bg-overlay backdrop-blur-overlay.',
+        '`{{className}}` is not the scrim blur. Scrims use bg-base-overlay backdrop-blur-overlay.',
       darkOverride:
         '{{background}} already switches in dark mode. Remove `{{className}}`.',
     },
@@ -48,7 +48,7 @@ export const planeTokens = defineRule({
         const background = planes[utility];
         if (background !== undefined) {
           const data = { shadow: utility, background };
-          if (has(variant, (other) => other === 'bg-overlay')) {
+          if (has(variant, (other) => other === 'bg-base-overlay')) {
             context.report({ node, messageId: 'overlayShadow' });
             continue;
           }

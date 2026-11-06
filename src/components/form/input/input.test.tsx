@@ -49,7 +49,7 @@ test('applies DANGEROUS_className to the container', async () => {
   const container = screen.getByTestId('prefix').element().parentElement;
 
   expect(container).toHaveClass('mt-4');
-  expect(container).toHaveClass('border-border');
+  expect(container).toHaveClass('border-base-strong');
   await expect
     .element(screen.getByRole('textbox', { name: 'Email' }))
     .not.toHaveClass('mt-4');

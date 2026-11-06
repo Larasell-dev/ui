@@ -9,7 +9,7 @@ const meta = preview.meta({
   component: Section.Root,
   decorators: [
     (Story) => (
-      <div className="bg-mauve-50 p-8 dark:bg-mauve-900">
+      <div className="bg-base-section p-8">
         <Story />
       </div>
     ),

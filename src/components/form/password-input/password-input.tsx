@@ -31,10 +31,9 @@ export function PasswordInput(props: PasswordInputProps) {
           onClick={() => setVisible((value) => !value)}
           className={cn(
             // Pulled over the box's right padding, so the hover fill reaches its border.
-            '-mr-3.5 inline-flex w-11 cursor-pointer items-center justify-center self-stretch text-mauve-950 select-none',
-            'focus-visible:focus-ring not-data-disabled:hover:bg-mauve-100 focus-visible:outline-offset-0',
+            'text-base-primary -mr-3.5 inline-flex w-11 cursor-pointer items-center justify-center self-stretch select-none',
+            'focus-visible:focus-ring not-data-disabled:hover:bg-action-neutral-ghost-hover focus-visible:outline-offset-0',
             'data-disabled:cursor-not-allowed',
-            'dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800',
           )}
         >
           <Icon icon={visible ? EyeOffLine : EyeLine} />

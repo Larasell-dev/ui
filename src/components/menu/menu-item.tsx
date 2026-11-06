@@ -14,12 +14,10 @@ const itemVariants = cva(
     variants: {
       variant: {
         default: [
-          'text-mauve-950 not-data-disabled:data-highlighted:bg-mauve-100',
-          'dark:text-mauve-100 dark:not-data-disabled:data-highlighted:bg-mauve-800',
+          'text-base-primary not-data-disabled:data-highlighted:bg-action-neutral-ghost-hover',
         ],
         destructive: [
-          'text-red-600 not-data-disabled:data-highlighted:bg-red-100',
-          'dark:text-red-400 dark:not-data-disabled:data-highlighted:bg-red-950',
+          'text-action-negative-default not-data-disabled:data-highlighted:bg-action-negative-ghost-hover',
         ],
       },
     },

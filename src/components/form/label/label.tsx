@@ -24,7 +24,7 @@ export function Label({
     <Field.Label
       {...props}
       className={cn(
-        'type-label-md text-mauve-950 select-none dark:text-mauve-100',
+        'type-label-md text-base-primary select-none',
         'data-disabled:opacity-50',
         DANGEROUS_className,
       )}
@@ -39,10 +39,7 @@ export function Label({
 
 function RequiredMark() {
   return (
-    <span
-      aria-hidden
-      className="ml-0.5 text-red-600 select-none dark:text-red-400"
-    >
+    <span aria-hidden className="text-intent-negative ml-0.5 select-none">
       *
     </span>
   );
@@ -50,7 +47,7 @@ function RequiredMark() {
 
 function OptionalMark() {
   return (
-    <span className="type-caption-lg ml-1 text-mauve-500 select-none dark:text-mauve-400">
+    <span className="type-caption-lg text-base-tertiary ml-1 select-none">
       (Optional)
     </span>
   );

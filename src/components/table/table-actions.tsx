@@ -32,10 +32,9 @@ export function TableActionsTrigger({
       className={cn(
         // `relative z-1` keeps it above a <Table.Link> stretched over the row;
         // the negative margin keeps it from making the row taller.
-        'relative z-1 -my-2 inline-flex size-9 cursor-pointer items-center justify-center border border-transparent bg-transparent align-middle text-mauve-950 select-none',
-        'focus-visible:focus-ring not-data-disabled:hover:bg-mauve-100 data-popup-open:bg-mauve-100',
+        'text-base-primary relative z-1 -my-2 inline-flex size-9 cursor-pointer items-center justify-center border border-transparent bg-transparent align-middle select-none',
+        'focus-visible:focus-ring not-data-disabled:hover:bg-action-neutral-ghost-hover data-popup-open:bg-action-neutral-ghost-hover',
         'data-disabled:cursor-not-allowed data-disabled:opacity-50',
-        'dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800 dark:data-popup-open:bg-mauve-800',
         DANGEROUS_className,
       )}
       style={DANGEROUS_style}

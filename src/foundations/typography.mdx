@@ -251,13 +251,15 @@ export const roles = [
 ];
 
 export const Cell = ({ children, className = '' }) => (
-  <td className={`border-t border-border py-3 pr-6 align-top ${className}`}>
+  <td
+    className={`border-t border-base-subtle py-3 pr-6 align-top ${className}`}
+  >
     {children}
   </td>
 );
 
 export const HeaderCell = ({ children }) => (
-  <th className="pr-6 pb-2 text-left text-mauve-600 type-label-sm">
+  <th className="pr-6 pb-2 text-left text-base-secondary type-label-sm">
     {children}
   </th>
 );
@@ -272,18 +274,21 @@ export const Items = ({ items }) => (
 
 export const Detail = ({ term, children }) => (
   <div className="flex items-baseline gap-2">
-    <dt className="text-mauve-600">{term}</dt>
-    <span aria-hidden className="flex-1 border-b border-dotted border-border" />
+    <dt className="text-base-secondary">{term}</dt>
+    <span
+      aria-hidden
+      className="flex-1 border-b border-dotted border-base-subtle"
+    />
     <dd>{children}</dd>
   </div>
 );
 
 export const Role = ({ role }) => (
   <Unstyled>
-    <section className="my-10 font-sans text-mauve-950">
+    <section className="my-10 font-sans text-base-primary">
       <h3 className="type-title-lg">{role.name}</h3>
       <p className="mt-1 type-body-md">{role.purpose}</p>
-      <div className="mt-4 grid grid-cols-2 gap-6 border-b border-dashed border-border pb-6">
+      <div className="mt-4 grid grid-cols-2 gap-6 border-b border-dashed border-base-subtle pb-6">
         <Do>
           <Items items={role.useFor} />
         </Do>
@@ -312,7 +317,7 @@ export const Role = ({ role }) => (
               <Cell className="type-mono-sm">
                 <div>{style.base}</div>
                 {style.strong && (
-                  <div className="text-mauve-600">{style.strong}</div>
+                  <div className="text-base-secondary">{style.strong}</div>
                 )}
               </Cell>
               <Cell className="whitespace-nowrap tabular-nums type-body-md">
@@ -396,7 +401,7 @@ To change the typography of the whole admin panel, change a semantic token. For 
 
 ## Rules
 
-- **Typography and color are separate.** A `type-*` class sets typography only. Color comes from its own class, such as `text-mauve-600`. There are no styles like `caption-muted` or `label-danger`.
+- **Typography and color are separate.** A `type-*` class sets typography only. Color comes from its own class, such as `text-base-secondary`. There are no styles like `caption-muted` or `label-danger`.
 - **Components own their typography.** `Button`, `Label`, `Input`, `Field` and `Error` already apply the right style. Write a `type-*` class directly only for free-form content inside a page.
 - **No raw font classes.** Components never use `text-sm`, `font-medium` or `font-heading` directly.
 - **No overrides.** Don't use `DANGEROUS_className` to change the size or weight of a component's text. Pick a different role or size instead.

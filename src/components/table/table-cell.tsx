@@ -13,7 +13,7 @@ export function TableCell({ children, media }: TableCellProps) {
   return (
     <td
       role="cell"
-      className="type-body-md truncate px-6 py-3 text-mauve-950 dark:text-mauve-100"
+      className="type-body-md text-base-primary truncate px-6 py-3"
     >
       {media == null ? (
         children

@@ -86,10 +86,7 @@ export function Pagination({
       style={DANGEROUS_style}
     >
       <div className="flex items-center gap-3">
-        <span
-          aria-hidden
-          className="type-caption-lg text-mauve-600 dark:text-mauve-400"
-        >
+        <span aria-hidden className="type-caption-lg text-base-secondary">
           Rows per page
         </span>
         <PageSizeSelect
@@ -103,7 +100,7 @@ export function Pagination({
       <div className="flex items-center gap-4">
         <span
           aria-live="polite"
-          className="type-caption-lg text-mauve-600 tabular-nums dark:text-mauve-400"
+          className="type-caption-lg text-base-secondary tabular-nums"
         >
           Page {Math.min(page, pageCount)} of {pageCount}
         </span>
@@ -163,13 +160,12 @@ function PageButton({
       focusableWhenDisabled
       onClick={onClick}
       className={cn(
-        'border-border inline-flex cursor-pointer items-center justify-center border bg-white p-2 text-mauve-950 select-none',
-        'focus-visible:focus-ring not-data-disabled:hover:bg-mauve-100',
+        'border-base-subtle bg-action-neutral-secondary-default text-base-primary inline-flex cursor-pointer items-center justify-center border p-2 select-none',
+        'focus-visible:focus-ring not-data-disabled:hover:bg-action-neutral-secondary-hover',
         'data-disabled:opacity-50',
         loading
           ? 'data-disabled:cursor-wait'
           : 'data-disabled:cursor-not-allowed',
-        'dark:bg-mauve-900 dark:text-mauve-100 dark:not-data-disabled:hover:bg-mauve-800',
       )}
     >
       <Icon icon={icon} />

@@ -227,7 +227,9 @@ function SlowRequest({ fails }: { fails: boolean }) {
         title="Delete order #1001?"
         description="The order and its invoices are removed for good."
       >
-        {error && <p className="type-body-md m-0 text-red-600">{error}</p>}
+        {error && (
+          <p className="type-body-md text-intent-negative m-0">{error}</p>
+        )}
         <AlertDialog.Actions>
           <AlertDialog.Cancel />
           <AlertDialog.Confirm

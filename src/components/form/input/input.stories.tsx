@@ -57,7 +57,7 @@ export const WithSuffix = meta.story({
     'aria-label': 'Weight',
     placeholder: '0',
     inputMode: 'decimal',
-    suffix: <span className="text-mauve-500">kg</span>,
+    suffix: <span className="text-base-tertiary">kg</span>,
   },
 });
 
@@ -65,8 +65,8 @@ export const WithPrefixAndSuffix = meta.story({
   args: {
     'aria-label': 'Shop address',
     placeholder: 'my-shop',
-    prefix: <span className="text-mauve-500">https://</span>,
-    suffix: <span className="text-mauve-500">.larasell.shop</span>,
+    prefix: <span className="text-base-tertiary">https://</span>,
+    suffix: <span className="text-base-tertiary">.larasell.shop</span>,
   },
 });
 
@@ -79,7 +79,7 @@ export const WithButtonSuffix = meta.story({
       <button
         type="button"
         aria-label="Copy"
-        className="focus-visible:focus-ring -mr-3.5 inline-flex w-11 cursor-pointer items-center justify-center self-stretch hover:bg-mauve-100 focus-visible:outline-offset-0 dark:hover:bg-mauve-800"
+        className="focus-visible:focus-ring hover:bg-action-neutral-ghost-hover -mr-3.5 inline-flex w-11 cursor-pointer items-center justify-center self-stretch focus-visible:outline-offset-0"
       >
         <Icon icon={FileCopyLine} />
       </button>

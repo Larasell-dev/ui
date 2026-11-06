@@ -5,6 +5,9 @@
  */
 import type { OxlintConfig } from 'vite-plus/lint';
 import { definePlugin } from 'vite-plus/lint/plugins';
+import { colorTokens } from './rules/color-tokens/color-tokens.ts';
+import { focusTokens } from './rules/focus-tokens/focus-tokens.ts';
+import { noDarkColors } from './rules/no-dark-colors/no-dark-colors.ts';
 import { noMargin } from './rules/no-margin/no-margin.ts';
 import { noOffScaleFontSize } from './rules/no-off-scale-font-size/no-off-scale-font-size.ts';
 import { planeTokens } from './rules/plane-tokens/plane-tokens.ts';
@@ -19,6 +22,9 @@ export default definePlugin({
     'prefer-cn': preferCn,
     'shadow-tokens': shadowTokens,
     'plane-tokens': planeTokens,
+    'color-tokens': colorTokens,
+    'no-dark-colors': noDarkColors,
+    'focus-tokens': focusTokens,
   },
 });
 
@@ -37,5 +43,8 @@ export const recommended = {
     'larasell/prefer-cn': 'error',
     'larasell/shadow-tokens': 'error',
     'larasell/plane-tokens': 'error',
+    'larasell/color-tokens': 'error',
+    'larasell/no-dark-colors': 'error',
+    'larasell/focus-tokens': 'error',
   },
 } satisfies OxlintConfig;

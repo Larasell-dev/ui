@@ -92,7 +92,7 @@ function ToastRoot({ toast }: { toast: ToastObject<ToastData> }) {
       toast={toast}
       swipeDirection="down"
       className={cn(
-        'border-border bg-elevated shadow-elevated flex w-(--toast-width) max-w-full items-center gap-6 border bg-clip-padding',
+        'border-base-subtle bg-base-elevated shadow-elevated flex w-(--toast-width) max-w-full items-center gap-6 border bg-clip-padding',
         // Like a bar of buttons: as tall as one, with room for the text on the left.
         !custom && 'py-1.5 pr-1.5 pl-5',
         // Custom content runs to the edges; `<Inset>` pads it by as much as the text.
@@ -111,9 +111,9 @@ function ToastRoot({ toast }: { toast: ToastObject<ToastData> }) {
       ) : (
         <>
           <BaseToast.Content className="flex min-w-0 flex-1 flex-col py-2">
-            <BaseToast.Title className="type-body-md m-0 text-mauve-950 dark:text-mauve-50" />
+            <BaseToast.Title className="type-body-md text-base-primary m-0" />
             {toast.description != null && (
-              <BaseToast.Description className="type-body-sm m-0 text-mauve-600 dark:text-mauve-400" />
+              <BaseToast.Description className="type-body-sm text-base-secondary m-0" />
             )}
           </BaseToast.Content>
           <div className="flex shrink-0 gap-1">

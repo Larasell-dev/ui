@@ -6,7 +6,7 @@ import type { ReactNode } from 'react';
  */
 export function SectionCard({ children }: { children: ReactNode }) {
   return (
-    <div className="border-border bg-surface border [--inset:1.25rem]">
+    <div className="border-base-subtle bg-base-surface border [--inset:1.25rem]">
       {children}
     </div>
   );
