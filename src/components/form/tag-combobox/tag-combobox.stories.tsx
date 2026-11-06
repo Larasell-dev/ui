@@ -18,7 +18,7 @@ const currencies = allCurrencies.filter((currency) =>
 
 const meta = preview.meta({
   title: 'Atoms/TagCombobox',
-  component: TagCombobox,
+  component: TagCombobox.Root,
   args: {
     onValueChange: fn(),
   },
@@ -35,35 +35,43 @@ const meta = preview.meta({
   ],
 });
 
-/** In a `Field`, like every other control: the field names and labels it. */
+/**
+ * In a `Field`, like every other control: the field names and labels it. The
+ * options come as `items`.
+ */
 export const Default = meta.story({
   render: (args) => (
     <Field label="Languages" name="locales">
-      <TagCombobox {...args} placeholder="Search languages">
-        <TagCombobox.Item value="de">German</TagCombobox.Item>
-        <TagCombobox.Item value="en">English</TagCombobox.Item>
-        <TagCombobox.Item value="fr">French</TagCombobox.Item>
-        <TagCombobox.Item value="it">Italian</TagCombobox.Item>
-        <TagCombobox.Item value="nl">Dutch</TagCombobox.Item>
-      </TagCombobox>
+      <TagCombobox.Root
+        {...args}
+        placeholder="Search languages"
+        items={[
+          { value: 'de', label: 'German' },
+          { value: 'en', label: 'English' },
+          { value: 'fr', label: 'French' },
+          { value: 'it', label: 'Italian' },
+          { value: 'nl', label: 'Dutch' },
+        ]}
+      />
     </Field>
   ),
 });
 
 /**
- * Items render what they're given, e.g. the code less prominent than the
- * name. The `label` is what typing matches and screen readers read.
+ * `TagCombobox.Item`s render what they're given, e.g. the code less
+ * prominent than the name. The `label` is what typing matches and screen
+ * readers read.
  */
 export const RichItems = meta.story({
   render: (args) => (
     <Field label="Currencies" name="currencies">
-      <TagCombobox {...args} defaultValue={['EUR', 'USD']}>
+      <TagCombobox.Root {...args} defaultValue={['EUR', 'USD']}>
         {currencies.map(({ code, name }) => (
           <TagCombobox.Item key={code} value={code} label={`${name} (${code})`}>
             {name} <span className="text-base-tertiary">{code}</span>
           </TagCombobox.Item>
         ))}
-      </TagCombobox>
+      </TagCombobox.Root>
     </Field>
   ),
 });
@@ -72,7 +80,7 @@ export const RichItems = meta.story({
 export const LongLabels = meta.story({
   render: (args) => (
     <Field label="Collections" name="collections">
-      <TagCombobox {...args} defaultValue={['long', 'word']}>
+      <TagCombobox.Root {...args} defaultValue={['long', 'word']}>
         <TagCombobox.Item value="short">Sale</TagCombobox.Item>
         <TagCombobox.Item value="long">
           Autumn and winter outerwear for every weather, from light rain jackets
@@ -84,7 +92,7 @@ export const LongLabels = meta.story({
         <TagCombobox.Item value="url">
           https://example.com/collections/autumn-winter-outerwear-2026-limited-edition
         </TagCombobox.Item>
-      </TagCombobox>
+      </TagCombobox.Root>
     </Field>
   ),
 });
@@ -93,13 +101,13 @@ export const LongLabels = meta.story({
 export const ManyItems = meta.story({
   render: (args) => (
     <Field label="Currencies" name="currencies">
-      <TagCombobox {...args} placeholder="Search currencies">
+      <TagCombobox.Root {...args} placeholder="Search currencies">
         {allCurrencies.map(({ code, name }) => (
           <TagCombobox.Item key={code} value={code} label={`${name} (${code})`}>
             {name} <span className="text-base-tertiary">{code}</span>
           </TagCombobox.Item>
         ))}
-      </TagCombobox>
+      </TagCombobox.Root>
     </Field>
   ),
 });
@@ -108,7 +116,7 @@ export const ManyItems = meta.story({
 export const ManyPicked = meta.story({
   render: (args) => (
     <Field label="Currencies" name="currencies">
-      <TagCombobox
+      <TagCombobox.Root
         {...args}
         defaultValue={allCurrencies.map((currency) => currency.code)}
       >
@@ -117,7 +125,7 @@ export const ManyPicked = meta.story({
             {code}
           </TagCombobox.Item>
         ))}
-      </TagCombobox>
+      </TagCombobox.Root>
     </Field>
   ),
 });
@@ -127,7 +135,7 @@ export const Narrow = meta.story({
   render: (args) => (
     <div className="w-48">
       <Field label="Currencies" name="currencies">
-        <TagCombobox {...args} defaultValue={['CHF', 'GBP', 'SEK']}>
+        <TagCombobox.Root {...args} defaultValue={['CHF', 'GBP', 'SEK']}>
           {currencies.map(({ code, name }) => (
             <TagCombobox.Item
               key={code}
@@ -137,7 +145,7 @@ export const Narrow = meta.story({
               {name} <span className="text-base-tertiary">{code}</span>
             </TagCombobox.Item>
           ))}
-        </TagCombobox>
+        </TagCombobox.Root>
       </Field>
     </div>
   ),
@@ -147,7 +155,7 @@ export const Narrow = meta.story({
 export const NoItems = meta.story({
   render: (args) => (
     <Field label="Tags" name="tags">
-      <TagCombobox {...args} empty="No tags yet" />
+      <TagCombobox.Root {...args} empty="No tags yet" />
     </Field>
   ),
 });
@@ -159,13 +167,13 @@ export const WithError = meta.story({
       name="currencies"
       error="Pick at least one currency."
     >
-      <TagCombobox {...args}>
+      <TagCombobox.Root {...args}>
         {currencies.map(({ code, name }) => (
           <TagCombobox.Item key={code} value={code} label={`${name} (${code})`}>
             {name} <span className="text-base-tertiary">{code}</span>
           </TagCombobox.Item>
         ))}
-      </TagCombobox>
+      </TagCombobox.Root>
     </Field>
   ),
 });
@@ -173,13 +181,13 @@ export const WithError = meta.story({
 export const Disabled = meta.story({
   render: (args) => (
     <Field label="Currencies" name="currencies">
-      <TagCombobox {...args} disabled defaultValue={['EUR']}>
+      <TagCombobox.Root {...args} disabled defaultValue={['EUR']}>
         {currencies.map(({ code, name }) => (
           <TagCombobox.Item key={code} value={code} label={`${name} (${code})`}>
             {name} <span className="text-base-tertiary">{code}</span>
           </TagCombobox.Item>
         ))}
-      </TagCombobox>
+      </TagCombobox.Root>
     </Field>
   ),
 });
@@ -188,13 +196,13 @@ export const Disabled = meta.story({
 export const DisabledItems = meta.story({
   render: (args) => (
     <Field label="Languages" name="locales">
-      <TagCombobox {...args}>
+      <TagCombobox.Root {...args}>
         <TagCombobox.Item value="de">German</TagCombobox.Item>
         <TagCombobox.Item value="en" disabled>
           English (needs the Pro plan)
         </TagCombobox.Item>
         <TagCombobox.Item value="fr">French</TagCombobox.Item>
-      </TagCombobox>
+      </TagCombobox.Root>
     </Field>
   ),
 });
@@ -207,7 +215,7 @@ export const Controlled = meta.story({
     return (
       <div className="flex flex-col items-start gap-3">
         <Field label="Currencies" name="currencies">
-          <TagCombobox
+          <TagCombobox.Root
             {...args}
             value={value}
             onValueChange={(next) => {
@@ -224,7 +232,7 @@ export const Controlled = meta.story({
                 {name} <span className="text-base-tertiary">{code}</span>
               </TagCombobox.Item>
             ))}
-          </TagCombobox>
+          </TagCombobox.Root>
         </Field>
         <Button variant="secondary" onClick={() => setValue([])}>
           Clear
@@ -252,7 +260,7 @@ export const InAForm = meta.story({
     return (
       <form onSubmit={submit} className="flex flex-col items-start gap-3">
         <Field label="Currencies" name="currencies">
-          <TagCombobox {...args} defaultValue={['USD']}>
+          <TagCombobox.Root {...args} defaultValue={['USD']}>
             {currencies.map(({ code, name }) => (
               <TagCombobox.Item
                 key={code}
@@ -262,7 +270,7 @@ export const InAForm = meta.story({
                 {name} <span className="text-base-tertiary">{code}</span>
               </TagCombobox.Item>
             ))}
-          </TagCombobox>
+          </TagCombobox.Root>
         </Field>
         <div className="flex gap-2">
           <Button type="submit">Submit</Button>

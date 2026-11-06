@@ -5,9 +5,9 @@ import { render } from 'vitest-browser-react';
 import { Field } from '../field/field.tsx';
 import { TagCombobox } from './tag-combobox.ts';
 
-function Currencies(props: Parameters<typeof TagCombobox>[0]) {
+function Currencies(props: Parameters<typeof TagCombobox.Root>[0]) {
   return (
-    <TagCombobox {...props}>
+    <TagCombobox.Root {...props}>
       <TagCombobox.Item value="USD" label="US Dollar (USD)">
         US Dollar <span data-testid="code">USD</span>
       </TagCombobox.Item>
@@ -15,7 +15,7 @@ function Currencies(props: Parameters<typeof TagCombobox>[0]) {
         Euro <span>EUR</span>
       </TagCombobox.Item>
       <TagCombobox.Item value="GBP">British Pound</TagCombobox.Item>
-    </TagCombobox>
+    </TagCombobox.Root>
   );
 }
 
@@ -38,6 +38,33 @@ test('is named by its field and filters the items as the admin types', async () 
   await expect
     .element(screen.getByRole('option', { name: 'US Dollar (USD)' }))
     .not.toBeInTheDocument();
+});
+
+test('takes its options as items, followed by any TagCombobox.Item children', async () => {
+  const screen = await render(
+    <form data-testid="form">
+      <Field label="Currencies" name="currencies">
+        <TagCombobox.Root
+          items={[{ value: 'USD', label: 'US Dollar' }, { value: 'CHF' }]}
+          defaultValue={['CHF']}
+        >
+          <TagCombobox.Item value="EUR" label="Euro (EUR)">
+            Euro <span>EUR</span>
+          </TagCombobox.Item>
+        </TagCombobox.Root>
+      </Field>
+    </form>,
+  );
+
+  await screen.getByRole('combobox', { name: 'Currencies' }).click();
+  await expect
+    .element(screen.getByRole('listbox'))
+    .toHaveTextContent('US DollarCHFEuro EUR');
+  await screen.getByRole('option', { name: 'Euro (EUR)' }).click();
+
+  expect(
+    picked(screen.getByTestId('form').element() as HTMLFormElement),
+  ).toEqual(['CHF', 'EUR']);
 });
 
 test('adds the highlighted item on Enter, keeps the list open and checks the item', async () => {
@@ -279,12 +306,12 @@ test('renders the items as given, e.g. with a less prominent code', async () => 
 test('does not accept className', async () => {
   const screen = await render(
     // @ts-expect-error className is blocked; use DANGEROUS_className
-    <TagCombobox aria-label="Currencies" className="mt-4">
+    <TagCombobox.Root aria-label="Currencies" className="mt-4">
       {/* @ts-expect-error className is blocked; use DANGEROUS_className */}
       <TagCombobox.Item value="USD" className="mt-4">
         US Dollar
       </TagCombobox.Item>
-    </TagCombobox>,
+    </TagCombobox.Root>,
   );
 
   const input = screen.getByRole('combobox', { name: 'Currencies' });
@@ -302,12 +329,12 @@ test('does not accept className', async () => {
 test('does not accept style', async () => {
   const screen = await render(
     // @ts-expect-error style is blocked; use DANGEROUS_style
-    <TagCombobox aria-label="Currencies" style={{ marginTop: 16 }}>
+    <TagCombobox.Root aria-label="Currencies" style={{ marginTop: 16 }}>
       {/* @ts-expect-error style is blocked; use DANGEROUS_style */}
       <TagCombobox.Item value="USD" style={{ marginTop: 16 }}>
         US Dollar
       </TagCombobox.Item>
-    </TagCombobox>,
+    </TagCombobox.Root>,
   );
 
   const input = screen.getByRole('combobox', { name: 'Currencies' });
@@ -323,7 +350,7 @@ test('does not accept style', async () => {
 
 test('applies DANGEROUS_className and DANGEROUS_style to the box and the item rows', async () => {
   const screen = await render(
-    <TagCombobox
+    <TagCombobox.Root
       aria-label="Currencies"
       DANGEROUS_className="mt-4"
       DANGEROUS_style={{ marginTop: '16px' }}
@@ -335,7 +362,7 @@ test('applies DANGEROUS_className and DANGEROUS_style to the box and the item ro
       >
         US Dollar
       </TagCombobox.Item>
-    </TagCombobox>,
+    </TagCombobox.Root>,
   );
 
   const input = screen.getByRole('combobox', { name: 'Currencies' });
