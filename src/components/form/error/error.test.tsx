@@ -41,7 +41,7 @@ test('applies DANGEROUS_className as className', async () => {
   const error = screen.getByText('Enter an email address.');
 
   await expect.element(error).toHaveClass('mt-4');
-  await expect.element(error).toHaveClass('text-red-600');
+  await expect.element(error).toHaveClass('text-intent-negative');
 });
 
 test('does not accept style', async () => {

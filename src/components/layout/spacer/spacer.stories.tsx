@@ -42,7 +42,7 @@ export const Horizontal = meta.story({
 
 function Box({ children }: { children: string }) {
   return (
-    <div className="bg-mauve-200 px-4 py-2 text-sm text-mauve-950">
+    <div className="bg-base-muted text-base-primary px-4 py-2 text-sm">
       {children}
     </div>
   );

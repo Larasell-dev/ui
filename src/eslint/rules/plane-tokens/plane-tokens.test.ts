@@ -1,3 +1,4 @@
+/* oxlint-disable larasell/color-tokens, larasell/no-dark-colors -- fixtures */
 import { RuleTester } from 'vite-plus/lint/plugins-dev';
 import { describe, it } from 'vite-plus/test';
 import { planeTokens } from './plane-tokens.ts';
@@ -9,17 +10,17 @@ const ruleTester = new RuleTester({
   languageOptions: { parserOptions: { lang: 'tsx' } },
 });
 
-const popover = 'border border-border bg-elevated bg-clip-padding';
+const popover = 'border border-base-subtle bg-base-elevated bg-clip-padding';
 ruleTester.run('plane-tokens', planeTokens, {
   valid: [
     `<div className="${popover} shadow-popover" />`,
-    `<div className={cn('border border-border bg-clip-padding', 'bg-elevated shadow-elevated')} />`,
+    `<div className={cn('border border-base-subtle bg-clip-padding', 'bg-base-elevated shadow-elevated')} />`,
     // A drawer's border is on its inner edge only.
-    `<div className="border-r bg-elevated bg-clip-padding shadow-elevated" />`,
+    `<div className="border-r bg-base-elevated bg-clip-padding shadow-elevated" />`,
     // A dragged item is raised only while dragging.
-    `<li className="border bg-surface bg-clip-padding data-dragging:shadow-raised" />`,
-    `<div className="bg-overlay backdrop-blur-overlay" />`,
-    `<div className="border border-border bg-surface" />`,
+    `<li className="border bg-base-surface bg-clip-padding data-dragging:shadow-raised" />`,
+    `<div className="bg-base-overlay backdrop-blur-overlay" />`,
+    `<div className="border border-base-subtle bg-base-surface" />`,
     // Form controls aren't planes.
     `<input className="border bg-white dark:bg-mauve-900" />`,
     // The plane rule leaves raw shadows to shadow-tokens.
@@ -32,17 +33,17 @@ ruleTester.run('plane-tokens', planeTokens, {
       errors: [
         {
           messageId: 'wrongPlane',
-          data: { shadow: 'shadow-popover', background: 'bg-elevated' },
+          data: { shadow: 'shadow-popover', background: 'bg-base-elevated' },
         },
       ],
     },
     {
       name: 'a raised shadow on the elevated plane',
-      code: `<div className="border bg-elevated bg-clip-padding shadow-raised" />`,
+      code: `<div className="border bg-base-elevated bg-clip-padding shadow-raised" />`,
       errors: [
         {
           messageId: 'wrongPlane',
-          data: { shadow: 'shadow-raised', background: 'bg-surface' },
+          data: { shadow: 'shadow-raised', background: 'bg-base-surface' },
         },
       ],
     },
@@ -53,25 +54,25 @@ ruleTester.run('plane-tokens', planeTokens, {
     },
     {
       name: 'a plane background under another variant only',
-      code: `<li className="border bg-clip-padding hover:bg-surface data-dragging:shadow-raised" />`,
+      code: `<li className="border bg-clip-padding hover:bg-base-surface data-dragging:shadow-raised" />`,
       errors: [{ messageId: 'wrongPlane' }],
     },
     {
       name: 'a border color is not a border',
-      code: `<div className="border-border bg-elevated bg-clip-padding shadow-elevated" />`,
+      code: `<div className="border-base-subtle bg-base-elevated bg-clip-padding shadow-elevated" />`,
       errors: [
         { messageId: 'missingBorder', data: { shadow: 'shadow-elevated' } },
       ],
     },
     {
-      code: `<div className="border bg-elevated shadow-popover" />`,
+      code: `<div className="border bg-base-elevated shadow-popover" />`,
       errors: [
         { messageId: 'missingClip', data: { shadow: 'shadow-popover' } },
       ],
     },
     {
       name: 'a shadow on the overlay',
-      code: `<div className="bg-overlay backdrop-blur-overlay shadow-elevated" />`,
+      code: `<div className="bg-base-overlay backdrop-blur-overlay shadow-elevated" />`,
       errors: [{ messageId: 'overlayShadow' }],
     },
     {
@@ -83,18 +84,21 @@ ruleTester.run('plane-tokens', planeTokens, {
     },
     {
       name: 'a raw scrim blur on the overlay',
-      code: `<div className="bg-overlay backdrop-blur-[2px]" />`,
+      code: `<div className="bg-base-overlay backdrop-blur-[2px]" />`,
       errors: [
         { messageId: 'rawScrim', data: { className: 'backdrop-blur-[2px]' } },
       ],
     },
     {
       name: 'a dark override of a plane background',
-      code: `<div className="border bg-surface dark:bg-mauve-950" />`,
+      code: `<div className="border bg-base-surface dark:bg-mauve-950" />`,
       errors: [
         {
           messageId: 'darkOverride',
-          data: { background: 'bg-surface', className: 'dark:bg-mauve-950' },
+          data: {
+            background: 'bg-base-surface',
+            className: 'dark:bg-mauve-950',
+          },
         },
       ],
     },

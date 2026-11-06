@@ -31,9 +31,7 @@ const moons = [
 function Case({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div className="flex flex-col gap-2">
-      <p className="type-label-md text-mauve-950 dark:text-mauve-100">
-        {title}
-      </p>
+      <p className="type-label-md text-base-primary">{title}</p>
       {children}
     </div>
   );
@@ -43,10 +41,10 @@ function List({ count = moons.length }: { count?: number }) {
   return moons.slice(0, count).map((moon, index) => (
     <div
       key={moon}
-      className="type-body-md border-border flex justify-between border-b px-3 py-2 text-mauve-950 last:border-b-0 dark:text-mauve-100"
+      className="type-body-md border-base-subtle text-base-primary flex justify-between border-b px-3 py-2 last:border-b-0"
     >
       {moon}
-      <span className="type-mono-sm text-mauve-500">
+      <span className="type-mono-sm text-base-tertiary">
         {String(index + 1).padStart(2, '0')}
       </span>
     </div>
@@ -59,7 +57,7 @@ function Row() {
       {moons.map((moon) => (
         <span
           key={moon}
-          className="type-label-md border-border border px-3 py-1.5 text-mauve-950 dark:text-mauve-100"
+          className="type-label-md border-base-subtle text-base-primary border px-3 py-1.5"
         >
           {moon}
         </span>
@@ -68,7 +66,7 @@ function Row() {
   );
 }
 
-const box = 'border border-border bg-surface';
+const box = 'border border-base-subtle bg-base-surface';
 
 export const Vertical = meta.story({
   render: () => (
@@ -204,7 +202,7 @@ export const BorderAndScrollbar = meta.story({
     <div className="flex flex-wrap gap-8">
       <Case title="Thick border: only the content fades">
         <Masked
-          className={`scroll-mask-y h-64 w-72 overflow-y-auto ${box} border-primary-500 border-4`}
+          className={`scroll-mask-y h-64 w-72 overflow-y-auto ${box} border-base-strong border-4`}
         >
           <List />
         </Masked>

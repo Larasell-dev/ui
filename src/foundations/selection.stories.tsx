@@ -10,22 +10,24 @@ const meta = preview.meta({
   render: () => (
     <div className="flex max-w-prose flex-col gap-6">
       <div>
-        <p className="type-label-md text-mauve-950">Not selectable (default)</p>
-        <p className="type-body-md mt-2 text-mauve-950">
+        <p className="type-label-md text-base-primary">
+          Not selectable (default)
+        </p>
+        <p className="type-body-md text-base-primary mt-2">
           Text selection is disabled globally. Try to select this paragraph.
         </p>
       </div>
       <div>
-        <p className="type-label-md text-mauve-950">
+        <p className="type-label-md text-base-primary">
           Selectable with <code className="type-mono-sm">select-text</code>
         </p>
-        <p className="type-body-md mt-2 text-mauve-950 select-text">
+        <p className="type-body-md text-base-primary mt-2 select-text">
           This paragraph opts back into text selection, so it shows the
           selection color.
         </p>
       </div>
       <div>
-        <p className="type-label-md text-mauve-950">Input</p>
+        <p className="type-label-md text-base-primary">Input</p>
         <div className="mt-2">
           <Input aria-label="Example" defaultValue="Inputs stay selectable" />
         </div>

@@ -18,7 +18,7 @@ const meta = preview.meta({
   },
   decorators: [
     (Story) => (
-      <div className="bg-mauve-100 py-8">
+      <div className="bg-base-muted py-8">
         <Story />
       </div>
     ),
@@ -49,7 +49,7 @@ export const Nested = meta.story({
   args: {
     size: 'lg',
     children: (
-      <Container size="sm" DANGEROUS_className="bg-mauve-200">
+      <Container size="sm" DANGEROUS_className="bg-base-muted">
         <Content />
       </Container>
     ),
@@ -58,14 +58,14 @@ export const Nested = meta.story({
 
 export const WithDangerousOverrides = meta.story({
   args: {
-    DANGEROUS_className: 'border-2 border-dashed border-mauve-400',
+    DANGEROUS_className: 'border-2 border-dashed border-base-medium',
     DANGEROUS_style: { paddingBlock: '24px' },
   },
 });
 
 function Content() {
   return (
-    <div className="bg-white p-4 text-mauve-950">
+    <div className="bg-base-surface text-base-primary p-4">
       <h2 className="type-label-md">Container content</h2>
       <p className="text-sm">
         The container centers itself and caps its width, but its children keep
@@ -78,7 +78,7 @@ function Content() {
 
 function Box({ children }: { children: string }) {
   return (
-    <div className="w-fit bg-mauve-200 px-4 py-2 text-sm text-mauve-950">
+    <div className="bg-base-muted text-base-primary w-fit px-4 py-2 text-sm">
       {children}
     </div>
   );

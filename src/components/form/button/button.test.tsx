@@ -29,7 +29,7 @@ test('applies DANGEROUS_className as className', async () => {
   const button = screen.getByRole('button', { name: 'Save' });
 
   await expect.element(button).toHaveClass('mt-4');
-  await expect.element(button).toHaveClass('bg-mauve-950');
+  await expect.element(button).toHaveClass('bg-action-neutral-primary-default');
 });
 
 test('does not accept style', async () => {
@@ -134,7 +134,7 @@ test('renders a link that keeps its role and the button styles', async () => {
   const link = screen.getByRole('link', { name: 'Orders' });
 
   await expect.element(link).toHaveAttribute('href', '#orders');
-  await expect.element(link).toHaveClass('bg-white');
+  await expect.element(link).toHaveClass('bg-action-neutral-secondary-default');
   expect(screen.container.querySelector('[role="button"]')).toBeNull();
 });
 

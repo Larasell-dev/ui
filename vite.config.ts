@@ -19,6 +19,9 @@ export default defineConfig({
     rules: {
       'larasell/shadow-tokens': 'error',
       'larasell/plane-tokens': 'error',
+      'larasell/color-tokens': 'error',
+      'larasell/no-dark-colors': 'error',
+      'larasell/focus-tokens': 'error',
     },
     options: {
       denyWarnings: true,

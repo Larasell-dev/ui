@@ -17,7 +17,7 @@ export function TooltipPopup({ side, align, children }: TooltipPopupProps) {
       <Tooltip.Positioner side={side} align={align} sideOffset={8}>
         <Tooltip.Popup
           className={cn(
-            'relative max-w-xs origin-(--transform-origin) bg-black px-2 py-1 text-sm text-white',
+            'bg-base-inverse text-base-inverse relative max-w-xs origin-(--transform-origin) px-2 py-1 text-sm',
             'transition-[opacity,scale] duration-150',
             'data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0',
             'data-instant:transition-none motion-reduce:transition-none',
@@ -25,7 +25,7 @@ export function TooltipPopup({ side, align, children }: TooltipPopupProps) {
         >
           <Tooltip.Arrow
             className={cn(
-              'size-2 rotate-45 bg-black',
+              'bg-base-inverse size-2 rotate-45',
               'data-[side=bottom]:-top-1 data-[side=left]:-right-1 data-[side=right]:-left-1 data-[side=top]:-bottom-1',
             )}
           />

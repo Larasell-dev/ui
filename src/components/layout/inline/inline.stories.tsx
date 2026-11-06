@@ -81,7 +81,7 @@ export const JustifyBetween = meta.story({
 
 function TallBox({ children }: { children: string }) {
   return (
-    <div className="bg-mauve-200 px-4 py-6 text-sm text-mauve-950">
+    <div className="bg-base-muted text-base-primary px-4 py-6 text-sm">
       {children}
     </div>
   );
@@ -89,7 +89,7 @@ function TallBox({ children }: { children: string }) {
 
 function Box({ children }: { children: string }) {
   return (
-    <div className="bg-mauve-200 px-4 py-2 text-sm text-mauve-950">
+    <div className="bg-base-muted text-base-primary px-4 py-2 text-sm">
       {children}
     </div>
   );

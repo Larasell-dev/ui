@@ -28,7 +28,7 @@ export function DataListRoot({
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledBy}
       className={cn(
-        'bg-surface m-0 flex w-full list-none flex-col p-0',
+        'bg-base-surface m-0 flex w-full list-none flex-col p-0',
         DANGEROUS_className,
       )}
       style={DANGEROUS_style}

@@ -1,0 +1,280 @@
+import { Meta, Unstyled } from '@storybook/addon-docs/blocks';
+import { Do, DoNot } from './guidelines.tsx';
+
+<Meta title="Foundations/Color" />
+
+export const groups = [
+  {
+    name: 'Background (bg-*)',
+    tokens: [
+      ['bg-base-canvas', 'The page'],
+      ['bg-base-section', 'A quiet tint: table headers, image wells'],
+      ['bg-base-surface', 'Cards, tables, inputs, checkboxes'],
+      ['bg-base-elevated', 'Menus, dialogs, toasts'],
+      ['bg-base-overlay', 'The scrim behind a dialog'],
+      ['bg-base-muted', 'Placeholders: thumbnails, avatars, the neutral badge'],
+      ['bg-base-inverse', 'Tooltips'],
+      [
+        'bg-intent-{info,positive,warning,negative}-subtle',
+        'Badges and other feedback',
+      ],
+      ['bg-intent-accent-subtle', 'Search match highlights'],
+      [
+        'bg-intent-accent-strong',
+        'Brand marks: the progress bar, the drop line',
+      ],
+      [
+        'bg-action-neutral-primary-{default,hover,pressed}',
+        'The primary button, a checked checkbox',
+      ],
+      [
+        'bg-action-neutral-secondary-{default,hover}',
+        'The secondary button, pagination',
+      ],
+      [
+        'bg-action-neutral-ghost-hover',
+        'Hovered tertiary buttons, row actions, menu items',
+      ],
+      [
+        'bg-action-negative-primary-{default,hover,pressed}',
+        'The destructive button',
+      ],
+      ['bg-action-negative-ghost-hover', 'A highlighted destructive menu item'],
+      ['bg-state-hover', 'Hovered rows and nav links'],
+      [
+        'bg-state-selected-neutral-default',
+        'The current nav link or tree item',
+      ],
+      ['bg-state-selected-accent-default', 'A drop target'],
+    ],
+  },
+  {
+    name: 'Text (text-*)',
+    tokens: [
+      ['text-base-primary', 'Content'],
+      [
+        'text-base-secondary',
+        'Descriptions, column headers, secondary text on selectable rows',
+      ],
+      ['text-base-tertiary', 'Hints and placeholders'],
+      [
+        'text-base-disabled',
+        'Disabled items that stay in place, such as command menu entries',
+      ],
+      ['text-base-inverse', 'On bg-base-inverse'],
+      ['text-base-on-color', 'On strong fills: the destructive button'],
+      [
+        'text-action-neutral-on-color',
+        'On the primary button and a checked checkbox',
+      ],
+      ['text-action-negative-default', 'Destructive menu items'],
+      [
+        'text-intent-{accent,info,positive,warning,negative}',
+        'Feedback: errors, badges, matches',
+      ],
+    ],
+  },
+  {
+    name: 'Border (border-*, ring-*, divide-*)',
+    tokens: [
+      ['border-base-subtle', 'Dividers and the edges of planes and buttons'],
+      ['border-base-medium', 'Dashed drop zones'],
+      [
+        'border-base-strong',
+        'The only edge of a control: inputs, checkboxes, radios',
+      ],
+      ['border-intent-{positive,negative}', 'Validation: an invalid field'],
+      [
+        'border-action-neutral-primary-divider',
+        'The divider between solid buttons in a ButtonGroup',
+      ],
+      ['ring-{base,intent-*}-subtle', 'Badge edges'],
+    ],
+  },
+  {
+    name: 'Outline (outline-*)',
+    tokens: [
+      ['outline-focus-default', 'Keyboard focus (the focus-ring utility)'],
+      ['outline-focus-negative', 'Keyboard focus on an invalid field'],
+      ['outline-focus-neutral', 'Keyboard focus on a destructive button'],
+      ['outline-state-selected-accent', 'A drop target'],
+      ['outline-base-medium', 'A drag placeholder'],
+    ],
+  },
+];
+
+export const Row = ({ state = '', children }) => (
+  <div
+    className={`type-body-md flex items-center justify-between py-2 pr-2 pl-4 text-base-primary ${state}`}
+  >
+    <span>{children}</span>
+    <span className="text-base-secondary">12</span>
+  </div>
+);
+
+export const Layers = ({ dark = false }) => (
+  <div className={`${dark ? 'dark ' : ''}bg-base-canvas py-2`}>
+    <div className="bg-state-selected-neutral-default">
+      <div className="flex items-center pr-2">
+        <div className="flex-1">
+          <Row>Selected</Row>
+        </div>
+        <span className="inline-flex size-8 items-center justify-center bg-action-neutral-ghost-hover text-base-primary">
+          ⋯
+        </span>
+      </div>
+    </div>
+    <div className="bg-state-hover">
+      <Row>Hovered</Row>
+    </div>
+    <Row>Resting</Row>
+  </div>
+);
+
+export const Pair = ({ children }) => (
+  <Unstyled>
+    <div className="my-6 grid grid-cols-2 border border-base-subtle">
+      {children}
+    </div>
+  </Unstyled>
+);
+
+export const namespaces = {
+  bg: '--background-color',
+  text: '--text-color',
+  border: '--border-color',
+  ring: '--ring-color',
+  outline: '--outline-color',
+};
+
+export const Swatch = ({ token, dark }) => {
+  const [property, ...rest] = token.split('-');
+  const color = `var(${namespaces[property]}-${rest
+    .join('-')
+    .replace(/\{([^,}]+)[^}]*\}/, '$1')})`;
+  // Text meant for a fill is shown on it.
+  const pairedFill = {
+    'text-base-inverse': 'base-inverse',
+    'text-base-on-color': 'action-negative-primary-default',
+    'text-action-neutral-on-color': 'action-neutral-primary-default',
+  }[token];
+  const style =
+    property === 'bg'
+      ? { background: color }
+      : property === 'text'
+        ? {
+            color,
+            ...(pairedFill && {
+              background: `var(--background-color-${pairedFill})`,
+            }),
+          }
+        : { borderColor: color, borderWidth: 2 };
+  return (
+    <div className={dark ? 'dark' : ''}>
+      <div
+        className="flex size-8 items-center justify-center border border-base-subtle bg-base-canvas type-label-md"
+        style={style}
+      >
+        {property === 'text' ? 'Aa' : ''}
+      </div>
+    </div>
+  );
+};
+
+export const TokenTable = ({ group }) => (
+  <Unstyled>
+    <h3 className="mt-8 font-sans text-base-primary type-title-md">
+      {group.name}
+    </h3>
+    <table className="mt-2 mb-6 w-full border-collapse font-sans text-base-primary">
+      <thead>
+        <tr>
+          {['Light', 'Dark', 'Class', 'Use for'].map((name) => (
+            <th
+              key={name}
+              className="pr-4 pb-2 text-left text-base-secondary type-label-sm"
+            >
+              {name}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {group.tokens.map(([token, useFor]) => (
+          <tr key={token}>
+            <td className="border-t border-base-subtle py-2 pr-4">
+              <Swatch token={token} />
+            </td>
+            <td className="border-t border-base-subtle py-2 pr-4">
+              <Swatch token={token} dark />
+            </td>
+            <td className="border-t border-base-subtle py-2 pr-4 type-mono-sm">
+              {token}
+            </td>
+            <td className="border-t border-base-subtle py-2 type-body-md">
+              {useFor}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </Unstyled>
+);
+
+# Color
+
+Color has two layers, after the Color Foundation:
+
+- **Primitives** are Tailwind's palette, with `mauve` as the neutral, the brand's `primary-*` scale and `mauve-tint`. Only `src/theme.css` uses them.
+- **Semantic tokens** name a role: `{property}-{role}-{variant}`, such as `text-base-secondary` or `bg-action-negative-primary-hover`. Each has a light and a dark value, chosen so its pairings meet WCAG 2.1 AA. Components use only these.
+
+The property is the utility, so it isn't repeated in the name: the token behind `text-base-primary` is `--text-color-base-primary`, and the one behind `bg-base-canvas` is `--background-color-base-canvas`. In CSS, such as an inline style or an SVG `fill`, use the variable: `var(--background-color-base-surface)`.
+
+Tokens switch with the `.dark` class, so colors never take a `dark:` variant.
+
+## Tokens
+
+{groups.map((group) => <TokenTable key={group.name} group={group} />)}
+
+When a role has no token, add one to `src/theme.css`, with a light and a dark value, instead of reaching for the palette.
+
+## State layers
+
+Hover and selection are translucent layers, not solid colors. Each one darkens whatever it sits on, so the layers stack: a hovered button on a selected row is still a step darker than the row, on any plane.
+
+<Pair>
+  <Layers />
+  <Layers dark />
+</Pair>
+
+Dark mode layers `mauve-tint`, not white. White and the light mauves are nearly gray, so a thin layer of them turns the dark planes gray. At 15%, the tint turns `mauve-950` into `mauve-900`, and `mauve-900` into `mauve-800`.
+
+<Unstyled>
+  <div className="my-6 grid grid-cols-2 gap-6 font-sans">
+    <Do>
+      Give each state its own layer, so hover shows on a selected row too.
+    </Do>
+    <DoNot>
+      Paint states with solid fills. Two of them meet sooner or later, and then
+      hover doesn't show.
+    </DoNot>
+  </div>
+</Unstyled>
+
+Text on a layer loses a little contrast. `text-base-secondary` keeps 4.5:1 even when a row is both selected and hovered; `text-base-tertiary` doesn't, so don't use it on selectable rows.
+
+## Borders
+
+An empty input or checkbox has nothing but its border to show where it is, so WCAG 1.4.11 asks for 3:1 against the colors next to it. `border-base-subtle` reaches 1.24:1 and is only for edges that aren't the sole cue, such as dividers, cards and buttons, whose label shows what they are. `border-base-strong` reaches at least 3.5:1 against the control and the plane it sits on, in both modes.
+
+## Focus
+
+The focus colors mark keyboard focus and nothing else. Use the `focus-ring` utility, which draws `outline-focus-default` in the brand color. A `focus-ring-*` utility changes that color, as `ring-*` does for `ring`, and can sit outside the focus state: `data-invalid:focus-ring-negative` on an invalid field, `focus-ring-neutral` (black, white in dark mode) on a destructive button, where a red or brand ring would blend into the red fill. The default stays a brand color rather than a neutral one: a near-black ring would blend into the near-black primary button. A drop target or a selection outline uses its state token, even when it looks the same.
+
+## Rules
+
+Three lint rules in `@larasell-dev/ui/eslint` enforce this:
+
+- **`larasell/color-tokens`**: no palette colors (`bg-mauve-100`, `text-white`), no colors written out (`bg-[#fff]`) and no palette variables (`var(--color-mauve-300)`), in class lists, inline styles or SVG attributes.
+- **`larasell/no-dark-colors`**: no `dark:` variant on a color.
+- **`larasell/focus-tokens`**: the focus colors appear only in focus states, and focus states use only the focus colors.

@@ -63,7 +63,7 @@ test('applies DANGEROUS_className as className', async () => {
   const checkbox = screen.getByRole('checkbox', { name: 'Visible' });
 
   await expect.element(checkbox).toHaveClass('mt-4');
-  await expect.element(checkbox).toHaveClass('border-border');
+  await expect.element(checkbox).toHaveClass('border-base-strong');
 });
 
 test('does not accept style', async () => {

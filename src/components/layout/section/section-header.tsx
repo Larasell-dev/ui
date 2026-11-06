@@ -20,14 +20,12 @@ export function SectionHeader({
       <div className="flex flex-col gap-0.5">
         <h3
           id={useContext(SectionTitleId)}
-          className="type-label-md text-mauve-950 dark:text-mauve-50"
+          className="type-label-md text-base-primary"
         >
           {title}
         </h3>
         {description && (
-          <p className="type-body-sm text-mauve-600 dark:text-mauve-400">
-            {description}
-          </p>
+          <p className="type-body-sm text-base-secondary">{description}</p>
         )}
       </div>
       {action && <div className="shrink-0">{action}</div>}

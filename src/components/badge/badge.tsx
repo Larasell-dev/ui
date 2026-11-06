@@ -15,15 +15,14 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        neutral:
-          'bg-mauve-100 text-mauve-800 ring-mauve-200 dark:bg-mauve-800 dark:text-mauve-100 dark:ring-mauve-700',
-        info: 'bg-sky-50 text-sky-800 ring-sky-200 dark:bg-sky-950 dark:text-sky-200 dark:ring-sky-800',
+        neutral: 'bg-base-muted text-base-secondary ring-base-subtle',
+        info: 'bg-intent-info-subtle text-intent-info ring-intent-info-subtle',
         success:
-          'bg-emerald-50 text-emerald-800 ring-emerald-200 dark:bg-emerald-950 dark:text-emerald-200 dark:ring-emerald-800',
+          'bg-intent-positive-subtle text-intent-positive ring-intent-positive-subtle',
         warning:
-          'bg-amber-50 text-amber-800 ring-amber-200 dark:bg-amber-950 dark:text-amber-200 dark:ring-amber-800',
+          'bg-intent-warning-subtle text-intent-warning ring-intent-warning-subtle',
         danger:
-          'bg-red-50 text-red-800 ring-red-200 dark:bg-red-950 dark:text-red-200 dark:ring-red-800',
+          'bg-intent-negative-subtle text-intent-negative ring-intent-negative-subtle',
       } satisfies Record<BadgeVariant, string>,
     },
     defaultVariants: {

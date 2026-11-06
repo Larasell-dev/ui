@@ -69,16 +69,16 @@ export function EmptyState({
       <Stack spacing={6} align="center">
         <Stack spacing={4} align="center">
           {icon && (
-            <span className="flex text-4xl text-mauve-600 dark:text-mauve-300">
+            <span className="text-base-secondary flex text-4xl">
               <Icon icon={icon} />
             </span>
           )}
           <Stack spacing={2}>
-            <h2 className="type-body-lg font-semibold text-mauve-950 dark:text-mauve-50">
+            <h2 className="type-body-lg text-base-primary font-semibold">
               {title}
             </h2>
             {description != null && (
-              <p className="type-body-md text-balance text-mauve-600 dark:text-mauve-400">
+              <p className="type-body-md text-base-secondary text-balance">
                 {description}
               </p>
             )}

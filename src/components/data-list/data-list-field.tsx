@@ -12,10 +12,8 @@ type DataListFieldProps = {
 export function DataListField({ label, children, media }: DataListFieldProps) {
   return (
     <dl className="m-0 grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-3">
-      <dt className="type-body-md break-words text-mauve-600 dark:text-mauve-400">
-        {label}
-      </dt>
-      <dd className="type-body-md m-0 break-words text-mauve-950 dark:text-mauve-100">
+      <dt className="type-body-md text-base-secondary break-words">{label}</dt>
+      <dd className="type-body-md text-base-primary m-0 break-words">
         {media == null ? (
           children
         ) : (

@@ -8,7 +8,7 @@ type DialogDescriptionProps = {
 
 export function DialogDescription({ children }: DialogDescriptionProps) {
   return (
-    <Dialog.Description className="type-body-md m-0 max-w-xs text-pretty text-mauve-600 dark:text-mauve-400">
+    <Dialog.Description className="type-body-md text-base-secondary m-0 max-w-xs text-pretty">
       {children}
     </Dialog.Description>
   );

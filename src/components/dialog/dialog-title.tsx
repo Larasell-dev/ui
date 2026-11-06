@@ -9,7 +9,7 @@ type DialogTitleProps = {
 /** Names the dialog. Every dialog needs one. */
 export function DialogTitle({ children }: DialogTitleProps) {
   return (
-    <Dialog.Title className="type-headline-md m-0 text-balance text-mauve-950 dark:text-mauve-100">
+    <Dialog.Title className="type-headline-md text-base-primary m-0 text-balance">
       {children}
     </Dialog.Title>
   );

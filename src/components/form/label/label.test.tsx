@@ -43,7 +43,7 @@ test('applies DANGEROUS_className as className', async () => {
   const label = screen.getByText('Email');
 
   await expect.element(label).toHaveClass('mt-4');
-  await expect.element(label).toHaveClass('text-mauve-950');
+  await expect.element(label).toHaveClass('text-base-primary');
 });
 
 test('does not accept style', async () => {

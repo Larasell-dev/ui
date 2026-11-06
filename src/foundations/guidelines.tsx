@@ -9,8 +9,8 @@ export function Do({ children }: GuidelineProps) {
   return (
     <Guideline
       title="Do"
-      borderClassName="border-green-600"
-      titleClassName="text-green-700"
+      borderClassName="border-intent-positive"
+      titleClassName="text-intent-positive"
     >
       {children}
     </Guideline>
@@ -21,8 +21,8 @@ export function DoNot({ children }: GuidelineProps) {
   return (
     <Guideline
       title="Don't"
-      borderClassName="border-red-600"
-      titleClassName="text-red-700"
+      borderClassName="border-intent-negative"
+      titleClassName="text-action-negative-default"
     >
       {children}
     </Guideline>
@@ -44,7 +44,7 @@ function Guideline({
   return (
     <div className={cn('border-t-2 pt-3', borderClassName)}>
       <p className={cn('type-label-md', titleClassName)}>{title}</p>
-      <div className="type-body-md mt-2 text-mauve-950">{children}</div>
+      <div className="type-body-md text-base-primary mt-2">{children}</div>
     </div>
   );
 }

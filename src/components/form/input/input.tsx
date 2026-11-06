@@ -26,13 +26,12 @@ export function Input({
   return (
     <div
       className={cn(
-        'border-border flex w-full items-center gap-2 border bg-white px-3.5 text-mauve-950',
+        'border-base-strong bg-base-surface text-base-primary flex w-full items-center gap-2 border px-3.5',
         // Only its own input, a direct child marked with data-input, styles the
         // box; inputs nested in the prefix or suffix, e.g. a select, don't.
         'has-[>[data-input]:focus]:focus-ring',
-        'has-[>[data-input][data-invalid]]:border-red-500 has-[>[data-input][data-invalid]]:[--focus-ring-color:var(--color-red-500)]',
+        'has-[>[data-input][data-invalid]]:border-intent-negative has-[>[data-input][data-invalid]]:focus-ring-negative',
         'has-[>[data-input]:disabled]:cursor-not-allowed has-[>[data-input]:disabled]:opacity-50',
-        'dark:bg-mauve-900 dark:text-mauve-100',
         DANGEROUS_className,
       )}
       style={DANGEROUS_style}
@@ -44,9 +43,8 @@ export function Input({
         className={cn(
           'type-input-md min-w-0 flex-1 bg-transparent py-2.5 outline-none',
           'scroll-mask-x',
-          'placeholder:text-mauve-400 placeholder:select-none',
+          'placeholder:text-base-tertiary placeholder:select-none',
           'disabled:cursor-not-allowed',
-          'dark:placeholder:text-mauve-500',
         )}
         // After the spread, so a `style` slipped past the types still loses.
         style={undefined}

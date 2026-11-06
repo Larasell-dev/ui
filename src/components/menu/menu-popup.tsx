@@ -29,7 +29,7 @@ export function MenuPopup({ children }: MenuPopupProps) {
               render={(props, state) => (
                 <PopupMotion {...props} side={state.side} />
               )}
-              className="border-border bg-elevated shadow-popover min-w-40 border bg-clip-padding outline-none"
+              className="border-base-subtle bg-base-elevated shadow-popover min-w-40 border bg-clip-padding outline-none"
             >
               {children}
             </Menu.Popup>

@@ -117,8 +117,8 @@ export const Stacked = meta.story({
  */
 function UnsavedChangesBar({ onCancel }: { onCancel: () => void }) {
   return (
-    <div className="border-border bg-elevated shadow-elevated flex w-(--toast-width) max-w-full items-center justify-between gap-6 border bg-clip-padding py-1.5 pr-1.5 pl-5">
-      <p className="type-body-md m-0 whitespace-nowrap text-mauve-950 dark:text-mauve-50">
+    <div className="border-base-subtle bg-base-elevated shadow-elevated flex w-(--toast-width) max-w-full items-center justify-between gap-6 border bg-clip-padding py-1.5 pr-1.5 pl-5">
+      <p className="type-body-md text-base-primary m-0 whitespace-nowrap">
         Unsaved changes
       </p>
       <div className="flex gap-1">
@@ -206,7 +206,7 @@ function Counter() {
   return (
     <Inset>
       <div className="flex items-center justify-between gap-6">
-        <p className="type-body-md m-0 text-mauve-950 dark:text-mauve-50">
+        <p className="type-body-md text-base-primary m-0">
           Clicked {count} times
         </p>
         <Button variant="tertiary" onClick={() => setCount(count + 1)}>
@@ -242,13 +242,13 @@ export const CustomContentToTheEdges = meta.story({
           timeout: 0,
           children: (
             <div className="flex items-stretch">
-              <div className="w-20 shrink-0 bg-mauve-200 dark:bg-mauve-700" />
+              <div className="bg-base-muted w-20 shrink-0" />
               <Inset>
                 <div className="flex flex-col gap-1">
-                  <p className="type-body-md m-0 text-mauve-950 dark:text-mauve-50">
+                  <p className="type-body-md text-base-primary m-0">
                     Image uploaded
                   </p>
-                  <div className="h-1 w-48 bg-mauve-950 dark:bg-mauve-50" />
+                  <div className="bg-base-inverse h-1 w-48" />
                 </div>
               </Inset>
             </div>
@@ -284,7 +284,7 @@ function SizeChanged() {
 
   return (
     <Inset>
-      <p className="type-body-md m-0 flex text-mauve-950 dark:text-mauve-50">
+      <p className="type-body-md text-base-primary m-0 flex">
         Changed size to&nbsp;
         <span className="relative inline-flex overflow-y-clip">
           <AnimatePresence mode="popLayout" initial={false}>

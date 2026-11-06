@@ -1,3 +1,4 @@
+/* oxlint-disable larasell/color-tokens, larasell/no-dark-colors -- fixtures */
 import { RuleTester } from 'vite-plus/lint/plugins-dev';
 import { describe, it } from 'vite-plus/test';
 import { noOffScaleFontSize } from './no-off-scale-font-size.ts';

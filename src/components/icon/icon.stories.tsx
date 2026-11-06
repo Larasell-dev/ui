@@ -42,7 +42,7 @@ const meta = preview.meta({
     layout: 'centered',
   },
   render: (args) => (
-    <span className="text-2xl text-mauve-950 dark:text-mauve-100">
+    <span className="text-base-primary text-2xl">
       <Icon {...args} />
     </span>
   ),
@@ -68,7 +68,7 @@ export const InheritsTextStyle = meta.story({
     icon: option('MailLine'),
   },
   render: (args) => (
-    <p className="type-label-md flex items-center gap-2 text-red-600 dark:text-red-400">
+    <p className="type-label-md text-intent-negative flex items-center gap-2">
       <Icon {...args} />
       Couldn't send the email
     </p>

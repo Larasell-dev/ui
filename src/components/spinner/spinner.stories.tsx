@@ -42,7 +42,7 @@ export const InheritsFontSize = meta.story({
 
 export const InheritsColor = meta.story({
   render: () => (
-    <span className="text-red-600">
+    <span className="text-intent-negative">
       <Spinner />
     </span>
   ),
