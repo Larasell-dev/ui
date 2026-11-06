@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.3.3](https://github.com/Larasell-dev/ui/compare/v0.3.2...v0.3.3) (2026-11-06)
+
+
+### Features
+
+* add Input.Text, cap affixes at a third of the input ([942f070](https://github.com/Larasell-dev/ui/commit/942f070a34f9e7b622800faaeb566d965c0ec45c))
+* add Tooltip.Truncated ([9d2151d](https://github.com/Larasell-dev/ui/commit/9d2151d1a27d23308ffddb95a100575aba314371))
+* add TruncateMiddle ([35a80cb](https://github.com/Larasell-dev/ui/commit/35a80cbe52805ea67c3b2a35b86d9a512dedc957))
+
+
+### Bug Fixes
+
+* let a button in an input's affix fill the input's height ([039eb87](https://github.com/Larasell-dev/ui/commit/039eb87def07197cdf5019d3cfdc2e7965afc572))
+
 ## [0.3.2](https://github.com/Larasell-dev/ui/compare/v0.3.1...v0.3.2) (2026-11-06)
 
 
