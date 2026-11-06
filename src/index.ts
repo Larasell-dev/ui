@@ -28,6 +28,7 @@ export { Spacer } from './components/layout/spacer/spacer.tsx';
 export type { Spacing } from './components/layout/spacing.ts';
 export { Spinner } from './components/spinner/spinner.tsx';
 export { Stack } from './components/layout/stack/stack.tsx';
+export { TagCombobox } from './components/form/tag-combobox/tag-combobox.ts';
 export { Table } from './components/table/table.ts';
 export { Thumbnail } from './components/thumbnail/thumbnail.tsx';
 export { ToastProvider } from './components/toast/toast-provider.tsx';
