@@ -117,8 +117,8 @@
   /* red-700, not red-600, so it keeps 4.5:1 on the red-100 highlight. */
   --text-color-action-negative-default: var(--color-red-700);
 
-  /* border. Subtle is decoration; strong is the only edge of a control, such
-     as an input or checkbox, and keeps 3:1 against it and the page (WCAG 1.4.11). */
+  /* border. Subtle is decoration; strong is the edge of a control, such as an
+     input or checkbox. */
   --border-color-base-subtle: color-mix(
     in oklch,
     var(--color-mauve-950) 10%,
@@ -127,7 +127,7 @@
   --border-color-base-medium: var(--color-mauve-300);
   --border-color-base-strong: color-mix(
     in oklch,
-    var(--color-mauve-950) 50%,
+    var(--color-mauve-950) 10%,
     transparent
   );
   --border-color-intent-info-subtle: var(--color-sky-200);
@@ -412,7 +412,7 @@
     --border-color-base-medium: var(--color-mauve-600);
     --border-color-base-strong: color-mix(
       in oklch,
-      var(--color-mauve-400) 65%,
+      var(--color-mauve-50) 15%,
       transparent
     );
     --border-color-intent-info-subtle: var(--color-sky-800);
