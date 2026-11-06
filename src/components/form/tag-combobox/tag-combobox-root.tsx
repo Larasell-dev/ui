@@ -27,7 +27,15 @@ import {
 } from './tag-combobox-item.tsx';
 
 type TagComboboxProps = {
-  /** `TagCombobox.Item`s, the options to pick from. */
+  /**
+   * The options to pick from, e.g. `[{ value: 'de', label: 'German' }]`.
+   * Takes the same props as `TagCombobox.Item`.
+   */
+  items?: TagComboboxItemProps[];
+  /**
+   * `TagCombobox.Item`s, for options that render more than their label.
+   * They follow the `items`.
+   */
   children?: ReactNode;
   /**
    * Submitted as `name[]`, one entry per picked item, in the items' order.
@@ -63,6 +71,7 @@ type Option = TagComboboxItemProps & { label: string };
  * any state of yours.
  */
 export function TagComboboxRoot({
+  items = [],
   children,
   name: nameProp,
   value: valueProp,
@@ -78,7 +87,7 @@ export function TagComboboxRoot({
 }: TagComboboxProps) {
   const field = useFieldRootContext();
   const name = nameProp ?? field.name;
-  const options = collectOptions(children);
+  const options = [...items.map(toOption), ...collectOptions(children)];
   const byValue = new Map(options.map((option) => [option.value, option]));
 
   const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
@@ -309,11 +318,14 @@ function collectOptions(children: ReactNode): Option[] {
     if (child.type === Fragment) return collectOptions(child.props.children);
     if (child.type !== TagComboboxItem) return [];
 
-    const props = child.props as TagComboboxItemProps;
-    const label =
-      props.label ??
-      (typeof props.children === 'string' ? props.children : props.value);
-
-    return [{ ...props, label }];
+    return [toOption(child.props as TagComboboxItemProps)];
   });
+}
+
+function toOption(props: TagComboboxItemProps): Option {
+  const label =
+    props.label ??
+    (typeof props.children === 'string' ? props.children : props.value);
+
+  return { ...props, label };
 }
