@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.3.2](https://github.com/Larasell-dev/ui/compare/v0.3.1...v0.3.2) (2026-11-06)
+
+
+### Features
+
+* add TagCombobox ([9b474b0](https://github.com/Larasell-dev/ui/commit/9b474b0b2aaa1925ad62ab5b8c6fbdd3554aa604))
+* split TagCombobox into .Root and .Item, take items as an array ([b520733](https://github.com/Larasell-dev/ui/commit/b520733867de86fcf21e88f3a9436129f84ede6f))
+
+
+### Bug Fixes
+
+* focus the input when clicking the space beside its text ([a4b1d0f](https://github.com/Larasell-dev/ui/commit/a4b1d0f4555019a9191e38bb47e89fc65295756a))
+
 ## [0.3.1](https://github.com/Larasell-dev/ui/compare/v0.3.0...v0.3.1) (2026-11-06)
 
 
