@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/Larasell-dev/ui/compare/v0.3.0...v0.3.1) (2026-11-06)
+
+
+### Bug Fixes
+
+* restore the old control border color ([ea17a71](https://github.com/Larasell-dev/ui/commit/ea17a719229cc15e851b84bbe8006a6f5400037a))
+
 ## [0.3.0](https://github.com/Larasell-dev/ui/compare/v0.2.8...v0.3.0) (2026-11-06)
 
 
