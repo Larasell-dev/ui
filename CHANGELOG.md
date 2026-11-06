@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.0](https://github.com/Larasell-dev/ui/compare/v0.2.8...v0.3.0) (2026-11-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* the old color tokens are renamed. bg-canvas, bg-sunken and the other plane classes become bg-base-*, border-border becomes border-base-subtle, and palette colors are no longer allowed by the recommended lint config.
+
+### Features
+
+* semantic color tokens and lint rules that enforce them ([1f8fce2](https://github.com/Larasell-dev/ui/commit/1f8fce2520ed5688886619dd9c86867ed3b74be5))
+
 ## [0.2.8](https://github.com/Larasell-dev/ui/compare/v0.2.7...v0.2.8) (2026-11-01)
 
 
