@@ -1,6 +1,6 @@
 import ArrowDownSLine from '@iconify-icons/ri/arrow-down-s-line';
 import { useState } from 'react';
-import { expect, screen } from 'storybook/test';
+import { expect, screen, waitFor } from 'storybook/test';
 import preview from '../../../../.storybook/preview.tsx';
 import { Icon } from '../../icon/icon.tsx';
 import { Button } from '../button/button.tsx';
@@ -37,8 +37,9 @@ const meta = preview.meta({
   // Opens the list, so the screenshots show it rather than just the trigger.
   play: async ({ canvas, userEvent }) => {
     await userEvent.click(canvas.getByRole('combobox'));
-    // The list renders in a portal, outside the story's canvas.
-    await expect(await screen.findByRole('listbox')).toBeVisible();
+    // The list renders in a portal, outside the story's canvas, and fades in
+    // from opacity 0, which counts as hidden until the fade starts.
+    await waitFor(() => expect(screen.getByRole('listbox')).toBeVisible());
   },
   decorators: [
     (Story) => (
