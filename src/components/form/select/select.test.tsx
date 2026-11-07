@@ -83,7 +83,10 @@ test('multiple: picking an item keeps the search', async () => {
   // Arrange
   const screen = await render(<ChannelFilter />);
   await screen.getByRole('combobox', { name: '3 channels' }).click();
-  await userEvent.keyboard('webshop');
+  await screen.getByPlaceholder('Search').fill('webshop');
+  await expect
+    .element(screen.getByRole('option', { name: 'B2B portal' }))
+    .not.toBeInTheDocument();
 
   // Act
   await screen.getByRole('option', { name: 'Webshop CH' }).click();
