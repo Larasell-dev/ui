@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import preview from '../../../../.storybook/preview.tsx';
 import { Button } from '../../form/button/button.tsx';
 import { Inset } from '../inset/inset.tsx';
@@ -68,5 +69,58 @@ export const Stacked = meta.story({
         </Section.Card>
       </Section.Root>
     </SectionStack>
+  ),
+});
+
+/** The header at several widths, so the action's wrap below the text is visible side by side. */
+function Widths({ children }: { children: ReactNode }) {
+  return (
+    <div className="flex flex-col gap-8">
+      {[960, 560, 320].map((width) => (
+        <div key={width} style={{ width }}>
+          <p className="type-body-sm text-base-secondary mb-2">{width}px</p>
+          <Section.Root>{children}</Section.Root>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export const ShortTextWithAction = meta.story({
+  render: () => (
+    <Widths>
+      <Section.Header
+        title="Products"
+        description="Sold in this category."
+        action={<Button>Add product</Button>}
+      />
+    </Widths>
+  ),
+});
+
+export const LongText = meta.story({
+  render: () => (
+    <Widths>
+      <Section.Header
+        title="Products shown in this category on the storefront"
+        description="Choose which products appear in this category, in which order they are listed, and whether they are also shown in the category's subcategories."
+
+        action={<Button>Add product</Button>}
+      />
+    </Widths>
+  ),
+});
+
+/** Like the en-XA pseudo locale: long words that can't break at spaces must still not run under the action. */
+export const LongUnbreakableWords = meta.story({
+  render: () => (
+    <Widths>
+      <Section.Header
+        title="[Ƥŕöðûçţšƥŕöðûçţšƥŕöðûçţšƥŕöðûçţš]"
+        description="[Çĥööšéŵĥîçĥƥŕöðûçţšåƥƥéåŕîñţĥîšçåţéĝöŕýåñðîñŵĥîçĥöŕðéŕţĥéýåŕéļîšţéð one two three]"
+
+        action={<Button>[Åðð ƥŕöðûçţ one two]</Button>}
+      />
+    </Widths>
   ),
 });
