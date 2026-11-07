@@ -1,5 +1,6 @@
 import ArrowDownSLine from '@iconify-icons/ri/arrow-down-s-line';
 import { useState } from 'react';
+import { expect, screen } from 'storybook/test';
 import preview from '../../../../.storybook/preview.tsx';
 import { Icon } from '../../icon/icon.tsx';
 import { Button } from '../button/button.tsx';
@@ -33,6 +34,12 @@ const meta = preview.meta({
   title: 'Atoms/Select',
   component: Select.Root,
   parameters: { layout: 'centered' },
+  // Opens the list, so the screenshots show it rather than just the trigger.
+  play: async ({ canvas, userEvent }) => {
+    await userEvent.click(canvas.getByRole('combobox'));
+    // The list renders in a portal, outside the story's canvas.
+    await expect(await screen.findByRole('listbox')).toBeVisible();
+  },
   decorators: [
     (Story) => (
       <div style={{ minHeight: 360 }}>
