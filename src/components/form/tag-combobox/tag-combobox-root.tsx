@@ -1,3 +1,4 @@
+import { collisionPadding } from '../../../utils/collision-padding.ts';
 import { Combobox } from '@base-ui/react/combobox';
 import {
   FieldRootContext,
@@ -241,7 +242,8 @@ export function TagComboboxRoot({
                 <Combobox.Positioner
                   sideOffset={4}
                   align="start"
-                  className="z-50 w-(--anchor-width) outline-none"
+                  collisionPadding={collisionPadding()}
+                  className="z-50 w-(--anchor-width) outline-none data-anchor-hidden:invisible"
                 >
                   <Combobox.Popup
                     render={(props, state) => (
@@ -249,7 +251,7 @@ export function TagComboboxRoot({
                     )}
                     className="border-base-subtle bg-base-elevated shadow-popover max-h-[min(var(--available-height),20rem)] overflow-y-auto overscroll-contain border bg-clip-padding outline-none"
                   >
-                    <Combobox.Empty className="type-label-md text-base-tertiary flex items-center px-4 py-1.5 empty:hidden">
+                    <Combobox.Empty className="type-label-md text-base-tertiary flex items-center px-4 py-2 empty:hidden">
                       {empty}
                     </Combobox.Empty>
                     <Combobox.List>
@@ -265,7 +267,7 @@ export function TagComboboxRoot({
                             aria-label={option.label}
                             disabled={option.disabled}
                             className={cn(
-                              'type-label-md text-base-primary flex w-full cursor-pointer items-center gap-2 px-4 py-1.5 outline-none select-none',
+                              'type-label-md text-base-primary flex w-full cursor-pointer items-center gap-2 px-4 py-2 outline-none select-none',
                               'not-data-disabled:data-highlighted:bg-action-neutral-ghost-hover data-disabled:cursor-not-allowed data-disabled:opacity-50',
                               option.DANGEROUS_className,
                             )}
