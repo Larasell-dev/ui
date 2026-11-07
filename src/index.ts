@@ -6,6 +6,7 @@ export { IconButton } from './components/form/icon-button/icon-button.tsx';
 export { Dialog } from './components/dialog/dialog.ts';
 export { Checkbox } from './components/form/checkbox/checkbox.ts';
 export { Container } from './components/layout/container/container.tsx';
+export { Combobox } from './components/form/combobox/combobox.ts';
 export { DataList } from './components/data-list/data-list.ts';
 export { EmptyState } from './components/empty-state/empty-state.tsx';
 export { Error } from './components/form/error/error.tsx';
