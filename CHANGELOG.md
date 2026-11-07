@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.4.0](https://github.com/Larasell-dev/ui/compare/v0.3.3...v0.4.0) (2026-11-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* wrap the section header's action below the text when it doesn't fit
+
+### Features
+
+* add Select with a searchable popup ([#149](https://github.com/Larasell-dev/ui/issues/149)) ([252b23d](https://github.com/Larasell-dev/ui/commit/252b23d4654fe1e2456f9e57daffce39d6043f80))
+* export PopupMotion ([b6463fe](https://github.com/Larasell-dev/ui/commit/b6463fe8b8ff905efcf6dff321ff3a0881d0372d))
+
+
+### Bug Fixes
+
+* wrap the section header's action below the text when it doesn't fit ([3838418](https://github.com/Larasell-dev/ui/commit/38384184d3af6bc3add88affcfc2c19d6090b97f))
+
 ## [0.3.3](https://github.com/Larasell-dev/ui/compare/v0.3.2...v0.3.3) (2026-11-06)
 
 
