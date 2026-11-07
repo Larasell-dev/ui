@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.5.0](https://github.com/Larasell-dev/ui/compare/v0.4.0...v0.5.0) (2026-11-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* make Select a form field with key values and an input-style button ([#150](https://github.com/Larasell-dev/ui/issues/150))
+
+### Features
+
+* make Select a form field with key values and an input-style button ([#150](https://github.com/Larasell-dev/ui/issues/150)) ([94ab5c0](https://github.com/Larasell-dev/ui/commit/94ab5c0558a3aca289e346a07e37f9a9e44d2799))
+
 ## [0.4.0](https://github.com/Larasell-dev/ui/compare/v0.3.3...v0.4.0) (2026-11-07)
 
 
