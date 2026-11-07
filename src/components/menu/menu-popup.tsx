@@ -3,6 +3,7 @@ import { AnimatePresence } from 'motion/react';
 import { useContext, type MouseEvent, type ReactNode } from 'react';
 import { PopupMotion } from '../../utils/popup-motion.tsx';
 import { MenuOpenContext } from './menu-context.ts';
+import { collisionPadding } from '../../utils/collision-padding.ts';
 
 // Menus often open from inside clickable rows, and React bubbles events
 // through portals, so clicks in the menu would otherwise reach the row.
@@ -22,7 +23,8 @@ export function MenuPopup({ children }: MenuPopupProps) {
           <Menu.Positioner
             sideOffset={4}
             align="end"
-            className="outline-none"
+            collisionPadding={collisionPadding()}
+            className="outline-none data-anchor-hidden:invisible"
             onClick={stopPropagation}
           >
             <Menu.Popup

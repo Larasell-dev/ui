@@ -1,3 +1,4 @@
+import { collisionPadding } from '../../../utils/collision-padding.ts';
 import { Combobox } from '@base-ui/react/combobox';
 import {
   FieldRootContext,
@@ -241,7 +242,8 @@ export function TagComboboxRoot({
                 <Combobox.Positioner
                   sideOffset={4}
                   align="start"
-                  className="z-50 w-(--anchor-width) outline-none"
+                  collisionPadding={collisionPadding()}
+                  className="z-50 w-(--anchor-width) outline-none data-anchor-hidden:invisible"
                 >
                   <Combobox.Popup
                     render={(props, state) => (

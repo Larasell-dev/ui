@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { cn } from 'cn';
 import { Icon } from '../icon/icon.tsx';
 import { PopupMotion } from '../../utils/popup-motion.tsx';
+import { collisionPadding } from '../../utils/collision-padding.ts';
 
 type PageSizeSelectProps = {
   value: number;
@@ -60,7 +61,8 @@ export function PageSizeSelect({
             <Select.Positioner
               alignItemWithTrigger={false}
               sideOffset={4}
-              className="outline-none"
+              collisionPadding={collisionPadding()}
+              className="outline-none data-anchor-hidden:invisible"
             >
               <Select.Popup
                 render={(props, state) => (

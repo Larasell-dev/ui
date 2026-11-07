@@ -8,6 +8,7 @@ import { PopupMotion } from '../../../utils/popup-motion.tsx';
 import { Icon } from '../../icon/icon.tsx';
 import { useSelect } from './select-context.ts';
 import { SelectItem } from './select-item.tsx';
+import { collisionPadding } from '../../../utils/collision-padding.ts';
 
 type SelectPopupProps = {
   /** Where the list lines up with the button. */
@@ -38,7 +39,8 @@ export function SelectPopup({
           <Combobox.Positioner
             sideOffset={4}
             align={align}
-            className="z-50 outline-none"
+            collisionPadding={collisionPadding()}
+            className="z-50 outline-none data-anchor-hidden:invisible"
           >
             <Combobox.Popup
               render={(props, state) => (

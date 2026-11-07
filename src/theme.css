@@ -464,6 +464,14 @@
   }
 }
 
+/* Sticky chrome at the top of the viewport, e.g. a mobile nav bar, that popups
+   keep clear of. A length, so collisionPadding() reads it in pixels. */
+@property --popup-collision-top {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0px;
+}
+
 @layer base {
   /* Each Base UI portal is one layer, so a dialog or menu opened later covers
      earlier ones, backdrop included. Inside a portal, nothing sets a z-index:
