@@ -73,7 +73,7 @@ export function PageSizeSelect({
                     key={option}
                     value={option}
                     className={cn(
-                      'type-label-md text-base-primary grid cursor-pointer grid-cols-[1rem_1fr] items-center gap-2 py-1.5 pr-4 pl-2 tabular-nums outline-none select-none',
+                      'type-label-md text-base-primary grid cursor-pointer grid-cols-[1rem_1fr] items-center gap-2 py-2 pr-4 pl-2 tabular-nums outline-none select-none',
                       'data-highlighted:bg-action-neutral-ghost-hover',
                     )}
                   >

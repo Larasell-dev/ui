@@ -5,64 +5,34 @@ import { Fragment, useId, type CSSProperties, type ReactNode } from 'react';
 import { Icon } from '../../icon/icon.tsx';
 import { useSelect } from './select-context.ts';
 
-// oxlint-disable-next-line typescript/no-explicit-any -- the items' type lives on Root
-type TriggerChild = ReactNode | ((selected: any[]) => ReactNode);
-
-type SelectTriggerProps = {
-  /**
-   * What the button shows, or a function of the picked items, e.g.
-   * `{(selected) => \`${selected.length} sales channels\`}`. Defaults to the
-   * picked items' labels and an arrow.
-   */
-  children?: TriggerChild | TriggerChild[];
-  /** Shown by the default button while nothing is picked. */
+type SelectInputProps = {
+  /** Shown while nothing is picked. */
   placeholder?: string;
-  /** Swaps the button, e.g. `render={<Button variant="secondary" />}`. */
-  render?: Combobox.Trigger.Props['render'];
+  /** Names the select when no `Field` label does. */
   'aria-label'?: string;
   DANGEROUS_className?: string;
   DANGEROUS_style?: CSSProperties;
 };
 
-/** The button that opens the list. */
-export function SelectTrigger({
-  children,
+/**
+ * The button that opens the list, looking like an `Input`: it shows the
+ * picked items' labels, or the placeholder.
+ */
+export function SelectInput({
   placeholder,
-  render,
   'aria-label': ariaLabel,
   DANGEROUS_className,
   DANGEROUS_style,
-}: SelectTriggerProps) {
+}: SelectInputProps) {
   const { selected, itemToLabel } = useSelect();
-  // The trigger's role is combobox, which isn't named by its content, so
-  // without an aria-label it names itself by what it shows.
-  const id = useId();
-
-  if (children !== undefined || render) {
-    return (
-      <Combobox.Trigger
-        render={render}
-        id={id}
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabel ? undefined : id}
-        className={DANGEROUS_className}
-        style={DANGEROUS_style}
-      >
-        {[children].flat().map((child, index) => (
-          <Fragment key={index}>
-            {typeof child === 'function' ? child(selected) : child}
-          </Fragment>
-        ))}
-      </Combobox.Trigger>
-    );
-  }
 
   return (
     <Combobox.Trigger
       aria-label={ariaLabel}
       className={cn(
-        'type-label-md border-base-subtle bg-action-neutral-secondary-default text-base-primary inline-flex min-w-18 cursor-pointer items-center justify-between gap-2 border py-1.5 pr-2 pl-3 select-none',
-        'focus-visible:focus-ring not-data-disabled:hover:bg-action-neutral-secondary-hover data-popup-open:bg-action-neutral-secondary-hover',
+        'type-input-md border-base-strong bg-base-surface text-base-primary flex w-full min-w-0 cursor-pointer items-center justify-between gap-2 border py-2.5 pr-3 pl-3.5 text-start select-none',
+        'focus-visible:focus-ring outline-none',
+        'data-invalid:border-intent-negative data-invalid:focus-visible:focus-ring-negative',
         'data-disabled:cursor-not-allowed data-disabled:opacity-50',
         DANGEROUS_className,
       )}
@@ -78,9 +48,56 @@ export function SelectTrigger({
           ? placeholder
           : selected.map(itemToLabel).join(', ')}
       </span>
-      <span className="text-base-tertiary flex">
+      <span className="text-base-tertiary flex shrink-0">
         <Icon icon={ArrowDownSLine} />
       </span>
+    </Combobox.Trigger>
+  );
+}
+
+// oxlint-disable-next-line typescript/no-explicit-any -- the items' type lives on Root
+type TriggerChild = ReactNode | ((selected: any[]) => ReactNode);
+
+type SelectTriggerProps = {
+  /**
+   * What the button shows, or a function of the picked items, e.g.
+   * `{(selected) => \`${selected.length} sales channels\`}`.
+   */
+  children?: TriggerChild | TriggerChild[];
+  /** The button, e.g. `render={<Button variant="secondary" />}`. */
+  render?: Combobox.Trigger.Props['render'];
+  'aria-label'?: string;
+  DANGEROUS_className?: string;
+  DANGEROUS_style?: CSSProperties;
+};
+
+/** A button of your own that opens the list, e.g. a toolbar's switcher. */
+export function SelectTrigger({
+  children,
+  render,
+  'aria-label': ariaLabel,
+  DANGEROUS_className,
+  DANGEROUS_style,
+}: SelectTriggerProps) {
+  const { selected } = useSelect();
+  // The trigger's role is combobox, which isn't named by its content, so
+  // without an aria-label it names itself by what it shows.
+  const id = useId();
+
+  return (
+    <Combobox.Trigger
+      render={render}
+      id={id}
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabel ? undefined : id}
+      className={DANGEROUS_className}
+      style={DANGEROUS_style}
+    >
+      {[children].flat().map((child, index) => (
+        <Fragment key={index}>
+          {typeof child === 'function' ? child(selected) : child}
+        </Fragment>
+      ))}
     </Combobox.Trigger>
   );
 }

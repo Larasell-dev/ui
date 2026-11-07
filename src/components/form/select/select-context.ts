@@ -5,18 +5,15 @@ export type SelectFilter = {
   placeholder?: string;
   /** Shown, centered, when the search matches no item. */
   empty?: ReactNode;
-  /**
-   * Called as the admin types, to filter on the server: the select then
-   * shows `items` as given rather than matching them itself.
-   */
-  onSearch?: (query: string) => void;
 };
 
 type SelectContextValue = {
   open: boolean;
   multiple: boolean;
+  /** The picked items, in the items' order. */
   selected: unknown[];
-  itemToKey: (item: unknown) => string | number;
+  byKey: Map<string, unknown>;
+  itemToKey: (item: unknown) => string;
   itemToLabel: (item: unknown) => string;
   filter?: SelectFilter;
 };

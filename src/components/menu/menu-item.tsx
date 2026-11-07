@@ -7,7 +7,7 @@ import { withoutStyling } from '../../utils/without-styling.ts';
 
 const itemVariants = cva(
   [
-    'type-label-md flex w-full cursor-pointer items-center gap-2 px-4 py-1.5 no-underline outline-none select-none',
+    'type-label-md flex w-full cursor-pointer items-center gap-2 px-4 py-2 no-underline outline-none select-none',
     'data-disabled:cursor-not-allowed data-disabled:opacity-50',
   ],
   {

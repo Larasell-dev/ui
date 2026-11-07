@@ -4,7 +4,9 @@ import { expect, screen, waitFor } from 'storybook/test';
 import preview from '../../../../.storybook/preview.tsx';
 import { Icon } from '../../icon/icon.tsx';
 import { Button } from '../button/button.tsx';
-import { Select } from './select.ts';
+import { Field } from '../field/field.tsx';
+import { Input } from '../input/input.tsx';
+import { Select } from './select.tsx';
 
 type Language = { code: string; name: string };
 const languages: Language[] = [
@@ -32,7 +34,7 @@ const channelLabel = (count: number) =>
 
 const meta = preview.meta({
   title: 'Atoms/Select',
-  component: Select.Root,
+  component: Select,
   parameters: { layout: 'centered' },
   // Opens the list, so the screenshots show it rather than just the trigger.
   play: async ({ canvas, userEvent }) => {
@@ -50,54 +52,57 @@ const meta = preview.meta({
   ],
 });
 
-/** One value: picking an item changes it and closes the list. */
+/** The simple select: looks like an input, one value. */
 export const Single = meta.story({
   render: function Render() {
-    const [language, setLanguage] = useState<Language | null>(languages[0]!);
+    const [language, setLanguage] = useState<string | null>('de');
     return (
-      <Select.Root
-        items={languages}
-        itemToKey={(l) => l.code}
-        itemToLabel={(l) => l.name}
-        value={language}
-        onValueChange={setLanguage}
-        filter={{
-          placeholder: 'Search languages',
-          empty: 'No language matches.',
-        }}
-      >
-        <Select.Trigger aria-label="Content language" />
-        <Select.Popup />
-      </Select.Root>
+      <div style={{ width: 280 }}>
+        <Select
+          aria-label="Content language"
+          items={languages}
+          itemToKey={(l) => l.code}
+          itemToLabel={(l) => l.name}
+          value={language}
+          onValueChange={setLanguage}
+          filter={{
+            placeholder: 'Search languages',
+            empty: 'No language matches.',
+          }}
+        />
+      </div>
     );
   },
 });
 
-/** Several values: picking toggles an item and keeps the list open. */
+/** Several values: picking toggles an item, shows a checkbox, keeps the list open. */
 export const Multiple = meta.story({
   render: () => (
-    <Select.Root
-      multiple
-      items={languages}
-      itemToKey={(l) => l.code}
-      itemToLabel={(l) => l.name}
-      defaultValue={[languages[0]!, languages[2]!]}
-    >
-      <Select.Trigger aria-label="Languages" placeholder="Pick languages" />
-      <Select.Popup />
-    </Select.Root>
+    <div style={{ width: 280 }}>
+      <Select
+        multiple
+        aria-label="Languages"
+        placeholder="Pick languages"
+        items={languages}
+        itemToKey={(l) => l.code}
+        itemToLabel={(l) => l.name}
+        defaultValue={['de', 'fr']}
+      />
+    </div>
   ),
 });
 
-/** The sales channel filter: a button of your own, checkboxes, a search. */
+/** The sales channel filter: a button of your own and a search, no form. */
 export const CustomTrigger = meta.story({
   render: function Render() {
-    const [shown, setShown] = useState(channels);
+    const [shown, setShown] = useState(
+      channels.map((c) => String(c.channelId)),
+    );
     return (
       <Select.Root
         multiple
         items={channels}
-        itemToKey={(c) => c.channelId}
+        itemToKey={(c) => String(c.channelId)}
         itemToLabel={(c) => c.channel}
         value={shown}
         onValueChange={setShown}
@@ -110,14 +115,7 @@ export const CustomTrigger = meta.story({
           {(selected) => channelLabel(selected.length)}
           <Icon icon={ArrowDownSLine} />
         </Select.Trigger>
-        <Select.Popup align="end">
-          {(channel: Channel) => (
-            <Select.Item item={channel}>
-              <Select.ItemCheckbox />
-              {channel.channel}
-            </Select.Item>
-          )}
-        </Select.Popup>
+        <Select.Popup align="end" />
       </Select.Root>
     );
   },
@@ -126,25 +124,48 @@ export const CustomTrigger = meta.story({
 /** Items render what they're given; the label is what search matches. */
 export const CustomItems = meta.story({
   render: () => (
-    <Select.Root
-      items={channels}
-      itemToKey={(c) => c.channelId}
-      itemToLabel={(c) => c.channel}
-      filter={{ placeholder: 'Search sales channels' }}
-    >
-      <Select.Trigger aria-label="Sales channel" placeholder="Pick one" />
-      <Select.Popup>
-        {(channel: Channel) => (
-          <Select.Item item={channel}>
-            <span className="flex min-w-0 flex-1 flex-col">
-              {channel.channel}
-              <span className="type-label-sm text-base-tertiary">
-                {channel.domain}
-              </span>
+    <div style={{ width: 280 }}>
+      <Select
+        aria-label="Sales channel"
+        placeholder="Pick one"
+        items={channels}
+        itemToKey={(c) => String(c.channelId)}
+        itemToLabel={(c) => c.channel}
+        filter={{ placeholder: 'Search sales channels' }}
+        renderItem={(channel) => (
+          <span className="flex min-w-0 flex-1 flex-col">
+            {channel.channel}
+            <span className="type-label-sm text-base-tertiary">
+              {channel.domain}
             </span>
-          </Select.Item>
+          </span>
         )}
-      </Select.Popup>
-    </Select.Root>
+      />
+    </div>
+  ),
+});
+
+/** In a field: the field's label names it, its error marks it invalid. */
+export const InField = meta.story({
+  render: () => (
+    <div style={{ width: 320 }}>
+      <Field
+        label="Sells in"
+        name="locales"
+        error="Pick at least one language."
+      >
+        <Select
+          multiple
+          placeholder="None picked"
+          items={languages}
+          itemToKey={(l) => l.code}
+          itemToLabel={(l) => l.name}
+        />
+      </Field>
+      <div style={{ height: 16 }} />
+      <Field label="Name" name="name">
+        <Input defaultValue="Swiss Shop" />
+      </Field>
+    </div>
   ),
 });
