@@ -4,15 +4,15 @@ import { SectionTitleId } from './section-root.tsx';
 type SectionHeaderProps = {
   title: ReactNode;
   description?: ReactNode;
-  /** The action, e.g. a `<Button>`. Sits beside the text while both fit, and wraps below it once they don't. */
-  children?: ReactNode;
+  /** E.g. a `<Button>`. Sits beside the text while both fit, and wraps below it once they don't. */
+  action?: ReactNode;
 };
 
 /** The section's title and description, flush with the content's edges, and an optional action. */
 export function SectionHeader({
   title,
   description,
-  children,
+  action,
 }: SectionHeaderProps) {
   return (
     // Tall enough for a button in the action slot, so adding or removing one doesn't shift the content.
@@ -29,7 +29,7 @@ export function SectionHeader({
           <p className="type-body-sm text-base-secondary">{description}</p>
         )}
       </div>
-      {children && <div className="shrink-0">{children}</div>}
+      {action && <div className="shrink-0">{action}</div>}
     </div>
   );
 }

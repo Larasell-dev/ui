@@ -39,9 +39,10 @@ export const WithAction = meta.story({
   args: {
     children: (
       <>
-        <Section.Header title="Products">
-          <Button>Add product</Button>
-        </Section.Header>
+        <Section.Header
+          title="Products"
+          action={<Button>Add product</Button>}
+        />
         <Section.Card>
           <Inset side="x">
             <p className="type-body-md">Inset on the x axis only.</p>
@@ -88,9 +89,11 @@ function Widths({ children }: { children: ReactNode }) {
 export const ShortTextWithAction = meta.story({
   render: () => (
     <Widths>
-      <Section.Header title="Products" description="Sold in this category.">
-        <Button>Add product</Button>
-      </Section.Header>
+      <Section.Header
+        title="Products"
+        description="Sold in this category."
+        action={<Button>Add product</Button>}
+      />
     </Widths>
   ),
 });
@@ -101,9 +104,9 @@ export const LongText = meta.story({
       <Section.Header
         title="Products shown in this category on the storefront"
         description="Choose which products appear in this category, in which order they are listed, and whether they are also shown in the category's subcategories."
-      >
-        <Button>Add product</Button>
-      </Section.Header>
+
+        action={<Button>Add product</Button>}
+      />
     </Widths>
   ),
 });
@@ -115,9 +118,9 @@ export const LongUnbreakableWords = meta.story({
       <Section.Header
         title="[Ƥŕöðûçţšƥŕöðûçţšƥŕöðûçţšƥŕöðûçţš]"
         description="[Çĥööšéŵĥîçĥƥŕöðûçţšåƥƥéåŕîñţĥîšçåţéĝöŕýåñðîñŵĥîçĥöŕðéŕţĥéýåŕéļîšţéð one two three]"
-      >
-        <Button>[Åðð ƥŕöðûçţ one two]</Button>
-      </Section.Header>
+
+        action={<Button>[Åðð ƥŕöðûçţ one two]</Button>}
+      />
     </Widths>
   ),
 });
