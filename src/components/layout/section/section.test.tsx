@@ -26,7 +26,9 @@ test('is a region named by its header title', async () => {
 test('shows the action next to the title', async () => {
   const screen = await render(
     <Section.Root>
-      <Section.Header title="Products" action={<button>Add</button>} />
+      <Section.Header title="Products">
+        <button>Add</button>
+      </Section.Header>
     </Section.Root>,
   );
 
