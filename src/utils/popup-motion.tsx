@@ -47,14 +47,33 @@ function offset(side: Side) {
 const spring: Transition = { type: 'spring', bounce: 0, duration: 0.2 };
 const instant: Transition = { duration: 0 };
 
-type PopupMotionProps = HTMLAttributes<HTMLElement> & {
+export type PopupMotionProps = HTMLAttributes<HTMLElement> & {
   ref?: Ref<HTMLElement>;
   side: Side;
 };
 
 /**
- * Animates a Base UI popup in and out. Use it as the popup's `render` inside
- * an `<AnimatePresence>` that mounts the popup while open.
+ * Animates a Base UI popup in and out: it fades and slides away from its
+ * anchor on enter and back toward it on exit, without motion when the user
+ * prefers reduced motion. Use it as the popup's `render` inside an
+ * `<AnimatePresence>` that mounts the popup while open, with `keepMounted` on
+ * the portal so the exit animation can play:
+ *
+ * ```tsx
+ * <AnimatePresence>
+ *   {open && (
+ *     <Popover.Portal keepMounted>
+ *       <Popover.Positioner>
+ *         <Popover.Popup
+ *           render={(props, state) => (
+ *             <PopupMotion {...props} side={state.side} />
+ *           )}
+ *         />
+ *       </Popover.Positioner>
+ *     </Popover.Portal>
+ *   )}
+ * </AnimatePresence>
+ * ```
  */
 export function PopupMotion({ side, ...props }: PopupMotionProps) {
   const reduceMotion = useReducedMotion();

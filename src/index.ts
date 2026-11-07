@@ -46,5 +46,6 @@ export {
   TestClipboard,
   useClipboard,
 } from './utils/clipboard.tsx';
+export { PopupMotion, type PopupMotionProps } from './utils/popup-motion.tsx';
 export { useCopy } from './utils/use-copy.ts';
 export { useScrollMaskScrollbar } from './utils/use-scroll-mask-scrollbar.ts';
