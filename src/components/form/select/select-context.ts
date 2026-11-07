@@ -1,30 +1,30 @@
 import { createContext, useContext, type ReactNode } from 'react';
 
-export type ComboboxFilter = {
+export type SelectFilter = {
   /** The search field's placeholder, e.g. "Search sales channels". */
   placeholder?: string;
   /** Shown, centered, when the search matches no item. */
   empty?: ReactNode;
   /**
-   * Called as the admin types, to filter on the server: the combobox then
+   * Called as the admin types, to filter on the server: the select then
    * shows `items` as given rather than matching them itself.
    */
   onSearch?: (query: string) => void;
 };
 
-type ComboboxContextValue = {
+type SelectContextValue = {
   open: boolean;
   multiple: boolean;
   selected: unknown[];
   itemToKey: (item: unknown) => string | number;
   itemToLabel: (item: unknown) => string;
-  filter?: ComboboxFilter;
+  filter?: SelectFilter;
 };
 
-export const ComboboxContext = createContext<ComboboxContextValue | null>(null);
+export const SelectContext = createContext<SelectContextValue | null>(null);
 
-export function useCombobox() {
-  const context = useContext(ComboboxContext);
-  if (!context) throw new globalThis.Error('Use it inside a Combobox.Root.');
+export function useSelect() {
+  const context = useContext(SelectContext);
+  if (!context) throw new globalThis.Error('Use it inside a Select.Root.');
   return context;
 }

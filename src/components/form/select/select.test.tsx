@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { expect, test, vi } from 'vite-plus/test';
 import { userEvent } from 'vite-plus/test/browser';
 import { render } from 'vitest-browser-react';
-import { Combobox } from './combobox.ts';
+import { Select } from './select.ts';
 
 type Channel = { id: number; name: string };
 const channels: Channel[] = [
@@ -14,16 +14,16 @@ const channels: Channel[] = [
 test('single: picking an item changes the value and closes the list', async () => {
   const onValueChange = vi.fn();
   const screen = await render(
-    <Combobox.Root
+    <Select.Root
       items={channels}
       itemToKey={(c) => c.id}
       itemToLabel={(c) => c.name}
       defaultValue={channels[0]}
       onValueChange={onValueChange}
     >
-      <Combobox.Trigger aria-label="Channel" />
-      <Combobox.Popup />
-    </Combobox.Root>,
+      <Select.Trigger aria-label="Channel" />
+      <Select.Popup />
+    </Select.Root>,
   );
 
   const trigger = screen.getByRole('combobox', { name: 'Channel' });
@@ -39,7 +39,7 @@ test('single: picking an item changes the value and closes the list', async () =
 function ChannelFilter({ onSearch }: { onSearch?: (q: string) => void }) {
   const [shown, setShown] = useState(channels);
   return (
-    <Combobox.Root
+    <Select.Root
       multiple
       items={channels}
       itemToKey={(c) => c.id}
@@ -48,19 +48,19 @@ function ChannelFilter({ onSearch }: { onSearch?: (q: string) => void }) {
       onValueChange={setShown}
       filter={{ placeholder: 'Search', empty: 'No match.', onSearch }}
     >
-      <Combobox.Trigger render={<button type="button" />}>
+      <Select.Trigger render={<button type="button" />}>
         {(selected) => `${selected.length} channels`}
         <span aria-hidden>▾</span>
-      </Combobox.Trigger>
-      <Combobox.Popup>
+      </Select.Trigger>
+      <Select.Popup>
         {(channel: Channel) => (
-          <Combobox.Item item={channel}>
-            <Combobox.ItemCheckbox />
+          <Select.Item item={channel}>
+            <Select.ItemCheckbox />
             <span data-testid="name">{channel.name}</span>
-          </Combobox.Item>
+          </Select.Item>
         )}
-      </Combobox.Popup>
-    </Combobox.Root>
+      </Select.Popup>
+    </Select.Root>
   );
 }
 
@@ -84,7 +84,7 @@ test('multiple: picking toggles an item, keeps the list open, and allows none', 
     .element(
       screen
         .getByRole('option', { name: 'Webshop CH' })
-        .getByTestId('combobox-item-checkbox'),
+        .getByTestId('select-item-checkbox'),
     )
     .toBeInTheDocument();
 });
@@ -122,15 +122,15 @@ test('with onSearch, reports the query and shows the items as given', async () =
 test('without a filter, shows no search field and keys through the items', async () => {
   const onValueChange = vi.fn();
   const screen = await render(
-    <Combobox.Root
+    <Select.Root
       items={channels}
       itemToKey={(c) => c.id}
       itemToLabel={(c) => c.name}
       onValueChange={onValueChange}
     >
-      <Combobox.Trigger aria-label="Channel" placeholder="Pick one" />
-      <Combobox.Popup />
-    </Combobox.Root>,
+      <Select.Trigger aria-label="Channel" placeholder="Pick one" />
+      <Select.Popup />
+    </Select.Root>,
   );
 
   await screen.getByRole('combobox', { name: 'Channel' }).click();
@@ -142,18 +142,16 @@ test('without a filter, shows no search field and keys through the items', async
 
 test('applies DANGEROUS_className to trigger, popup and items', async () => {
   const screen = await render(
-    <Combobox.Root
+    <Select.Root
       items={channels}
       itemToKey={(c) => c.id}
       itemToLabel={(c) => c.name}
     >
-      <Combobox.Trigger aria-label="Channel" DANGEROUS_className="mt-4" />
-      <Combobox.Popup DANGEROUS_className="w-80">
-        {(c: Channel) => (
-          <Combobox.Item item={c} DANGEROUS_className="italic" />
-        )}
-      </Combobox.Popup>
-    </Combobox.Root>,
+      <Select.Trigger aria-label="Channel" DANGEROUS_className="mt-4" />
+      <Select.Popup DANGEROUS_className="w-80">
+        {(c: Channel) => <Select.Item item={c} DANGEROUS_className="italic" />}
+      </Select.Popup>
+    </Select.Root>,
   );
 
   const trigger = screen.getByRole('combobox', { name: 'Channel' });

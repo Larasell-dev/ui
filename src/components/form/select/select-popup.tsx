@@ -5,15 +5,15 @@ import { AnimatePresence } from 'motion/react';
 import { Fragment, type CSSProperties, type ReactNode } from 'react';
 import { PopupMotion } from '../../../utils/popup-motion.tsx';
 import { Icon } from '../../icon/icon.tsx';
-import { useCombobox } from './combobox-context.ts';
-import { ComboboxItem } from './combobox-item.tsx';
+import { useSelect } from './select-context.ts';
+import { SelectItem } from './select-item.tsx';
 
-type ComboboxPopupProps = {
+type SelectPopupProps = {
   /** Where the list lines up with the button. */
   align?: 'start' | 'center' | 'end';
   /**
    * Renders each item, e.g. `{(c) => <Combobox.Item item={c}>…</Combobox.Item>}`.
-   * Defaults to one `Combobox.Item` per item, showing its label.
+   * Defaults to one `Select.Item` per item, showing its label.
    */
   // oxlint-disable-next-line typescript/no-explicit-any -- the items' type lives on Root
   children?: (item: any) => ReactNode;
@@ -22,13 +22,13 @@ type ComboboxPopupProps = {
 };
 
 /** The list the trigger opens, with the search field when there's a filter. */
-export function ComboboxPopup({
+export function SelectPopup({
   align = 'start',
-  children = (item) => <ComboboxItem item={item} />,
+  children = (item) => <SelectItem item={item} />,
   DANGEROUS_className,
   DANGEROUS_style,
-}: ComboboxPopupProps) {
-  const { open, filter, itemToKey } = useCombobox();
+}: SelectPopupProps) {
+  const { open, filter, itemToKey } = useSelect();
 
   return (
     <AnimatePresence>

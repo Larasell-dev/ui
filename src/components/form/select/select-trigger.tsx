@@ -3,12 +3,12 @@ import ArrowDownSLine from '@iconify-icons/ri/arrow-down-s-line';
 import { cn } from 'cn';
 import { Fragment, useId, type CSSProperties, type ReactNode } from 'react';
 import { Icon } from '../../icon/icon.tsx';
-import { useCombobox } from './combobox-context.ts';
+import { useSelect } from './select-context.ts';
 
 // oxlint-disable-next-line typescript/no-explicit-any -- the items' type lives on Root
 type TriggerChild = ReactNode | ((selected: any[]) => ReactNode);
 
-type ComboboxTriggerProps = {
+type SelectTriggerProps = {
   /**
    * What the button shows, or a function of the picked items, e.g.
    * `{(selected) => \`${selected.length} sales channels\`}`. Defaults to the
@@ -25,15 +25,15 @@ type ComboboxTriggerProps = {
 };
 
 /** The button that opens the list. */
-export function ComboboxTrigger({
+export function SelectTrigger({
   children,
   placeholder,
   render,
   'aria-label': ariaLabel,
   DANGEROUS_className,
   DANGEROUS_style,
-}: ComboboxTriggerProps) {
-  const { selected, itemToLabel } = useCombobox();
+}: SelectTriggerProps) {
+  const { selected, itemToLabel } = useSelect();
   // The trigger's role is combobox, which isn't named by its content, so
   // without an aria-label it names itself by what it shows.
   const id = useId();

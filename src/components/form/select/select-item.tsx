@@ -3,10 +3,10 @@ import CheckLine from '@iconify-icons/ri/check-line';
 import { cn } from 'cn';
 import type { CSSProperties, ReactNode } from 'react';
 import { Icon } from '../../icon/icon.tsx';
-import { useCombobox } from './combobox-context.ts';
+import { useSelect } from './select-context.ts';
 
-type ComboboxItemProps = {
-  /** The item of `Combobox.Root`'s `items` this row picks. */
+type SelectItemProps = {
+  /** The item of `Select.Root`'s `items` this row picks. */
   item: unknown;
   disabled?: boolean;
   /** What the row shows. Defaults to the label and a check while picked. */
@@ -16,14 +16,14 @@ type ComboboxItemProps = {
 };
 
 /** A row of the list. Named by the item's label, whatever it shows. */
-export function ComboboxItem({
+export function SelectItem({
   item,
   disabled,
   children,
   DANGEROUS_className,
   DANGEROUS_style,
-}: ComboboxItemProps) {
-  const { itemToLabel } = useCombobox();
+}: SelectItemProps) {
+  const { itemToLabel } = useSelect();
   const label = itemToLabel(item);
 
   return (
@@ -51,11 +51,11 @@ export function ComboboxItem({
 }
 
 /** A checkbox showing whether its item is picked, for lists of several. */
-export function ComboboxItemCheckbox() {
+export function SelectItemCheckbox() {
   return (
     <span
       aria-hidden
-      data-testid="combobox-item-checkbox"
+      data-testid="select-item-checkbox"
       className={cn(
         'border-base-strong bg-base-surface text-action-neutral-on-color inline-flex size-5 shrink-0 items-center justify-center border',
         'group-data-selected:border-action-neutral-primary-default group-data-selected:bg-action-neutral-primary-default',

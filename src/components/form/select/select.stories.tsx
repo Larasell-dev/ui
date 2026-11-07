@@ -3,7 +3,7 @@ import { useState } from 'react';
 import preview from '../../../../.storybook/preview.tsx';
 import { Icon } from '../../icon/icon.tsx';
 import { Button } from '../button/button.tsx';
-import { Combobox } from './combobox.ts';
+import { Select } from './select.ts';
 
 type Language = { code: string; name: string };
 const languages: Language[] = [
@@ -30,8 +30,8 @@ const channelLabel = (count: number) =>
       : `${count} sales channels`;
 
 const meta = preview.meta({
-  title: 'Atoms/Combobox',
-  component: Combobox.Root,
+  title: 'Atoms/Select',
+  component: Select.Root,
   parameters: { layout: 'centered' },
   decorators: [
     (Story) => (
@@ -47,7 +47,7 @@ export const Single = meta.story({
   render: function Render() {
     const [language, setLanguage] = useState<Language | null>(languages[0]!);
     return (
-      <Combobox.Root
+      <Select.Root
         items={languages}
         itemToKey={(l) => l.code}
         itemToLabel={(l) => l.name}
@@ -58,9 +58,9 @@ export const Single = meta.story({
           empty: 'No language matches.',
         }}
       >
-        <Combobox.Trigger aria-label="Content language" />
-        <Combobox.Popup />
-      </Combobox.Root>
+        <Select.Trigger aria-label="Content language" />
+        <Select.Popup />
+      </Select.Root>
     );
   },
 });
@@ -68,16 +68,16 @@ export const Single = meta.story({
 /** Several values: picking toggles an item and keeps the list open. */
 export const Multiple = meta.story({
   render: () => (
-    <Combobox.Root
+    <Select.Root
       multiple
       items={languages}
       itemToKey={(l) => l.code}
       itemToLabel={(l) => l.name}
       defaultValue={[languages[0]!, languages[2]!]}
     >
-      <Combobox.Trigger aria-label="Languages" placeholder="Pick languages" />
-      <Combobox.Popup />
-    </Combobox.Root>
+      <Select.Trigger aria-label="Languages" placeholder="Pick languages" />
+      <Select.Popup />
+    </Select.Root>
   ),
 });
 
@@ -86,7 +86,7 @@ export const CustomTrigger = meta.story({
   render: function Render() {
     const [shown, setShown] = useState(channels);
     return (
-      <Combobox.Root
+      <Select.Root
         multiple
         items={channels}
         itemToKey={(c) => c.channelId}
@@ -98,19 +98,19 @@ export const CustomTrigger = meta.story({
           empty: 'No sales channel matches.',
         }}
       >
-        <Combobox.Trigger render={<Button variant="secondary" />}>
+        <Select.Trigger render={<Button variant="secondary" />}>
           {(selected) => channelLabel(selected.length)}
           <Icon icon={ArrowDownSLine} />
-        </Combobox.Trigger>
-        <Combobox.Popup align="end">
+        </Select.Trigger>
+        <Select.Popup align="end">
           {(channel: Channel) => (
-            <Combobox.Item item={channel}>
-              <Combobox.ItemCheckbox />
+            <Select.Item item={channel}>
+              <Select.ItemCheckbox />
               {channel.channel}
-            </Combobox.Item>
+            </Select.Item>
           )}
-        </Combobox.Popup>
-      </Combobox.Root>
+        </Select.Popup>
+      </Select.Root>
     );
   },
 });
@@ -118,25 +118,25 @@ export const CustomTrigger = meta.story({
 /** Items render what they're given; the label is what search matches. */
 export const CustomItems = meta.story({
   render: () => (
-    <Combobox.Root
+    <Select.Root
       items={channels}
       itemToKey={(c) => c.channelId}
       itemToLabel={(c) => c.channel}
       filter={{ placeholder: 'Search sales channels' }}
     >
-      <Combobox.Trigger aria-label="Sales channel" placeholder="Pick one" />
-      <Combobox.Popup>
+      <Select.Trigger aria-label="Sales channel" placeholder="Pick one" />
+      <Select.Popup>
         {(channel: Channel) => (
-          <Combobox.Item item={channel}>
+          <Select.Item item={channel}>
             <span className="flex min-w-0 flex-1 flex-col">
               {channel.channel}
               <span className="type-label-sm text-base-tertiary">
                 {channel.domain}
               </span>
             </span>
-          </Combobox.Item>
+          </Select.Item>
         )}
-      </Combobox.Popup>
-    </Combobox.Root>
+      </Select.Popup>
+    </Select.Root>
   ),
 });

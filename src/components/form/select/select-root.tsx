@@ -1,10 +1,10 @@
 import { Combobox } from '@base-ui/react/combobox';
 import { useState, type ReactNode } from 'react';
-import { ComboboxContext, type ComboboxFilter } from './combobox-context.ts';
+import { SelectContext, type SelectFilter } from './select-context.ts';
 
 type ValueOf<Item, Multiple> = Multiple extends true ? Item[] : Item | null;
 
-type ComboboxRootProps<Item, Multiple extends boolean | undefined> = {
+type SelectRootProps<Item, Multiple extends boolean | undefined> = {
   /**
    * Picks several items: the value is an array, and picking an item toggles
    * it and keeps the list open. Without it, picking an item closes the list.
@@ -19,9 +19,9 @@ type ComboboxRootProps<Item, Multiple extends boolean | undefined> = {
   defaultValue?: ValueOf<Item, Multiple>;
   onValueChange?: (value: ValueOf<Item, Multiple>) => void;
   /** Adds a search field at the top of the list. Omit it for none. */
-  filter?: ComboboxFilter;
+  filter?: SelectFilter;
   disabled?: boolean;
-  /** A `Combobox.Trigger` and the `Combobox.Popup` it opens. */
+  /** A `Select.Trigger` and the `Select.Popup` it opens. */
   children?: ReactNode;
 };
 
@@ -29,10 +29,7 @@ type ComboboxRootProps<Item, Multiple extends boolean | undefined> = {
  * Picks one item, or several with `multiple`, from a list that opens from a
  * button and can be searched.
  */
-export function ComboboxRoot<
-  Item,
-  Multiple extends boolean | undefined = false,
->({
+export function SelectRoot<Item, Multiple extends boolean | undefined = false>({
   multiple,
   items,
   itemToKey,
@@ -43,7 +40,7 @@ export function ComboboxRoot<
   filter,
   disabled,
   children,
-}: ComboboxRootProps<Item, Multiple>) {
+}: SelectRootProps<Item, Multiple>) {
   const [open, setOpen] = useState(false);
   const [uncontrolledValue, setUncontrolledValue] = useState(
     defaultValue ?? ((multiple ? [] : null) as ValueOf<Item, Multiple>),
@@ -56,7 +53,7 @@ export function ComboboxRoot<
       : [value as Item];
 
   return (
-    <ComboboxContext
+    <SelectContext
       value={{
         open,
         multiple: !!multiple,
@@ -99,6 +96,6 @@ export function ComboboxRoot<
       >
         {children}
       </Combobox.Root>
-    </ComboboxContext>
+    </SelectContext>
   );
 }
