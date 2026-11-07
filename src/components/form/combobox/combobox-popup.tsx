@@ -65,7 +65,7 @@ export function ComboboxPopup({
                 {filter?.empty ?? 'No matches'}
               </Combobox.Empty>
               {/* Hidden when empty, so it adds no gap below the message. */}
-              <Combobox.List className="overflow-y-auto overscroll-contain py-1 empty:hidden data-empty:hidden">
+              <Combobox.List className="overflow-y-auto overscroll-contain empty:hidden data-empty:hidden">
                 {(item: unknown) => (
                   <Fragment key={itemToKey(item)}>{children(item)}</Fragment>
                 )}
