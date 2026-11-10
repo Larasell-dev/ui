@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/Larasell-dev/ui/compare/v0.5.0...v0.5.1) (2026-11-10)
+
+
+### Features
+
+* add Slideover ([#152](https://github.com/Larasell-dev/ui/issues/152)) ([46c82d0](https://github.com/Larasell-dev/ui/commit/46c82d02bd5c763c76a094c9f4c06277e5128180))
+
 ## [0.5.0](https://github.com/Larasell-dev/ui/compare/v0.4.0...v0.5.0) (2026-11-07)
 
 
