@@ -35,7 +35,7 @@ export function SelectItem({
       aria-label={label}
       disabled={disabled}
       className={cn(
-        'group type-label-md text-base-primary flex w-full cursor-pointer items-center gap-2 px-4 py-2 outline-none select-none',
+        'group type-input-md text-base-primary flex w-full cursor-pointer items-center gap-2 px-4 py-2 outline-none select-none',
         'not-data-disabled:data-highlighted:bg-action-neutral-ghost-hover data-disabled:cursor-not-allowed data-disabled:opacity-50',
         DANGEROUS_className,
       )}

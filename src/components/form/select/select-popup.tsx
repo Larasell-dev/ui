@@ -65,7 +65,7 @@ export function SelectPopup({
                   <Icon icon={SearchLine} />
                   <Combobox.Input
                     placeholder={filter.placeholder}
-                    className="type-label-md text-base-primary placeholder:text-base-tertiary h-9 w-full min-w-40 bg-transparent outline-none placeholder:select-none"
+                    className="type-input-md text-base-primary placeholder:text-base-tertiary h-9 w-full min-w-40 bg-transparent outline-none placeholder:select-none"
                   />
                 </div>
               )}
