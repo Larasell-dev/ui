@@ -1,3 +1,4 @@
+import { expect, screen, waitFor } from 'storybook/test';
 import { useState } from 'react';
 import { Button } from '../form/button/button.tsx';
 import { Field } from '../form/field/field.tsx';
@@ -55,7 +56,18 @@ function AddAddress({ defaultOpen = false }: { defaultOpen?: boolean }) {
 }
 
 /** A form in a slideover; the footer stays at the bottom while the content scrolls. */
-export const WithForm = meta.story({ render: () => <AddAddress /> });
+export const WithForm = meta.story({
+  render: () => <AddAddress />,
+  // Opens the slideover, so the screenshots show it rather than just the button.
+  play: async ({ canvas, userEvent }) => {
+    await userEvent.click(canvas.getByRole('button', { name: 'Add address' }));
+    // The panel renders in a portal, outside the story's canvas, and fades in
+    // from opacity 0, which counts as hidden until the fade starts.
+    await waitFor(() =>
+      expect(screen.getByRole('dialog', { name: 'Add address' })).toBeVisible(),
+    );
+  },
+});
 
 /** Open on load, to review the panel on its own. */
 export const Open = meta.story({ render: () => <AddAddress defaultOpen /> });
