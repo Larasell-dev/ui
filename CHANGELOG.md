@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.2](https://github.com/Larasell-dev/ui/compare/v0.5.1...v0.5.2) (2026-11-12)
+
+
+### Features
+
+* inheritable label, read-only select, anchored select popup, scrolling table columns and a colour picker ([#156](https://github.com/Larasell-dev/ui/issues/156)) ([1c8ae19](https://github.com/Larasell-dev/ui/commit/1c8ae197b306aaca69033e68bacf90c7708e992a))
+
+
+### Bug Fixes
+
+* keep select search at 16px on touch to stop iOS zoom ([#154](https://github.com/Larasell-dev/ui/issues/154)) ([7c8d71e](https://github.com/Larasell-dev/ui/commit/7c8d71e7d2b2578ed0972e9c041827285ffffaad))
+
 ## [0.5.1](https://github.com/Larasell-dev/ui/compare/v0.5.0...v0.5.1) (2026-11-10)
 
 
