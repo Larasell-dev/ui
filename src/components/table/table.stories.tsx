@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fn } from 'storybook/test';
+import { expect, fn } from 'storybook/test';
 import preview from '../../../.storybook/preview.tsx';
 import { Badge, type BadgeVariant } from '../badge/badge.tsx';
 import type { PaginationChange } from '../pagination/pagination.tsx';
@@ -303,3 +303,35 @@ export const StatusBadges = meta.story({
     </Table.Root>
   ),
 });
+
+/** In a narrow container, columns keep their minimum width and the table scrolls sideways. */
+export const NarrowScrollsSideways = meta.story({
+  render: () => (
+    <div style={{ width: 360 }}>
+      <Table.Root aria-label="Orders">
+        <Table.Content>
+          <OrderHeader />
+          <Table.Body>
+            <OrderRows orders={allOrders.slice(0, 5)} />
+          </Table.Body>
+        </Table.Content>
+      </Table.Root>
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const header = canvas.getByRole('columnheader', { name: 'Customer' });
+    await expect(header.getBoundingClientRect().width).toBeGreaterThanOrEqual(
+      150,
+    );
+    const scroller = [...canvasElement(header)].find(
+      (el) => getComputedStyle(el).overflowX === 'auto',
+    );
+    await expect(scroller!.scrollWidth).toBeGreaterThan(scroller!.clientWidth);
+  },
+});
+
+function canvasElement(el: HTMLElement) {
+  const out: HTMLElement[] = [];
+  for (let e = el.parentElement; e; e = e.parentElement) out.push(e);
+  return out;
+}

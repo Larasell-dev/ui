@@ -17,7 +17,7 @@ export function TableBody({ children }: TableBodyProps) {
     <tbody
       ref={ref}
       role="rowgroup"
-      className="scroll-mask-y-from-90% block min-h-0 flex-1 overflow-y-auto outline-none [anchor-name:var(--table-body-anchor)]"
+      className="scroll-mask-y-from-90% block min-h-0 min-w-(--table-min-width) flex-1 overflow-y-auto outline-none [anchor-name:var(--table-body-anchor)]"
     >
       {children}
     </tbody>
