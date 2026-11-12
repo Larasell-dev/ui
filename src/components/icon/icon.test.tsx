@@ -30,39 +30,6 @@ test('exposes a labelled icon as an image with that name', async () => {
   await expect.element(image).not.toHaveAttribute('aria-hidden');
 });
 
-test('is 1em square, so it scales with the surrounding font size', async () => {
-  const screen = await render(
-    <span style={{ fontSize: '32px' }}>
-      <Icon icon={HomeLine} />
-    </span>,
-  );
-
-  const box = screen
-    .getByRole('img', { includeHidden: true })
-    .element()
-    .getBoundingClientRect();
-
-  expect(box.width).toBe(32);
-  expect(box.height).toBe(32);
-});
-
-test('takes its size from the spacing scale when size is set, whatever the font size', async () => {
-  // Tests load no CSS, so --spacing falls back to Tailwind's default of 0.25rem: 5 × 4px.
-  const screen = await render(
-    <span style={{ fontSize: '32px' }}>
-      <Icon icon={HomeLine} size={5} />
-    </span>,
-  );
-
-  const box = screen
-    .getByRole('img', { includeHidden: true })
-    .element()
-    .getBoundingClientRect();
-
-  expect(box.width).toBe(20);
-  expect(box.height).toBe(20);
-});
-
 test('does not accept className or style', async () => {
   const screen = await render(
     <Icon

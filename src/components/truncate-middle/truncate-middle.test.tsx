@@ -24,6 +24,7 @@ test('keeps both ends and cuts the middle of text that does not fit', async () =
   // Half from each end, the extra character at the start.
   expect(start!.length - end!.length).toBeGreaterThanOrEqual(0);
   expect(start!.length - end!.length).toBeLessThanOrEqual(1);
+  // oxlint-disable-next-line larasell/no-layout-assertions -- fitting its box is what this component does
   expect(text.getBoundingClientRect().width).toBeLessThanOrEqual(120);
 });
 
@@ -44,6 +45,7 @@ test('keeps as much as fits: one more character would overflow', async () => {
   probe.textContent = longer;
   text.parentElement!.append(probe);
 
+  // oxlint-disable-next-line larasell/no-layout-assertions -- fitting its box is what this component does
   expect(probe.getBoundingClientRect().width).toBeGreaterThan(120);
   probe.remove();
 });
