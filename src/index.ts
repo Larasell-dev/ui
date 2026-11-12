@@ -17,6 +17,7 @@ export { Inline } from './components/layout/inline/inline.tsx';
 export { Inset } from './components/layout/inset/inset.tsx';
 export { Input } from './components/form/input/input.tsx';
 export { Label, type Required } from './components/form/label/label.tsx';
+export { InheritableLabel } from './components/form/inheritable-label/inheritable-label.tsx';
 export { Menu } from './components/menu/menu.ts';
 export {
   Pagination,
