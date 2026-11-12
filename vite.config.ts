@@ -22,6 +22,7 @@ export default defineConfig({
       'larasell/color-tokens': 'error',
       'larasell/no-dark-colors': 'error',
       'larasell/focus-tokens': 'error',
+      'larasell/no-layout-assertions': 'error',
     },
     options: {
       denyWarnings: true,
