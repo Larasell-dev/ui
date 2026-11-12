@@ -169,3 +169,28 @@ export const InField = meta.story({
     </div>
   ),
 });
+
+/** Shows the value, stays focusable and submitted, but its list stays closed. */
+export const ReadOnly = meta.story({
+  render: () => (
+    <form style={{ width: 280 }} data-testid="form">
+      <Select
+        aria-label="Content language"
+        name="language"
+        readOnly
+        items={languages}
+        itemToKey={(l) => l.code}
+        itemToLabel={(l) => l.name}
+        defaultValue="fr"
+      />
+    </form>
+  ),
+  play: async ({ canvas, userEvent }) => {
+    const select = canvas.getByRole('combobox', { name: 'Content language' });
+    await userEvent.click(select);
+    await expect(select).toHaveFocus();
+    await expect(screen.queryByRole('listbox')).toBeNull();
+    const form = canvas.getByTestId('form') as HTMLFormElement;
+    await expect(new FormData(form).get('language')).toBe('fr');
+  },
+});

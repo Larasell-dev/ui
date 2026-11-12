@@ -34,6 +34,7 @@ export function SelectInput({
         'focus-visible:focus-ring outline-none',
         'data-invalid:border-intent-negative data-invalid:focus-visible:focus-ring-negative',
         'data-disabled:cursor-not-allowed data-disabled:opacity-50',
+        'data-readonly:text-base-secondary data-readonly:cursor-default',
         DANGEROUS_className,
       )}
       style={DANGEROUS_style}
