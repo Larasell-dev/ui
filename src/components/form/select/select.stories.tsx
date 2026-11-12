@@ -194,3 +194,59 @@ export const ReadOnly = meta.story({
     await expect(new FormData(form).get('language')).toBe('fr');
   },
 });
+
+/**
+ * Picked values show before the trigger, which moves as they come and go. The
+ * popup lines up with where the trigger was when it opened, so it stays put.
+ */
+export const PinnedAnchor = meta.story({
+  render: function Render() {
+    const [picked, setPicked] = useState<string[]>(['de']);
+    const [at, setAt] = useState<DOMRect | null>(null);
+    return (
+      <div className="flex w-96 flex-wrap items-center gap-2">
+        {picked.map((code) => (
+          <span key={code} className="type-body-sm">
+            {languages.find((l) => l.code === code)?.name}
+          </span>
+        ))}
+        <Select.Root
+          multiple
+          items={languages}
+          itemToKey={(l) => l.code}
+          itemToLabel={(l) => l.name}
+          value={picked}
+          onValueChange={setPicked}
+        >
+          <span
+            className="flex"
+            onPointerDownCapture={(event) =>
+              setAt(event.currentTarget.getBoundingClientRect())
+            }
+          >
+            <Select.Trigger
+              aria-label="Add language"
+              render={<Button variant="tertiary" />}
+            >
+              Add
+            </Select.Trigger>
+          </span>
+          <Select.Popup
+            anchor={at ? { getBoundingClientRect: () => at } : undefined}
+          />
+        </Select.Root>
+      </div>
+    );
+  },
+  play: async ({ canvas, userEvent }) => {
+    await userEvent.click(
+      canvas.getByRole('combobox', { name: 'Add language' }),
+    );
+    const list = await screen.findByRole('listbox');
+    await waitFor(() => expect(list).toBeVisible());
+    const before = list.getBoundingClientRect().left;
+    await userEvent.click(screen.getByRole('option', { name: 'Italian' }));
+    await expect(canvas.getByText('Italian')).toBeVisible();
+    await expect(list.getBoundingClientRect().left).toBe(before);
+  },
+});
