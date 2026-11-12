@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.3](https://github.com/Larasell-dev/ui/compare/v0.5.2...v0.5.3) (2026-11-12)
+
+
+### Features
+
+* no-layout-assertions lint rule keeps measuring out of tests and play functions ([#157](https://github.com/Larasell-dev/ui/issues/157)) ([5c9df79](https://github.com/Larasell-dev/ui/commit/5c9df79dfa09f62c0a8a8a17c657fe753ed71293))
+
 ## [0.5.2](https://github.com/Larasell-dev/ui/compare/v0.5.1...v0.5.2) (2026-11-12)
 
 
