@@ -19,6 +19,8 @@ export function TableContent({ children }: TableContentProps) {
       aria-labelledby={ariaLabelledBy}
       className={cn(
         'relative flex min-h-0 flex-1 flex-col',
+        // Scrolls sideways when the columns' minimum widths don't fit.
+        'overflow-x-auto',
         // The body's scroll mask would clip an outline drawn on the body
         // itself, so its focus ring is drawn here, around the body, with
         // the same look as the focus-ring utility.

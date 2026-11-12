@@ -39,6 +39,11 @@ export type SelectRootProps<Item, Multiple extends boolean | undefined> = {
   /** Adds a search field at the top of the list. Omit it for none. */
   filter?: SelectFilter;
   disabled?: boolean;
+  /**
+   * Shows the value but keeps it from changing. Unlike `disabled`, the select
+   * stays focusable, so screen readers read the value, and it's submitted.
+   */
+  readOnly?: boolean;
   /** A `Select.Input` or `Select.Trigger` and the `Select.Popup` it opens. */
   children?: ReactNode;
 };
@@ -59,6 +64,7 @@ export function SelectRoot<Item, Multiple extends boolean | undefined = false>({
   name: nameProp,
   filter,
   disabled,
+  readOnly,
   children,
 }: SelectRootProps<Item, Multiple>) {
   const field = useFieldRootContext();
@@ -69,12 +75,15 @@ export function SelectRoot<Item, Multiple extends boolean | undefined = false>({
     defaultValue ?? ((multiple ? [] : null) as ValueOf<Multiple>),
   );
   const value = valueProp === undefined ? uncontrolledValue : valueProp;
-  const keyList = (Array.isArray(value) ? value : value == null ? [] : [value])
-    .filter((key) => byKey.has(key))
-    .join('\n');
+  const keyList = (
+    Array.isArray(value) ? value : value == null ? [] : [value]
+  ).filter((key) => byKey.has(key));
+  // As text, so the keys stay the same array while they're equal. JSON keeps
+  // an empty key, such as a "none" item's, apart from no key at all.
+  const keyText = JSON.stringify(keyList);
   // The same array while the keys stay the same: Base UI takes a new one for a
   // changed value and updates the surrounding Field, which would render again.
-  const keys = useMemo(() => (keyList ? keyList.split('\n') : []), [keyList]);
+  const keys = useMemo(() => JSON.parse(keyText) as string[], [keyText]);
   const selected = items.filter((item) => keys.includes(itemToKey(item)));
 
   // A form reset ticks the checkboxes picked at first, so they keep those as
@@ -177,6 +186,11 @@ export function SelectRoot<Item, Multiple extends boolean | undefined = false>({
           }}
           open={open}
           onOpenChange={(next, details) => {
+            // Read-only shows the value only; its list stays closed.
+            if (readOnly && next) {
+              details.cancel();
+              return;
+            }
             // Several items: picking one keeps the list open, to pick more.
             if (multiple && !next && details.reason === 'item-press') {
               details.cancel();
@@ -186,6 +200,7 @@ export function SelectRoot<Item, Multiple extends boolean | undefined = false>({
           }}
           autoHighlight
           disabled={disabled}
+          readOnly={readOnly}
         >
           {children}
         </Combobox.Root>

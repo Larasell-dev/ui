@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fn } from 'storybook/test';
+import { expect, fn } from 'storybook/test';
 import preview from '../../../.storybook/preview.tsx';
 import { Badge, type BadgeVariant } from '../badge/badge.tsx';
 import type { PaginationChange } from '../pagination/pagination.tsx';
@@ -302,4 +302,26 @@ export const StatusBadges = meta.story({
       </Table.Content>
     </Table.Root>
   ),
+});
+
+/** In a narrow container, columns keep their minimum width and the table scrolls sideways. */
+export const NarrowScrollsSideways = meta.story({
+  render: () => (
+    <div style={{ width: 360 }}>
+      <Table.Root aria-label="Orders">
+        <Table.Content>
+          <OrderHeader />
+          <Table.Body>
+            <OrderRows orders={allOrders.slice(0, 5)} />
+          </Table.Body>
+        </Table.Content>
+      </Table.Root>
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    // How wide the columns are and that it scrolls is for the screenshot to show.
+    await expect(
+      canvas.getByRole('columnheader', { name: 'Customer' }),
+    ).toBeVisible();
+  },
 });

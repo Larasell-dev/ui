@@ -169,3 +169,84 @@ export const InField = meta.story({
     </div>
   ),
 });
+
+/** Shows the value, stays focusable and submitted, but its list stays closed. */
+export const ReadOnly = meta.story({
+  render: () => (
+    <form style={{ width: 280 }} data-testid="form">
+      <Select
+        aria-label="Content language"
+        name="language"
+        readOnly
+        items={languages}
+        itemToKey={(l) => l.code}
+        itemToLabel={(l) => l.name}
+        defaultValue="fr"
+      />
+    </form>
+  ),
+  play: async ({ canvas, userEvent }) => {
+    const select = canvas.getByRole('combobox', { name: 'Content language' });
+    await userEvent.click(select);
+    await expect(select).toHaveFocus();
+    await expect(screen.queryByRole('listbox')).toBeNull();
+    const form = canvas.getByTestId('form') as HTMLFormElement;
+    await expect(new FormData(form).get('language')).toBe('fr');
+  },
+});
+
+/**
+ * Picked values show before the trigger, which moves as they come and go. The
+ * popup lines up with where the trigger was when it opened, so it stays put.
+ */
+export const PinnedAnchor = meta.story({
+  render: function Render() {
+    const [picked, setPicked] = useState<string[]>(['de']);
+    const [at, setAt] = useState<DOMRect | null>(null);
+    return (
+      <div className="flex w-96 flex-wrap items-center gap-2">
+        {picked.map((code) => (
+          <span key={code} className="type-body-sm">
+            {languages.find((l) => l.code === code)?.name}
+          </span>
+        ))}
+        <Select.Root
+          multiple
+          items={languages}
+          itemToKey={(l) => l.code}
+          itemToLabel={(l) => l.name}
+          value={picked}
+          onValueChange={setPicked}
+        >
+          <span
+            className="flex"
+            onPointerDownCapture={(event) =>
+              setAt(event.currentTarget.getBoundingClientRect())
+            }
+          >
+            <Select.Trigger
+              aria-label="Add language"
+              render={<Button variant="tertiary" />}
+            >
+              Add
+            </Select.Trigger>
+          </span>
+          <Select.Popup
+            anchor={at ? { getBoundingClientRect: () => at } : undefined}
+          />
+        </Select.Root>
+      </div>
+    );
+  },
+  play: async ({ canvas, userEvent }) => {
+    await userEvent.click(
+      canvas.getByRole('combobox', { name: 'Add language' }),
+    );
+    const list = await screen.findByRole('listbox');
+    await waitFor(() => expect(list).toBeVisible());
+    await userEvent.click(screen.getByRole('option', { name: 'Italian' }));
+    // Where the list stays is for the screenshot to show; this checks it's still open.
+    await expect(canvas.getByText('Italian')).toBeVisible();
+    await expect(list).toBeVisible();
+  },
+});

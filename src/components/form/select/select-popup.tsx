@@ -2,7 +2,13 @@ import { Combobox } from '@base-ui/react/combobox';
 import SearchLine from '@iconify-icons/ri/search-line';
 import { cn } from 'cn';
 import { AnimatePresence } from 'motion/react';
-import { Fragment, useRef, type CSSProperties, type ReactNode } from 'react';
+import {
+  Fragment,
+  useRef,
+  type ComponentProps,
+  type CSSProperties,
+  type ReactNode,
+} from 'react';
 import { useScrollMaskScrollbar } from '../../../utils/use-scroll-mask-scrollbar.ts';
 import { PopupMotion } from '../../../utils/popup-motion.tsx';
 import { Icon } from '../../icon/icon.tsx';
@@ -19,6 +25,11 @@ type SelectPopupProps = {
    */
   // oxlint-disable-next-line typescript/no-explicit-any -- the items' type lives on Root
   children?: (item: any) => ReactNode;
+  /**
+   * What the list lines up with instead of the trigger, e.g. a virtual element
+   * that keeps it in place while the trigger moves as items are picked.
+   */
+  anchor?: ComponentProps<typeof Combobox.Positioner>['anchor'];
   DANGEROUS_className?: string;
   DANGEROUS_style?: CSSProperties;
 };
@@ -27,6 +38,7 @@ type SelectPopupProps = {
 export function SelectPopup({
   align = 'start',
   children = (item) => <SelectItem item={item} />,
+  anchor,
   DANGEROUS_className,
   DANGEROUS_style,
 }: SelectPopupProps) {
@@ -39,6 +51,7 @@ export function SelectPopup({
           <Combobox.Positioner
             sideOffset={4}
             align={align}
+            anchor={anchor}
             collisionPadding={collisionPadding()}
             className="z-50 outline-none data-anchor-hidden:invisible"
           >

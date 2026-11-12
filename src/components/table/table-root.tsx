@@ -65,6 +65,10 @@ export function TableRoot({
         )}
         style={{
           '--table-columns': Math.max(columnCount, 1),
+          // Each column is at least this wide; a table that doesn't fit scrolls sideways.
+          '--table-column-min-width': '10rem',
+          '--table-min-width':
+            'calc(var(--table-columns) * var(--table-column-min-width) + var(--table-actions, 0rem))',
           // Fits the actions trigger and the cell's padding.
           '--table-actions': actionsCount > 0 ? '5.25rem' : undefined,
           '--table-body-anchor': bodyAnchor,
