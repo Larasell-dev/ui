@@ -95,6 +95,29 @@ test('the trigger opens the popup, whose area moves saturation with the arrow ke
   expect(hex.slice(1, 3)).not.toBe(hex.slice(3, 5));
 });
 
+test('controlled, a colour the app turns down leaves the picker on the value it passes', async () => {
+  // Arrange
+  const onValueChange = vi.fn();
+  const screen = await render(
+    <ColorPicker.Root value="#808080" onValueChange={onValueChange} defaultOpen>
+      <ColorPicker.Popup />
+    </ColorPicker.Root>,
+  );
+  const area = screen.getByRole('slider', {
+    name: 'Saturation and brightness',
+  });
+  (area.element() as HTMLElement).focus();
+
+  // Act
+  await userEvent.keyboard('{ArrowRight}');
+  await userEvent.keyboard('{ArrowRight}');
+
+  // Assert: each step starts again from the grey it was given.
+  expect(onValueChange).toHaveBeenCalledTimes(2);
+  expect(onValueChange.mock.calls[1]).toEqual(onValueChange.mock.calls[0]);
+  await expect.element(area).toHaveAttribute('aria-valuenow', '0');
+});
+
 test('the hue slider keeps saturation and brightness', async () => {
   // Arrange
   const onValueChange = vi.fn();
