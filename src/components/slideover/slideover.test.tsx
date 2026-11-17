@@ -64,3 +64,14 @@ test.each([['Close panel'], ['Cancel']])(
     await expect.element(screen.getByRole('dialog')).not.toBeInTheDocument();
   },
 );
+
+test('fades its content where it scrolls', async () => {
+  // Arrange
+  const screen = await render(<AddAddress />);
+
+  // Act
+  await press(screen.getByRole('button', { name: 'Add address' }));
+
+  // Assert
+  await expect.element(screen.getByText('Fields')).toHaveClass('scroll-mask-y');
+});
