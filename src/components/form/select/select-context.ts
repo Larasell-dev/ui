@@ -9,9 +9,12 @@ export type SelectFilter = {
 
 type SelectContextValue = {
   open: boolean;
+  /** Tells the root the list has finished animating out, so it shows the current items again. */
+  onExitComplete: () => void;
   multiple: boolean;
   /** The picked items, in the items' order. */
   selected: unknown[];
+  /** The list's items by key: while it closes, the ones it showed when it began to. */
   byKey: Map<string, unknown>;
   itemToKey: (item: unknown) => string;
   itemToLabel: (item: unknown) => string;

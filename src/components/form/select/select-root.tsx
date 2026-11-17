@@ -86,6 +86,24 @@ export function SelectRoot<Item, Multiple extends boolean | undefined = false>({
   const keys = useMemo(() => JSON.parse(keyText) as string[], [keyText]);
   const selected = items.filter((item) => keys.includes(itemToKey(item)));
 
+  // While the list animates out, its rows and check marks stay as they were
+  // when it began to close, so a pick or an added item doesn't show in it as
+  // it fades. The button shows the pick at once.
+  const [closing, setClosing] = useState(false);
+  const itemKeysText = JSON.stringify(items.map(itemToKey));
+  const [shown, setShown] = useState({ items, keys, keyText, itemKeysText });
+  if (
+    !closing &&
+    (shown.keyText !== keyText || shown.itemKeysText !== itemKeysText)
+  ) {
+    setShown({ items, keys, keyText, itemKeysText });
+  }
+  const listItems = closing ? shown.items : items;
+  const listKeys = closing ? shown.keys : keys;
+  const listByKey = closing
+    ? new Map(listItems.map((item) => [itemToKey(item), item]))
+    : byKey;
+
   // A form reset ticks the checkboxes picked at first, so they keep those as
   // their default rather than following the value.
   const initialKeys = useRef(keys);
@@ -144,9 +162,10 @@ export function SelectRoot<Item, Multiple extends boolean | undefined = false>({
     <SelectContext
       value={{
         open,
+        onExitComplete: () => setClosing(false),
         multiple: !!multiple,
         selected,
-        byKey,
+        byKey: listByKey,
         itemToKey: itemToKey as (item: unknown) => string,
         itemToLabel: itemToLabel as (item: unknown) => string,
         filter,
@@ -157,11 +176,11 @@ export function SelectRoot<Item, Multiple extends boolean | undefined = false>({
       <FieldRootContext value={{ ...field, name: undefined }}>
         <Combobox.Root<string, boolean>
           multiple={!!multiple}
-          items={items.map(itemToKey)}
+          items={listItems.map(itemToKey)}
           itemToStringLabel={(key: string) =>
-            byKey.has(key) ? itemToLabel(byKey.get(key)!) : key
+            listByKey.has(key) ? itemToLabel(listByKey.get(key)!) : key
           }
-          value={(multiple ? keys : (keys[0] ?? null)) as string}
+          value={(multiple ? listKeys : (listKeys[0] ?? null)) as string}
           onValueChange={(next, details) => {
             // Base UI clears the value on Escape while the list is closed;
             // one key shouldn't undo hundreds of picks.
@@ -197,6 +216,8 @@ export function SelectRoot<Item, Multiple extends boolean | undefined = false>({
               return;
             }
             setOpen(next);
+            // Only a list that was open animates out and ends the freeze.
+            setClosing(!next && open);
           }}
           autoHighlight
           disabled={disabled}
