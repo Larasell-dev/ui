@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.5.3](https://github.com/Larasell-dev/ui/compare/v0.5.2...v0.5.3) (2026-11-17)
+
+
+### Features
+
+* fade the slide-over content where it scrolls past its edges ([#163](https://github.com/Larasell-dev/ui/issues/163)) ([2976c41](https://github.com/Larasell-dev/ui/commit/2976c411e938df8f49ec871cc7aec32df9bf1682))
+* no-layout-assertions lint rule keeps measuring out of tests and play functions ([#157](https://github.com/Larasell-dev/ui/issues/157)) ([5c9df79](https://github.com/Larasell-dev/ui/commit/5c9df79dfa09f62c0a8a8a17c657fe753ed71293))
+
+
+### Bug Fixes
+
+* keep the select list's rows and pick while it animates out ([#164](https://github.com/Larasell-dev/ui/issues/164)) ([2c656a8](https://github.com/Larasell-dev/ui/commit/2c656a889a5509598590483c804387b658f35b2b))
+
 ## [0.5.2](https://github.com/Larasell-dev/ui/compare/v0.5.1...v0.5.2) (2026-11-12)
 
 
