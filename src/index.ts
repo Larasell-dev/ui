@@ -26,6 +26,7 @@ export {
   type PaginationChange,
   type PaginationProps,
 } from './components/pagination/pagination.tsx';
+export { Textarea } from './components/form/textarea/textarea.tsx';
 export { PasswordInput } from './components/form/password-input/password-input.tsx';
 export { Section } from './components/layout/section/section.ts';
 export { SectionStack } from './components/layout/section/section-stack.tsx';
