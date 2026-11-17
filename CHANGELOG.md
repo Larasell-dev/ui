@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.4](https://github.com/Larasell-dev/ui/compare/v0.5.3...v0.5.4) (2026-11-17)
+
+
+### Features
+
+* add a Textarea that grows with its text ([#165](https://github.com/Larasell-dev/ui/issues/165)) ([29e23d1](https://github.com/Larasell-dev/ui/commit/29e23d11ca28f6d6a2fbfd5cbeb80efa7197a034))
+
 ## [0.5.3](https://github.com/Larasell-dev/ui/compare/v0.5.2...v0.5.3) (2026-11-17)
 
 
