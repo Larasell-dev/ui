@@ -42,10 +42,10 @@ export function SelectPopup({
   DANGEROUS_className,
   DANGEROUS_style,
 }: SelectPopupProps) {
-  const { open, filter } = useSelect();
+  const { open, filter, onExitComplete } = useSelect();
 
   return (
-    <AnimatePresence>
+    <AnimatePresence onExitComplete={onExitComplete}>
       {open && (
         <Combobox.Portal keepMounted>
           <Combobox.Positioner
